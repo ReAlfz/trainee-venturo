@@ -24,6 +24,14 @@ class SignInController extends GetxController {
   var isRememberMe = false.obs;
 
   void showPassword() => isPassword.value = !isPassword.value;
+  void forgetPasswordPush() => Get.toNamed(MainRoute.forgotPassword);
+
+  @override
+  void onClose() {
+    emailCtrl.dispose();
+    passwordCtrl.dispose();
+    super.onClose();
+  }
 
   void validateForm(context) async {
     await GlobalController.to.checkConnection();

@@ -1,5 +1,9 @@
 import 'package:get/route_manager.dart';
 import 'package:trainee/configs/routes/main_route.dart';
+import 'package:trainee/modules/features/forgot_password/binddings/forgot_password_bindding.dart';
+import 'package:trainee/modules/features/forgot_password/binddings/otp_bindding.dart';
+import 'package:trainee/modules/features/forgot_password/views/ui/forgot_password_view.dart';
+import 'package:trainee/modules/features/forgot_password/views/ui/otp_view.dart';
 import 'package:trainee/modules/features/no_connection/views/ui/NoConnectionView.dart';
 import 'package:trainee/modules/features/sign_in/binddings/sign_in_bindding.dart';
 import 'package:trainee/modules/features/sign_in/views/ui/sign_in_view.dart';
@@ -24,6 +28,18 @@ abstract class MainPage {
     GetPage(
       name: MainRoute.noConnection,
       page: () => const NoConnectionView(),
+    ),
+
+    GetPage(
+      name: MainRoute.forgotPassword,
+      page: () => const ForgotPasswordView(),
+      binding: ForgorPasswordBindding(),
+    ),
+
+    GetPage(
+      name: MainRoute.opt,
+      page: () => const OtpView(),
+      binding: OtpBindding(),
     ),
   ];
 }
