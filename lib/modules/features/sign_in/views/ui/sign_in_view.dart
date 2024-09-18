@@ -6,7 +6,6 @@ import 'package:trainee/constants/cores/assets/image_constant.dart';
 import 'package:trainee/modules/features/sign_in/controllers/sign_in_controller.dart';
 import 'package:trainee/modules/features/sign_in/views/components/elevated_button_sign_in.dart';
 import 'package:trainee/modules/features/sign_in/views/components/form_sign_in.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trainee/shared/styles/google_text_style.dart';
 
 class SignInView extends StatelessWidget {
