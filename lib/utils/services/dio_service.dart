@@ -1,0 +1,71 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:trainee/shared/global_controller.dart';
+
+class DioServices extends GetxService {
+  DioServices._();
+
+  static final DioServices dioServices = DioServices._();
+
+  factory DioServices() {
+    return dioServices;
+  }
+
+  static const Duration timeoutInMiliSeconds = Duration(seconds: 2000);
+  static Dio dioCall({
+    Duration timeOut = timeoutInMiliSeconds,
+    String? token,
+    String? authorization,
+  }) {
+    var header = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    if (token != null) {
+      header['token'] = token;
+    }
+
+    if (authorization != null) {
+      header['Authorization'] = authorization;
+    }
+
+    var dio = Dio(
+      BaseOptions(
+        headers: header,
+        baseUrl: GlobalController.to.baseUrl,
+        connectTimeout: timeoutInMiliSeconds,
+        contentType: 'application/json',
+        responseType: ResponseType.json,
+      ),
+    );
+
+    dio.interceptors.add(_authInterceptor());
+    return dio;
+  }
+
+  static Interceptor _authInterceptor() {
+    return QueuedInterceptorsWrapper(
+      onRequest: (reqOptions, handler) {
+        log('${reqOptions.uri}', name: 'REQUEST URL');
+        log('${reqOptions.headers}', name: 'HEADER');
+
+        return handler.next(reqOptions);
+      },
+
+      onError: (error, handler) async {
+        log(error.message.toString(), name: 'ERROR MESSAGE');
+        log('${error.response}', name: 'RESPONSE');
+
+        return handler.next(error);
+      },
+      onResponse: (response, handler) async {
+        log('${response.data}', name: 'RESPONSE');
+
+        return handler.resolve(response);
+      },
+    );
+  }
+}

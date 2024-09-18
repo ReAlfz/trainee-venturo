@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "966405173495",
+    "project_id": "core-venturo",
+    "storage_bucket": "core-venturo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966405173495:android:c19e42aeba40461c3f23f2",
+        "android_client_info": {
+          "package_name": "com.core.venturo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMXuFgMGBu7cZI13GAaYOLh8pVauLo3GU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
