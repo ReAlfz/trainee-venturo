@@ -19,22 +19,22 @@ class DioServices extends GetxService {
     String? token,
     String? authorization,
   }) {
-    var header = {
+    var headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
 
     if (token != null) {
-      header['token'] = token;
+      headers['token'] = token;
     }
 
     if (authorization != null) {
-      header['Authorization'] = authorization;
+      headers['Authorization'] = authorization;
     }
 
     var dio = Dio(
       BaseOptions(
-        headers: header,
+        headers: headers,
         baseUrl: GlobalController.to.baseUrl,
         connectTimeout: timeoutInMiliSeconds,
         contentType: 'application/json',
@@ -61,6 +61,7 @@ class DioServices extends GetxService {
 
         return handler.next(error);
       },
+      
       onResponse: (response, handler) async {
         log('${response.data}', name: 'RESPONSE');
 

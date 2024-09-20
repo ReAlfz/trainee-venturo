@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,38 +41,52 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBNECdcqpb0o4OCKCWCvnTosVVb9ifxIUY',
-    appId: '1:966405173495:web:cb016659dac9892f3f23f2',
-    messagingSenderId: '966405173495',
-    projectId: 'core-venturo',
-    authDomain: 'core-venturo.firebaseapp.com',
-    storageBucket: 'core-venturo.appspot.com',
-    measurementId: 'G-97BZFPZSJY',
+    apiKey: 'AIzaSyBzRrVzO-d7DXWa_ysy8im227ZopCIDTcQ',
+    appId: '1:674821593083:web:df4624ac29bb90ac455d5e',
+    messagingSenderId: '674821593083',
+    projectId: 'github-eddce',
+    authDomain: 'github-eddce.firebaseapp.com',
+    databaseURL: 'https://github-eddce-default-rtdb.firebaseio.com',
+    storageBucket: 'github-eddce.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBMXuFgMGBu7cZI13GAaYOLh8pVauLo3GU',
-    appId: '1:966405173495:android:c19e42aeba40461c3f23f2',
-    messagingSenderId: '966405173495',
-    projectId: 'core-venturo',
-    storageBucket: 'core-venturo.appspot.com',
+    apiKey: 'AIzaSyBUmBPwc0iLD5hlyxLJgVlHd4K_30b8IyA',
+    appId: '1:674821593083:android:522a92d79bb9aeef455d5e',
+    messagingSenderId: '674821593083',
+    projectId: 'github-eddce',
+    databaseURL: 'https://github-eddce-default-rtdb.firebaseio.com',
+    storageBucket: 'github-eddce.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDYeJVsK1G6sSoQ3uMJmq0a0MrhUdwOMps',
-    appId: '1:966405173495:ios:7c6bfc8685cc23f43f23f2',
-    messagingSenderId: '966405173495',
-    projectId: 'core-venturo',
-    storageBucket: 'core-venturo.appspot.com',
+    apiKey: 'AIzaSyCKriSaqnqNWBKkiDkkgeKL0C39lMzfS0c',
+    appId: '1:674821593083:ios:f90b85ca8c3a667a455d5e',
+    messagingSenderId: '674821593083',
+    projectId: 'github-eddce',
+    databaseURL: 'https://github-eddce-default-rtdb.firebaseio.com',
+    storageBucket: 'github-eddce.appspot.com',
     iosBundleId: 'com.core.venturo',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDYeJVsK1G6sSoQ3uMJmq0a0MrhUdwOMps',
-    appId: '1:966405173495:ios:7c6bfc8685cc23f43f23f2',
-    messagingSenderId: '966405173495',
-    projectId: 'core-venturo',
-    storageBucket: 'core-venturo.appspot.com',
+    apiKey: 'AIzaSyCKriSaqnqNWBKkiDkkgeKL0C39lMzfS0c',
+    appId: '1:674821593083:ios:f90b85ca8c3a667a455d5e',
+    messagingSenderId: '674821593083',
+    projectId: 'github-eddce',
+    databaseURL: 'https://github-eddce-default-rtdb.firebaseio.com',
+    storageBucket: 'github-eddce.appspot.com',
     iosBundleId: 'com.core.venturo',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBzRrVzO-d7DXWa_ysy8im227ZopCIDTcQ',
+    appId: '1:674821593083:web:eca6c085e6050766455d5e',
+    messagingSenderId: '674821593083',
+    projectId: 'github-eddce',
+    authDomain: 'github-eddce.firebaseapp.com',
+    databaseURL: 'https://github-eddce-default-rtdb.firebaseio.com',
+    storageBucket: 'github-eddce.appspot.com',
+  );
+
 }
