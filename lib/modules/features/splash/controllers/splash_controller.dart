@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
+import 'package:trainee/constants/cores/assets/shared_preference_key.dart';
+import 'package:trainee/modules/features/sign_in/modules/user_model.dart';
 import 'package:trainee/shared/global_controller.dart';
-import 'package:trainee/utils/services/dio_service.dart';
 import 'package:trainee/utils/services/session_services.dart';
 
 class SplashController extends GetxController {
@@ -15,6 +14,7 @@ class SplashController extends GetxController {
   void onInit() {
     Timer(
         const Duration(seconds: 2), () async {
+
       bool checkAuth = await checkSession();
       if (checkAuth) {
         Get.offAllNamed(MainRoute.list);
@@ -29,9 +29,11 @@ class SplashController extends GetxController {
 
   Future<bool> checkSession() async {
     SessionService sessionService = SessionService();
-    String? token = await sessionService.getToken();
-    if (token != null) {
+    String? token = await sessionService.getToken(SharedPreferenceKey.token);
+    UserModel? user = await sessionService.getUser(SharedPreferenceKey.user);
+    if (token != null && user != null) {
       GlobalController.to.session.value = token;
+      GlobalController.to.user.value = user;
       return true;
     }
 

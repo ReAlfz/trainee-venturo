@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +11,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/api/api_constant.dart';
+import 'package:trainee/modules/features/sign_in/modules/user_model.dart';
 import 'package:trainee/shared/global_controller.dart';
 import 'package:trainee/shared/styles/google_text_style.dart';
 import 'package:trainee/utils/services/dio_service.dart';
@@ -44,7 +43,7 @@ class SignInController extends GetxController {
   // validate textfield with form //
 
   void validateForm(context) async {
-    await GlobalController.to.checkConnection();
+    await GlobalController.to.checkConnection(MainRoute.signIn);
 
     var isValid = formKey.currentState!.validate();
     Get.focusScope!.unfocus();
@@ -75,9 +74,6 @@ class SignInController extends GetxController {
           barrierDismissible: false,
         );
       }
-
-    } else if (GlobalController.to.isConnect.value == false) {
-      Get.toNamed(MainRoute.noConnection);
     }
   }
 
@@ -119,8 +115,14 @@ class SignInController extends GetxController {
         Map<String, dynamic> responseData = response.data;
         int statusCode = responseData['status_code'];
         if (statusCode == 200) {
-          sessionService.saveToken(responseData['data']['token']);
+          UserModel userData = UserModel.fromJson(responseData['data']['user']);
+
+          sessionService.saveUser('user', userData);
+          GlobalController.to.user(userData);
+
+          sessionService.saveToken('token', responseData['data']['token']);
           GlobalController.to.session.value = responseData['data']['token'];
+
           log('Login Success');
           log('Response body: ${response.data}');
           return true;

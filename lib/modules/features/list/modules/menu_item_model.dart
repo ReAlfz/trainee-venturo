@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-class MenuItems {
+class MenuItemsModel {
   final int idMenu;
   final String nama;
   final String kategori;
@@ -9,7 +9,7 @@ class MenuItems {
   final String foto;
   final int status;
 
-  MenuItems({
+  MenuItemsModel({
     required this.idMenu,
     required this.nama,
     required this.kategori,
@@ -19,9 +19,9 @@ class MenuItems {
     required this.status,
   });
 
-  factory MenuItems.fromJson(Map<String, dynamic> json) {
+  factory MenuItemsModel.fromJson(Map<String, dynamic> json) {
     try {
-      return MenuItems(
+      return MenuItemsModel(
         idMenu: json['id_menu'] ?? '',
         nama: json['nama'] ?? '',
         kategori: json['kategori'] ?? '',
@@ -30,8 +30,9 @@ class MenuItems {
         foto: json['foto'] ?? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
         status: json['status'] ?? '',
       );
-    } catch (e) {
+    } catch (e, stacktrace) {
       log('Error parsing MenuItems from JSON: $e', name: 'PARSING JSON');
+      log('Stack MenuItems trace: $stacktrace', name: 'PARSING JSON');
       rethrow;
     }
   }

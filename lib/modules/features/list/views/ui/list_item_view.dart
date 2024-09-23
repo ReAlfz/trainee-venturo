@@ -21,6 +21,7 @@ class ListItemView extends StatelessWidget {
       Icons.fastfood_outlined,
       Icons.coffee_outlined,
     ];
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.grey[100],
@@ -40,26 +41,25 @@ class ListItemView extends StatelessWidget {
               // Promo card //
               SliverToBoxAdapter(child: 22.verticalSpace),
               SliverToBoxAdapter(
-                child: SizedBox(
+                child: Obx(() => SizedBox(
                   width: 1.sw,
                   height: 188.h,
                   child: ListView.separated(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.symmetric(horizontal: 25.w),
+                    itemCount: ListController.to.promoList.length,
+                    separatorBuilder: (context, index) => 26.horizontalSpace,
                     itemBuilder: (context, index) {
+                      final promo = ListController.to.promoList[index];
                       return PromoCard(
                         enableShadow: false,
-                        promoName: 'Promo $index',
-                        discountNominal: '${index * 10}',
-                        thumbnailUrl: 'https://javacode.landa.id/img/promo/gambar_62661b52223ff.png',
+                        promo: promo,
+                        witdh: 300.w,
                       );
                     },
-
-                    separatorBuilder: (context, index) => 26.horizontalSpace,
-                    itemCount: 2,
                   ),
-                ),
+                ))
               ),
 
               // row of categories
@@ -130,20 +130,20 @@ class ListItemView extends StatelessWidget {
                       final menuItem = ListController.to.filteredList[index];
                       return Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.5.h),
-                        child: Obx(() => Slidable(
+                        child: Slidable(
                           endActionPane: ActionPane(
                             motion: const ScrollMotion(),
                             children: [
-                              SlidableAction(
+                              Obx(() => SlidableAction(
                                 onPressed: (context) => ListController.to.deleteItem(menuItem),
                                 borderRadius: BorderRadius.horizontal(
-                                  right: Radius.circular(10.r)
+                                    right: Radius.circular(10.r)
                                 ),
                                 backgroundColor: const Color(0xFFFE4A49),
                                 foregroundColor: MainColor.white,
                                 icon: Icons.delete,
                                 label: 'delete',
-                              ),
+                              )),
                             ],
                           ),
 
@@ -152,13 +152,10 @@ class ListItemView extends StatelessWidget {
                             elevation: 2,
                             child: MenuCard(
                               menu: menuItem,
-                              isSelected: ListController.to.selectedItems.contains(menuItem),
-                              onTap: () => (ListController.to.selectedItems.contains(menuItem))
-                                  ? ListController.to.selectedItems.remove(menuItem)
-                                  : ListController.to.selectedItems.add(menuItem),
+                              onTap: () => ListController.to.pushPage(menuItem.idMenu),
                             ),
                           ),
-                        )),
+                        ),
                       );
                     },
                   ),
@@ -167,6 +164,8 @@ class ListItemView extends StatelessWidget {
             ],
           ),
         ),
+
+        // bottomNavigationBar: ,
       ),
     );
   }

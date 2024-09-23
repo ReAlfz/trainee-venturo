@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -8,9 +7,9 @@ import 'package:trainee/shared/global_controller.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 
 class ListRepository {
-  late List<MenuItems> listData = [];
+  late List<MenuItemsModel> listData = [];
 
-  Future<void> fetchDataFromApi() async {
+  Future<void> fetchListFromApi() async {
     final dio = DioServices.dioCall(token: GlobalController.to.session.value);
     const url = 'menu/all';
 
@@ -18,10 +17,9 @@ class ListRepository {
       final response = await dio.get(url);
       if (response.statusCode == 200) {
         Map<String, dynamic> responseData = response.data;
-        int statusCode = responseData['status_code'];
-        if (statusCode == 200) {
-          listData = List<MenuItems>.from(
-              responseData['data'].map((x) => MenuItems.fromJson(x))
+        if (responseData['status_code'] == 200) {
+          listData = List<MenuItemsModel>.from(
+              responseData['data'].map((x) => MenuItemsModel.fromJson(x))
           ).toList();
         }
 

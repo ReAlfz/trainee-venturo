@@ -6,14 +6,12 @@ import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/list/modules/menu_item_model.dart';
 
 class MenuCard extends StatelessWidget {
-  final MenuItems menu;
-  final bool isSelected;
+  final MenuItemsModel menu;
   final VoidCallback? onTap;
 
   const MenuCard({
     super.key,
     required this.menu,
-    required this.isSelected,
     this.onTap
   });
 
@@ -28,11 +26,6 @@ class MenuCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: MainColor.white,
           borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(
-            color: (isSelected)
-                ? Theme.of(context).primaryColor
-                : Colors.transparent,
-          ),
         ),
 
         child: Row(
@@ -48,7 +41,7 @@ class MenuCard extends StatelessWidget {
               ),
 
               child: CachedNetworkImage(
-                imageUrl: menu.foto ?? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
+                imageUrl: menu.foto,
                 useOldImageOnUrlChange: true,
                 fit: BoxFit.contain,
               ),

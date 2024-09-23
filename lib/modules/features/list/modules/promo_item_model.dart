@@ -1,17 +1,19 @@
-class Promo {
+import 'dart:developer';
+
+class PromoModel {
   int idPromo;
   String nama;
   String type;
-  int diskon;
+  int? diskon;
   int nominal;
-  dynamic kadaluarsa;
+  int? kadaluarsa;
   String syaratKetentuan;
-  dynamic foto;
+  String foto;
   int createdAt;
   int createdBy;
   int isDeleted;
 
-  Promo({
+  PromoModel({
     required this.idPromo,
     required this.nama,
     required this.type,
@@ -25,8 +27,9 @@ class Promo {
     required this.isDeleted,
   });
 
-  factory Promo.fromJson(Map<String, dynamic> json) =>
-      Promo(
+  factory PromoModel.fromJson(Map<String, dynamic> json) {
+    try {
+      return PromoModel(
         idPromo: json["id_promo"],
         nama: json["nama"],
         type: json["type"],
@@ -34,9 +37,15 @@ class Promo {
         nominal: json["nominal"],
         kadaluarsa: json["kadaluarsa"],
         syaratKetentuan: json["syarat_ketentuan"],
-        foto: json["foto"],
+        foto: json["foto"] ?? 'https://javacode.landa.id/img/promo/gambar_62661b52223ff.png',
         createdAt: json["created_at"],
         createdBy: json["created_by"],
         isDeleted: json["is_deleted"],
       );
+    } catch (e, stacktrace) {
+      log('Error parsing Promo from JSON: $e', name: 'PARSING JSON');
+      log('Stack Promo trace: $stacktrace', name: 'PARSING JSON');
+      rethrow;
+    }
+  }
 }

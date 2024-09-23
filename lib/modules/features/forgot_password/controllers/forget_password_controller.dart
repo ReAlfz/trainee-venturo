@@ -9,7 +9,7 @@ class ForgotPasswordController extends GetxController {
   var formKey = GlobalKey<FormState>();
   var emailValue = "".obs;
 
-  void otpPush() {
+  void pushPage() {
     if (formKey.currentState!.validate()) {
       emailValue.value = emailCtrl.text;
       Get.toNamed(MainRoute.opt, arguments: emailCtrl.text);

@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trainee/configs/themes/main_color.dart';
+import 'package:trainee/modules/features/list/modules/promo_item_model.dart';
 
 class PromoCard extends StatelessWidget {
   final bool? enableShadow;
-  final String promoName;
-  final String discountNominal;
-  final String thumbnailUrl;
+  final PromoModel promo;
   final double? witdh;
 
-  const PromoCard({super.key, this.enableShadow, required this.promoName, required this.discountNominal, required this.thumbnailUrl, this.witdh});
+  const PromoCard({
+    super.key, this.enableShadow,
+    required this.promo,
+    this.witdh
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class PromoCard extends StatelessWidget {
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(15.r),
           image: DecorationImage(
-            image: CachedNetworkImageProvider(thumbnailUrl),
+            image: CachedNetworkImageProvider(promo.foto),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
               Theme.of(context).primaryColor.withAlpha(150),
@@ -52,16 +55,18 @@ class PromoCard extends StatelessWidget {
                 softWrap: true,
                 textAlign: TextAlign.center,
                 TextSpan(
-                  text: 'Diskon',
+                  text: promo.type,
                   style: Get.textTheme.titleLarge?.copyWith(
+                    fontSize: 22,
                     fontWeight: FontWeight.w800,
                     color: MainColor.white,
                   ),
 
                   children: [
-                    TextSpan(
-                      text: '$discountNominal %',
+                    if (promo.type == 'diskon') TextSpan(
+                      text: ' ${promo.nominal}%',
                       style: Get.textTheme.displaySmall?.copyWith(
+                        fontSize: 30,
                         fontWeight: FontWeight.w800,
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
@@ -72,9 +77,21 @@ class PromoCard extends StatelessWidget {
                   ],
                 ),
               ),
+
+              if (promo.type == 'voucher') Text(
+                ' Rp.${promo.nominal}',
+                style: Get.textTheme.displaySmall?.copyWith(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  foreground: Paint()
+                    ..style = PaintingStyle.stroke
+                    ..strokeWidth = 1
+                    ..color = MainColor.white,
+                ),
+              ),
               
               Text(
-                promoName,
+                promo.nama,
                 textAlign: TextAlign.center,
                 style: Get.textTheme.labelMedium?.copyWith(
                   color: MainColor.white,

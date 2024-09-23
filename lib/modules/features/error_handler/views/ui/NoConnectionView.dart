@@ -60,9 +60,9 @@ class NoConnectionView extends StatelessWidget {
                 ),
 
                 onPressed: () async {
-                  await GlobalController.to.checkConnection();
+                  await GlobalController.to.checkConnection(MainRoute.noConnection);
                   if (GlobalController.to.isConnect.value == true) {
-                    Get.offNamed(MainRoute.signIn);
+                    Get.offNamed(GlobalController.to.jumpRoute.value);
                   }
                 },
 

@@ -59,7 +59,7 @@ class ForgotPasswordView extends StatelessWidget {
                 title: 'Ubah Password',
                 bg_color: MainColor.primary,
                 text_color: MainColor.white,
-                function: () => ForgotPasswordController.to.otpPush(),
+                function: () => ForgotPasswordController.to.pushPage(),
               ),
             ],
           ),

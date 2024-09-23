@@ -13,7 +13,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 68.h,
+      height: 70.h,
       padding: EdgeInsets.symmetric(
         horizontal: 25.w,
         vertical: 10.h,
@@ -21,7 +21,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
       decoration: BoxDecoration(
         color: MainColor.white,
         borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(30.r),
+          bottom: Radius.circular(25.r),
         ),
 
         boxShadow: const [
@@ -58,7 +58,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
 
           prefixIcon: Icon(
             Icons.search,
-            size: 26.h,
+            size: 26.r,
           ),
 
           prefixIconColor: Theme.of(context).primaryColor,

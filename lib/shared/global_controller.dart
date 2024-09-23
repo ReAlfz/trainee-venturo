@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/constants/cores/api/api_constant.dart';
+import 'package:trainee/modules/features/sign_in/modules/user_model.dart';
 import 'package:trainee/utils/services/location_sevice.dart';
 
 class GlobalController extends GetxController {
@@ -16,8 +17,11 @@ class GlobalController extends GetxController {
   var baseUrl = ApiConstant.production;
   var isStaging = false.obs;
   var session = ''.obs;
+  Rx<UserModel?> user = Rx<UserModel?>(null);
+  RxString jumpRoute = ''.obs;
 
-  Future<void> checkConnection() async {
+  Future<void> checkConnection(String route) async {
+    jumpRoute.value = route;
     try {
       final result = await InternetAddress.lookup('space.venturo.id');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
