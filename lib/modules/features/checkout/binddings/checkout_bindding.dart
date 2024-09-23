@@ -4,6 +4,6 @@ import 'package:trainee/modules/features/checkout/controllers/checkout_controlle
 class CheckoutBindding extends Bindings {
   @override
   void dependencies() {
-    // Get.put(CheckoutController());
+    Get.put(CheckoutController());
   }
 }

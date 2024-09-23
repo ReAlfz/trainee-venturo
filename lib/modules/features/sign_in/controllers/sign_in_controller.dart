@@ -59,7 +59,7 @@ class SignInController extends GetxController {
       bool checkAuth = await requestAuth();
       if (checkAuth) {
         EasyLoading.dismiss();
-        Get.offAllNamed(MainRoute.list);
+        Get.offAllNamed(MainRoute.home);
       } else {
         EasyLoading.dismiss();
         PanaraInfoDialog.show(

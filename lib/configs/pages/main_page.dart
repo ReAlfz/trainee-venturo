@@ -6,9 +6,9 @@ import 'package:trainee/modules/features/forgot_password/binddings/forgot_passwo
 import 'package:trainee/modules/features/forgot_password/binddings/otp_bindding.dart';
 import 'package:trainee/modules/features/forgot_password/views/ui/forgot_password_view.dart';
 import 'package:trainee/modules/features/forgot_password/views/ui/otp_view.dart';
-import 'package:trainee/modules/features/list/binddings/list_bindding.dart';
-import 'package:trainee/modules/features/list/views/ui/list_item_view.dart';
 import 'package:trainee/modules/features/error_handler//views/ui/NoConnectionView.dart';
+import 'package:trainee/modules/features/page_view/binddings/all_page_bindding.dart';
+import 'package:trainee/modules/features/page_view/views/ui/all_page_view.dart';
 import 'package:trainee/modules/features/sign_in/binddings/sign_in_bindding.dart';
 import 'package:trainee/modules/features/sign_in/views/ui/sign_in_view.dart';
 import 'package:trainee/modules/features/splash/binddings/splash_bindding.dart';
@@ -47,9 +47,9 @@ abstract class MainPage {
     ),
 
     GetPage(
-      name: MainRoute.list,
-      page: () => const ListItemView(),
-      binding: ListBinddings(),
+      name: MainRoute.home,
+      page: () => const AllPageView(),
+      binding: AllPageBindding(),
     ),
 
     GetPage(

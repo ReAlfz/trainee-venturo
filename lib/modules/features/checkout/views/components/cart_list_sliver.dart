@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trainee/modules/features/list/views/components/menu_card.dart';
+import 'package:trainee/modules/features/home/views/components/menu_card.dart';
 
 class CartListSliver extends StatelessWidget {
   final List<Map<String, dynamic>> carts;

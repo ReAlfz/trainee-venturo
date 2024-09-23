@@ -3,16 +3,17 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/catalog/repositories/catalog_repository.dart';
-import 'package:trainee/modules/features/list/modules/menu_item_model.dart';
-import 'package:trainee/modules/features/list/modules/promo_item_model.dart';
-import 'package:trainee/modules/features/list/repositories/list_repository.dart';
-import 'package:trainee/modules/features/list/repositories/promo_repository.dart';
+import 'package:trainee/modules/features/home/modules/menu_item_model.dart';
+import 'package:trainee/modules/features/home/modules/promo_item_model.dart';
+import 'package:trainee/modules/features/home/repositories/list_repository.dart';
+import 'package:trainee/modules/features/home/repositories/promo_repository.dart';
 import 'package:trainee/shared/global_controller.dart';
 
-class ListController extends GetxController {
-  static ListController get to => Get.find<ListController>();
+class HomeController extends GetxController {
+  static HomeController get to => Get.find();
 
-  final RxInt page = 0.obs;
+  final RxInt pageLoadMore = 0.obs;
+  final RxInt pageView = 0.obs;
   final RefreshController refreshController = RefreshController(initialRefresh: false);
 
   late final ListRepository listRepository;
@@ -48,9 +49,9 @@ class ListController extends GetxController {
 
   // function for smart refresh //
   void onRefresh() async {
-    await GlobalController.to.checkConnection(MainRoute.list);
+    await GlobalController.to.checkConnection(MainRoute.home);
     if (GlobalController.to.isConnect.value == true) {
-      page(0);
+      pageLoadMore(0);
       canLoadMore(true);
 
       final result = await getListOfData();
@@ -64,9 +65,9 @@ class ListController extends GetxController {
 
   Future<bool> getListOfData() async {
     try {
-      await GlobalController.to.checkConnection(MainRoute.list);
+      await GlobalController.to.checkConnection(MainRoute.home);
       if (GlobalController.to.isConnect.value == true) {
-        final result = listRepository.getListOfData(offset: page.value * 10);
+        final result = listRepository.getListOfData(offset: pageLoadMore.value * 10);
         // if (result.previous == null) {
         //   items.clear();
         // }
@@ -121,11 +122,13 @@ class ListController extends GetxController {
 
   // push to detail //
   void pushPage(int id) async {
-    await GlobalController.to.checkConnection(MainRoute.list);
+    await GlobalController.to.checkConnection(MainRoute.home);
     final CatalogRepository repository = CatalogRepository();
     final catalogData = await repository.fetchMenuFromApi(id);
     if (GlobalController.to.isConnect.value == true) {
       Get.toNamed(MainRoute.catalog, arguments: catalogData);
     }
   }
+
+  void onNavTap(int index) => pageView.value = index;
 }

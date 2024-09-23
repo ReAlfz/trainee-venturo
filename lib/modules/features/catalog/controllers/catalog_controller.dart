@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:trainee/modules/features/catalog/modules/catalog_model.dart';
 import 'package:trainee/modules/features/catalog/modules/sub_catalog_model.dart';
 import 'package:trainee/modules/features/catalog/repositories/catalog_repository.dart';
-import 'package:trainee/modules/features/list/modules/menu_item_model.dart';
+import 'package:trainee/modules/features/home/modules/menu_item_model.dart';
 
 class CatalogController extends GetxController {
   static CatalogController get to => Get.find();

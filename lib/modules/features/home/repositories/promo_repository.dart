@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:trainee/modules/features/list/modules/promo_item_model.dart';
+import 'package:trainee/modules/features/home/modules/promo_item_model.dart';
 import 'package:trainee/shared/global_controller.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 

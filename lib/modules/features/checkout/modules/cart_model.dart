@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:trainee/modules/features/list/modules/menu_item_model.dart';
+import 'package:trainee/modules/features/checkout/modules/cart_menu_model.dart';
 
 class CartModel {
   int idOrder;
@@ -9,7 +9,7 @@ class CartModel {
   int totalBayar;
   DateTime tanggal;
   int status;
-  List<MenuItemsModel> menu;
+  List<MenuCartModel> menu;
 
   CartModel({
     required this.idOrder,
@@ -30,7 +30,7 @@ class CartModel {
         totalBayar: json["total_bayar"],
         tanggal: DateTime.parse(json["tanggal"]),
         status: json["status"],
-        menu: List<MenuItemsModel>.from(json["menu"].map((x) => MenuItemsModel.fromJson(x))),
+        menu: List<MenuCartModel>.from(json["menu"].map((x) => MenuCartModel.fromJson(x))),
       );
     } catch (e, stacktrace) {
       log('Error parsing checkout from JSON: $e', name: 'PARSING JSON');

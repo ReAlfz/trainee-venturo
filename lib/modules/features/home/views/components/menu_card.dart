@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/modules/features/list/modules/menu_item_model.dart';
+import 'package:trainee/modules/features/home/modules/menu_item_model.dart';
 
 class MenuCard extends StatelessWidget {
   final MenuItemsModel menu;

@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:trainee/modules/features/list/modules/menu_item_model.dart';
-import 'package:trainee/modules/features/list/modules/paginated_data_model.dart';
+import 'package:trainee/modules/features/home/modules/menu_item_model.dart';
+import 'package:trainee/modules/features/home/modules/paginated_data_model.dart';
 import 'package:trainee/shared/global_controller.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 

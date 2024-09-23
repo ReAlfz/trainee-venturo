@@ -13,7 +13,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 70.h,
+      height: 900.h,
       padding: EdgeInsets.symmetric(
         horizontal: 25.w,
         vertical: 10.h,
