@@ -81,7 +81,7 @@ class MenuCard extends StatelessWidget {
               child: InkWell(
                 splashFactory: NoSplash.splashFactory,
                 child: QuantityCounter(
-                  quantity: menu.jumlah ?? 0,
+                  quantity: menu.jumlah,
                   onIncrement: onIncrement,
                   onDecrement: onDecrement,
                 ),

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trainee/modules/features/home/controllers/list_controller.dart';
-import 'package:trainee/modules/features/home/views/components/search_app_bar.dart';
 import 'package:trainee/modules/features/home/views/ui/list_item_view.dart';
-import 'package:trainee/modules/features/order/views/components/order_top_bar.dart';
 import 'package:trainee/modules/features/order/views/ui/order_view.dart';
 
 class AllPageController extends GetxController {

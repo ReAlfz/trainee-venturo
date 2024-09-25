@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:trainee/modules/features/page_view/views/components/bottom_navbar.dart';
 import 'package:trainee/modules/features/page_view/controllers/all_page_controller.dart';
 

@@ -1,12 +1,9 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/constants/cores/api/api_constant.dart';
 import 'package:trainee/modules/features/sign_in/modules/user_model.dart';
-import 'package:trainee/utils/services/location_sevice.dart';
 
 class GlobalController extends GetxController {
   static GlobalController get to => Get.find();
