@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trainee/modules/features/chekout/controllers/checkout_controller.dart';
 import 'package:trainee/shared/widgets/menu_card.dart';
 import 'package:trainee/modules/global_models/menu_model.dart';
 
