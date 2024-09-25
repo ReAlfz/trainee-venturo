@@ -3,16 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/modules/features/home/modules/menu_item_model.dart';
+import 'package:trainee/modules/features/chekout/quantitiy_counter.dart';
+import 'package:trainee/modules/global_models/menu_model.dart';
 
 class MenuCard extends StatelessWidget {
-  final MenuItemsModel menu;
+  final MenuModel menu;
   final VoidCallback? onTap;
+  final VoidCallback? onIncrement;
+  final VoidCallback? onDecrement;
 
   const MenuCard({
     super.key,
     required this.menu,
-    this.onTap
+    this.onTap,
+    this.onIncrement,
+    this.onDecrement,
   });
 
   @override
@@ -60,13 +65,26 @@ class MenuCard extends StatelessWidget {
                   ),
 
                   Text(
-                    menu.harga.toString(),
+                    'Rp. ${menu.harga.toString()}',
                     style: Get.textTheme.bodyMedium!.copyWith(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
+              ),
+            ),
+
+            Container(
+              height: 75.r,
+              padding: EdgeInsets.only(left: 12.r, right: 5.r),
+              child: InkWell(
+                splashFactory: NoSplash.splashFactory,
+                child: QuantityCounter(
+                  quantity: menu.jumlah ?? 0,
+                  onIncrement: onIncrement,
+                  onDecrement: onDecrement,
+                ),
               ),
             ),
           ],

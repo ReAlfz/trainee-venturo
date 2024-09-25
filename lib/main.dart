@@ -9,7 +9,7 @@ import 'package:trainee/configs/pages/main_page.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_theme.dart';
 import 'package:trainee/firebase_options.dart';
-import 'package:trainee/shared/global_bindding.dart';
+import 'package:trainee/modules/global_binddings/global_bindding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

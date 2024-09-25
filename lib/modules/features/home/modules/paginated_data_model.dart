@@ -1,7 +1,7 @@
-import 'package:trainee/modules/features/home/modules/menu_item_model.dart';
+import 'package:trainee/modules/global_models/menu_model.dart';
 
 class PaginatedData<T> {
-  final List<MenuItemsModel> data;
+  final List<MenuModel> data;
   final bool? next;
   final bool? previous;
 

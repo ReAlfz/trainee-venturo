@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/modules/features/catalog/modules/catalog_model.dart';
-import 'package:trainee/shared/global_controller.dart';
+import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 
 class CatalogRepository {

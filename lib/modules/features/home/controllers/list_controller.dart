@@ -3,22 +3,21 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/catalog/repositories/catalog_repository.dart';
-import 'package:trainee/modules/features/home/modules/menu_item_model.dart';
+import 'package:trainee/modules/global_models/menu_model.dart';
 import 'package:trainee/modules/features/home/modules/promo_item_model.dart';
 import 'package:trainee/modules/features/home/repositories/list_repository.dart';
 import 'package:trainee/modules/features/home/repositories/promo_repository.dart';
-import 'package:trainee/shared/global_controller.dart';
+import 'package:trainee/modules/global_controllers/global_controller.dart';
 
-class HomeController extends GetxController {
-  static HomeController get to => Get.find();
+class HomeListController extends GetxController {
+  static HomeListController get to => Get.find();
 
   final RxInt pageLoadMore = 0.obs;
-  final RxInt pageView = 0.obs;
   final RefreshController refreshController = RefreshController(initialRefresh: false);
 
   late final ListRepository listRepository;
-  final RxList<MenuItemsModel> listItems = <MenuItemsModel>[].obs;
-  final RxList<MenuItemsModel> selectedListItems = <MenuItemsModel>[].obs;
+  final RxList<MenuModel> listItems = <MenuModel>[].obs;
+  final RxList<MenuModel> selectedListItems = <MenuModel>[].obs;
 
   late final PromoRepository promoRepository;
   RxList<PromoModel> listPromo = <PromoModel>[].obs;
@@ -95,7 +94,7 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> deleteItem(MenuItemsModel item) async {
+  Future<void> deleteItem(MenuModel item) async {
     try {
       listRepository.deleteItem(item.idMenu);
       listItems.remove(item);
@@ -109,7 +108,7 @@ class HomeController extends GetxController {
   }
 
   // get listItems //
-  List<MenuItemsModel> get filteredList => listItems.where(
+  List<MenuModel> get filteredList => listItems.where(
           (element) => element.nama
           .toString()
           .toLowerCase()
@@ -130,5 +129,18 @@ class HomeController extends GetxController {
     }
   }
 
-  void onNavTap(int index) => pageView.value = index;
+
+  void increaseQty(MenuModel menuModel) {
+    menuModel.jumlah++;
+    listItems.refresh();
+  }
+
+  void decreaseQty(MenuModel menuModel) async {
+    if (menuModel.jumlah > 1) {
+      menuModel.jumlah--;
+    } else if (menuModel.jumlah == 1) {
+      menuModel.jumlah = 0;
+    }
+    listItems.refresh();
+  }
 }

@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:trainee/modules/features/home/modules/menu_item_model.dart';
+import 'package:trainee/modules/global_models/menu_model.dart';
 import 'package:trainee/modules/features/home/modules/paginated_data_model.dart';
-import 'package:trainee/shared/global_controller.dart';
+import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 
 class ListRepository {
-  late List<MenuItemsModel> listData = [];
+  late List<MenuModel> listData = [];
 
   Future<void> fetchListFromApi() async {
     final dio = DioServices.dioCall(token: GlobalController.to.session.value);
@@ -18,8 +18,8 @@ class ListRepository {
       if (response.statusCode == 200) {
         Map<String, dynamic> responseData = response.data;
         if (responseData['status_code'] == 200) {
-          listData = List<MenuItemsModel>.from(
-              responseData['data'].map((x) => MenuItemsModel.fromJson(x))
+          listData = List<MenuModel>.from(
+              responseData['data'].map((x) => MenuModel.fromJson(x))
           ).toList();
         }
 

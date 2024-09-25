@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
-import 'package:trainee/shared/global_controller.dart';
+import 'package:trainee/modules/global_controllers/global_controller.dart';
 
 class NoConnectionView extends StatelessWidget {
   const NoConnectionView({super.key});

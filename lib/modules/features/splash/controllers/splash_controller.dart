@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/constants/cores/assets/shared_preference_key.dart';
 import 'package:trainee/modules/features/sign_in/modules/user_model.dart';
-import 'package:trainee/shared/global_controller.dart';
+import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/utils/services/session_services.dart';
 
 class SplashController extends GetxController {

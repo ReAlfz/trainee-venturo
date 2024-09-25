@@ -12,7 +12,7 @@ import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/api/api_constant.dart';
 import 'package:trainee/modules/features/sign_in/modules/user_model.dart';
-import 'package:trainee/shared/global_controller.dart';
+import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/shared/styles/google_text_style.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 import 'package:trainee/utils/services/session_services.dart';

@@ -1,17 +1,17 @@
 import 'dart:developer';
 
-import 'package:trainee/modules/features/checkout/modules/cart_menu_model.dart';
+import 'package:trainee/modules/global_models/menu_model.dart';
 
-class CartModel {
+class OrderModel {
   int idOrder;
   String noStruk;
   String nama;
   int totalBayar;
   DateTime tanggal;
   int status;
-  List<MenuCartModel> menu;
+  List<MenuModel> menu;
 
-  CartModel({
+  OrderModel({
     required this.idOrder,
     required this.noStruk,
     required this.nama,
@@ -21,16 +21,16 @@ class CartModel {
     required this.menu,
   });
 
-  factory CartModel.fromJson(Map<String, dynamic> json) {
+  factory OrderModel.fromJson(Map<String, dynamic> json) {
     try {
-      return CartModel(
+      return OrderModel(
         idOrder: json["id_order"],
         noStruk: json["no_struk"],
         nama: json["nama"],
         totalBayar: json["total_bayar"],
         tanggal: DateTime.parse(json["tanggal"]),
         status: json["status"],
-        menu: List<MenuCartModel>.from(json["menu"].map((x) => MenuCartModel.fromJson(x))),
+        menu: List<MenuModel>.from(json["menu"].map((x) => MenuModel.fromJson(x))),
       );
     } catch (e, stacktrace) {
       log('Error parsing checkout from JSON: $e', name: 'PARSING JSON');

@@ -2,14 +2,14 @@ import 'package:get/get.dart';
 import 'package:trainee/modules/features/catalog/modules/catalog_model.dart';
 import 'package:trainee/modules/features/catalog/modules/sub_catalog_model.dart';
 import 'package:trainee/modules/features/catalog/repositories/catalog_repository.dart';
-import 'package:trainee/modules/features/home/modules/menu_item_model.dart';
+import 'package:trainee/modules/global_models/menu_model.dart';
 
 class CatalogController extends GetxController {
   static CatalogController get to => Get.find();
 
   late final CatalogRepository catalogRepository = CatalogRepository();
   CatalogModel? catalogData;
-  Rx<MenuItemsModel?> menuItem = Rx<MenuItemsModel?>(null);
+  Rx<MenuModel?> menuItem = Rx<MenuModel?>(null);
   RxList<SubCatalogModel> level = RxList<SubCatalogModel>();
   RxList<SubCatalogModel> topping = RxList<SubCatalogModel>();
 
