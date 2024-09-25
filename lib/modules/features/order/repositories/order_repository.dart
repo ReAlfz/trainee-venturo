@@ -19,8 +19,6 @@ class OrderRepository {
           listData = List<OrderModel>.from(
               responseData['data'].map((x) => OrderModel.fromJson(x))
           );
-
-          print('total list: ${listData.length}');
         }
 
       } else {

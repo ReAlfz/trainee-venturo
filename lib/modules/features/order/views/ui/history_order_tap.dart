@@ -67,7 +67,7 @@ class HistoryOrderTapView extends StatelessWidget {
                       child: OrderItemCard(
                         order: controller.filterHistoryOrder[index],
                         onOrderAgain: () {},
-                        onTap: () => Get.toNamed('${MainRoute.order}/${controller.filterHistoryOrder[index].idOrder}',
+                        onTap: () => Get.toNamed('${MainRoute.home}/${controller.filterHistoryOrder[index].idOrder}',
                         ),
                       ),
                     ),

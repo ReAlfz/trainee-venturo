@@ -3,8 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trainee/configs/themes/main_color.dart';
+import 'package:trainee/modules/features/chekout/controllers/checkout_controller.dart';
 import 'package:trainee/modules/features/home/controllers/list_controller.dart';
-import 'package:trainee/modules/features/home/views/components/menu_card.dart';
+import 'package:trainee/shared/widgets/menu_card.dart';
 import 'package:trainee/modules/features/home/views/components/menu_chip.dart';
 import 'package:trainee/modules/features/home/views/components/promo_card.dart';
 import 'package:trainee/modules/features/home/views/components/search_app_bar.dart';
@@ -17,6 +18,7 @@ class HomeListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeListController controller = Get.put(HomeListController());
+    final CheckoutController cartController = Get.put(CheckoutController());
     final List<IconData> categoryIcon = [
       Icons.list_alt_outlined,
       Icons.fastfood_outlined,
@@ -24,7 +26,9 @@ class HomeListView extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: SearchAppBar(),
+      appBar: SearchAppBar(
+        onChange: (value) => controller.keyword(value),
+      ),
       body: NestedScrollView(
         physics: const ClampingScrollPhysics(),
         headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -152,8 +156,14 @@ class HomeListView extends StatelessWidget {
                           child: MenuCard(
                             menu: menuItem,
                             onTap: () => controller.pushPage(menuItem.idMenu),
-                            onIncrement: () => controller.increaseQty(menuItem),
-                            onDecrement: () => controller.decreaseQty(menuItem),
+                            onIncrement: () {
+                              cartController.increaseQty(menuItem);
+                              controller.listItems.refresh();
+                            },
+                            onDecrement: () {
+                              cartController.decreaseQty(menuItem);
+                              controller.listItems.refresh();
+                            },
                           ),
                         ),
                       ),

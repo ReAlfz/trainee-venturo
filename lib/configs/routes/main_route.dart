@@ -9,7 +9,7 @@ abstract class MainRoute {
   static const String forgotPassword = '/forgot-password';
 
   // page-view //
-  static const String listHome = '/list';
-  static const String order = '/order';
-  static const String orderDetail = '/order/:orderId';
+  // static const String listHome = '/list';
+  // static const String order = '/order';
+  static const String orderDetail = '/home/:orderId';
 }

@@ -27,7 +27,7 @@ class OnGoingOrderTabView extends StatelessWidget {
         itemCount: controller.onGoingOrder.length,
         itemBuilder: (context, index) => OrderItemCard(
           order: controller.onGoingOrder[index],
-          onTap: () => Get.toNamed('${MainRoute.order}/${controller.onGoingOrder[index].idOrder}'),
+          onTap: () => Get.toNamed('${MainRoute.home}/${controller.onGoingOrder[index].idOrder}'),
           onOrderAgain: () {},
         ),
         separatorBuilder: (context, index) => 16.verticalSpace,

@@ -48,6 +48,8 @@ class OrderSuccessDialog extends StatelessWidget {
             ]),
           ),
 
+          14.verticalSpace,
+
           SizedBox(
             width: 168.w,
             child: ElevatedButton(

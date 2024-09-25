@@ -96,7 +96,7 @@ class _PinDialog extends State<PinDialog> {
                 radius: 24.r,
                 onTap: () => obscure.value = !obscure.value,
                 child: Icon(
-                  obscure.value ? Icons.visibility : Icons.visibility_off,
+                  obscure.value ? Icons.visibility_off : Icons.visibility,
                   color: Theme.of(context).primaryColor,
                   size: 20.r,
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trainee/modules/features/chekout/views/ui/checkout_view.dart';
 import 'package:trainee/modules/features/home/views/ui/list_item_view.dart';
 import 'package:trainee/modules/features/order/views/ui/order_view.dart';
 
@@ -12,7 +13,7 @@ class AllPageController extends GetxController {
   List<Widget> bodyWidgetOption = [
     const HomeListView(),
     const OrderView(),
-    Container(color: Colors.blue,),
+    const CheckoutView(),
     Container(color: Colors.red,),
   ];
 

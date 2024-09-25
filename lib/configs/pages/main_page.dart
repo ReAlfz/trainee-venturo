@@ -66,22 +66,22 @@ abstract class MainPage {
 
 
     // page-view //
-    GetPage(
-      name: MainRoute.listHome,
-      page: () => const HomeListView(),
-      binding: HomeListBinddings(),
-    ),
-
-    GetPage(
-      name: MainRoute.order,
-      page: () => const OrderView(),
-      binding: OrderBindding(),
-    ),
-
-    GetPage(
-      name: MainRoute.orderDetail,
-      page: () => const DetailOrderView(),
-      binding: DetailOrderBindding(),
-    ),
+    // GetPage(
+    //   name: MainRoute.listHome,
+    //   page: () => const HomeListView(),
+    //   binding: HomeListBinddings(),
+    // ),
+    //
+    // GetPage(
+    //   name: MainRoute.order,
+    //   page: () => const OrderView(),
+    //   binding: OrderBindding(),
+    // ),
+    //
+    // GetPage(
+    //   name: MainRoute.orderDetail,
+    //   page: () => const DetailOrderView(),
+    //   binding: DetailOrderBindding(),
+    // ),
   ];
 }
