@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/order/modules/order_model.dart';
 import 'package:trainee/modules/features/order/repositories/order_repository.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';

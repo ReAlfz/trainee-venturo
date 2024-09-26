@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/modules/features/order/modules/order_model.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
-import 'package:trainee/modules/global_models/paginated_data_model.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 
 class OrderRepository {
