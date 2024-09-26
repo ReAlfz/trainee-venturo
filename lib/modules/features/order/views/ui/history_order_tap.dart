@@ -4,6 +4,7 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_conditional_rendering/conditional_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/order/controllers/order_controller.dart';
 import 'package:trainee/modules/features/order/views/components/date_picker.dart';
@@ -22,11 +23,15 @@ class HistoryOrderTapView extends StatelessWidget {
       screenClassOverride: 'Trainee',
     );
 
-    return RefreshIndicator(
-      onRefresh: () async => controller.getOrderHistory(),
+    return SmartRefresher(
+      controller: controller.refreshControllerHistoryOrder,
+      onLoading: controller.onLoadingHistoryOrder,
+      onRefresh: controller.onRefreshHistoryOrder,
+      enablePullUp: controller.canLoadMore.isTrue ? true : false,
+      enablePullDown: true,
       child: Obx(() => ConditionalSwitch.single(
         context: context,
-        valueBuilder: (context) => controller.onOrderHistoryState,
+        valueBuilder: (context) => controller.orderHistoryState.value,
         caseBuilders: {},
         fallbackBuilder: (context) => CustomScrollView(
           physics: const ClampingScrollPhysics(),
@@ -67,7 +72,7 @@ class HistoryOrderTapView extends StatelessWidget {
                       child: OrderItemCard(
                         order: controller.filterHistoryOrder[index],
                         onOrderAgain: () {},
-                        onTap: () => Get.toNamed('${MainRoute.home}/${controller.filterHistoryOrder[index].idOrder}',
+                        onTap: () => Get.toNamed('${MainRoute.home}/order/${controller.filterHistoryOrder[index].idOrder}',
                         ),
                       ),
                     ),

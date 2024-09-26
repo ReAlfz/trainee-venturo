@@ -12,7 +12,7 @@ import 'package:trainee/modules/global_models/menu_model.dart';
 class CheckoutController extends GetxController {
   static CheckoutController get to => Get.find();
 
-  RxList<MenuModel> cart = RxList<MenuModel>([]);
+  RxList<MenuModel> cart = <MenuModel>[].obs;
   late CreateOrderRepository repository;
   RxString cartViewState = 'success'.obs;
 
@@ -20,31 +20,18 @@ class CheckoutController extends GetxController {
     if (!cart.contains(item)) {
       item.jumlah++;
       cart.add(item);
-      cart.refresh();
     } else {
       item.jumlah++;
-      cart.refresh();
     }
+    cart.refresh();
   }
 
   void decreaseQty(MenuModel item) {
     if (cart.contains(item)) {
-      if (item.jumlah > 1) {
+      if (item.jumlah > 0) {
         item.jumlah--;
         cart.add(item);
-        cart.refresh();
-      } else if (item.jumlah == 1) {
-        item.jumlah = 0;
-        cart.removeWhere((element) => element.idMenu == item.idMenu);
-        cart.refresh();
       }
-    }
-
-    if (item.jumlah > 1) {
-      item.jumlah--;
-      cart.refresh();
-    } else if (item.jumlah == 1) {
-      item.jumlah = 0;
       cart.refresh();
     }
   }
@@ -105,6 +92,7 @@ class CheckoutController extends GetxController {
         discount: discountPrice,
         grandTotalPrice: grandTotal,
       );
+      cart.clear();
       showOrderSuccessDialog();
 
     } else if (authenticated != null) {

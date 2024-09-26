@@ -34,7 +34,7 @@ class MenuModel {
   factory MenuModel.fromJson(Map<String, dynamic> json) {
     try {
       return MenuModel(
-        idMenu: json['idMenu'] ?? 0,
+        idMenu: json['id_menu'] ?? 0,
         nama: json['nama'] ?? '',
         kategori: json['kategori'] ?? '',
         harga: json['harga'] is String ? int.parse(json['harga']) : json['harga'],

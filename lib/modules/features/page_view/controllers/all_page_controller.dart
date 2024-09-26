@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:trainee/modules/features/chekout/views/ui/checkout_view.dart';
 import 'package:trainee/modules/features/home/views/ui/list_item_view.dart';
 import 'package:trainee/modules/features/order/views/ui/order_view.dart';
+import 'package:trainee/modules/features/profile/views/ui/profile_view.dart';
 
 class AllPageController extends GetxController {
   static AllPageController get to => Get.find();
@@ -14,7 +15,7 @@ class AllPageController extends GetxController {
     const HomeListView(),
     const OrderView(),
     const CheckoutView(),
-    Container(color: Colors.red,),
+    const ProfileView(),
   ];
 
   void changePage(int index) {

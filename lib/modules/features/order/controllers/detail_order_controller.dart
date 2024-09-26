@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/modules/features/order/modules/order_model.dart';
-import 'package:trainee/modules/features/order/repositories/order_repository.dart';
+import 'package:trainee/modules/features/order/repositories/detail_order_repository.dart';
 import 'package:trainee/modules/global_models/menu_model.dart';
 
 class DetailOrderController extends GetxController {
   static DetailOrderController get to => Get.find();
 
-  late final OrderRepository repository;
+  late final DetailOrderRepository repository;
 
   RxString orderDetailState = 'loading'.obs;
   Rxn<OrderModel> order = Rxn();
@@ -20,9 +20,14 @@ class DetailOrderController extends GetxController {
   void onInit() {
     super.onInit();
 
-    repository = OrderRepository();
-    final orderId = int.parse(Get.parameters as String);
-
+    repository = DetailOrderRepository();
+    final orderId = int.parse(Get.parameters['orderId']!);
+    getOrderDetail(orderId).then((value) {
+      timer = Timer.periodic(
+          const Duration(seconds: 10), (timer) {
+        (_) => getOrderDetail(orderId, isPeriodic: true);
+      });
+    });
   }
 
   @override
@@ -37,9 +42,10 @@ class DetailOrderController extends GetxController {
     }
 
     try {
-      final result = repository.getOrderDetail(orderId);
-      orderDetailState('success');
+      final result = await repository.getDetailOrder(orderId);
       order(result);
+      orderDetailState('success');
+
     } catch (e, stacktrace) {
       await Sentry.captureException(
         e,
@@ -48,6 +54,8 @@ class DetailOrderController extends GetxController {
 
       orderDetailState('error');
     }
+
+    print(orderDetailState.value);
   }
 
   List<MenuModel> get foodItem {

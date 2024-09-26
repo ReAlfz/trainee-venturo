@@ -122,7 +122,7 @@ class HomeListView extends StatelessWidget {
               child: Obx(() => SmartRefresher(
                 controller: controller.refreshController,
                 onRefresh: controller.onRefresh,
-                onLoading: controller.getListOfData,
+                onLoading: controller.onLoading,
                 enablePullUp: controller.canLoadMore.isTrue ? true : false,
                 enablePullDown: true,
                 child: ListView.builder(
@@ -158,11 +158,11 @@ class HomeListView extends StatelessWidget {
                             onTap: () => controller.pushPage(menuItem.idMenu),
                             onIncrement: () {
                               cartController.increaseQty(menuItem);
-                              controller.listItems.refresh();
+                              controller.allListMenu.refresh();
                             },
                             onDecrement: () {
                               cartController.decreaseQty(menuItem);
-                              controller.listItems.refresh();
+                              controller.allListMenu.refresh();
                             },
                           ),
                         ),

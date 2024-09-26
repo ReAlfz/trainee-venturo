@@ -41,7 +41,7 @@ class CreateOrderRepository {
     return CreateMenuModel(
       idMenu: menu.idMenu,
       harga: menu.harga,
-      level: menu.level.isNotEmpty ? menu.level[0] : 0,
+      level: "",
       topping: menu.topping.map((e) => e as int).toList(),
       jumlah: menu.jumlah,
     );

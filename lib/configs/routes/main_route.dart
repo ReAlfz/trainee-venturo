@@ -11,5 +11,6 @@ abstract class MainRoute {
   // page-view //
   // static const String listHome = '/list';
   // static const String order = '/order';
-  static const String orderDetail = '/home/:orderId';
+  static const String orderDetail = '/home/order/:orderId';
+  static const String menuDetail = '/home/menu/:menuId';
 }

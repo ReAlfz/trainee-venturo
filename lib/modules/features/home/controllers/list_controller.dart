@@ -12,12 +12,8 @@ import 'package:trainee/modules/global_controllers/global_controller.dart';
 class HomeListController extends GetxController {
   static HomeListController get to => Get.find();
 
-  final RxInt pageLoadMore = 0.obs;
-  final RefreshController refreshController = RefreshController(initialRefresh: false);
-
   late final ListRepository listRepository;
-  final RxList<MenuModel> listItems = <MenuModel>[].obs;
-  final RxList<MenuModel> selectedListItems = <MenuModel>[].obs;
+  final RxList<MenuModel> allListMenu = <MenuModel>[].obs;
 
   late final PromoRepository promoRepository;
   RxList<PromoModel> listPromo = <PromoModel>[].obs;
@@ -26,78 +22,71 @@ class HomeListController extends GetxController {
   final RxString selectCategory = 'semua'.obs;
   final RxString keyword = ''.obs;
 
-
-  // kategori chip //
   final List<String> categories = [
     'semua',
     'makanan',
     'minuman',
   ];
 
-  // initState //
   @override
   void onInit() async {
     super.onInit();
     listRepository = ListRepository();
-    await listRepository.fetchListFromApi();
-    await getListOfData();
+    allListMenu.value = await listRepository.fetchListFromApi();
+    listMenu(allListMenu.take(pageSize).toList());
 
     promoRepository = PromoRepository();
     listPromo.value = await promoRepository.fetchPromoFromApi();
   }
 
-  // function for smart refresh //
+  // start function for smart refresh //
+  RxInt currentPage = 1.obs;
+  final int pageSize = 5;
+  RxList<MenuModel> listMenu = RxList<MenuModel>();
+  final RefreshController refreshController = RefreshController(initialRefresh: false);
+
   void onRefresh() async {
-    await GlobalController.to.checkConnection(MainRoute.home);
-    if (GlobalController.to.isConnect.value == true) {
-      pageLoadMore(0);
-      canLoadMore(true);
-
-      final result = await getListOfData();
-      if (result) {
-        refreshController.refreshCompleted();
-      } else {
-        refreshController.refreshFailed();
-      }
-    }
-  }
-
-  Future<bool> getListOfData() async {
     try {
-      await GlobalController.to.checkConnection(MainRoute.home);
-      if (GlobalController.to.isConnect.value == true) {
-        final result = listRepository.getListOfData(offset: pageLoadMore.value * 10);
-        // if (result.previous == null) {
-        //   items.clear();
-        // }
-        if (result.next == null) {
-          canLoadMore(false);
-          refreshController.loadNoData();
-        }
+      canLoadMore(true);
+      currentPage.value = 1;
+      listMenu.addAll(allListMenu.take(pageSize).toList());
+      refreshController.refreshCompleted();
 
-        listItems.addAll(result.data);
-        refreshController.loadComplete();
-        return true;
-      } else {
-        return false;
-      }
-
-
-    } catch (exception, stacktrace) {
-      await Sentry.captureException(
-        exception,
-        stackTrace: stacktrace,
-      );
-
-      refreshController.loadFailed();
-      return false;
+    } catch (e, stacktrace) {
+      refreshController.refreshFailed();
+      await Sentry.captureException(e, stackTrace: stacktrace);
     }
   }
 
+  void onLoading() async {
+    try {
+      canLoadMore(true);
+      currentPage.value++;
+      final int startIndex = (currentPage.value - 1) * pageSize;
+      final int endIndex = startIndex + pageSize;
+
+      if (startIndex < allListMenu.length) {
+        listMenu.addAll(allListMenu.getRange(
+          startIndex,
+          endIndex > allListMenu.length ? allListMenu.length : endIndex,
+        ));
+        refreshController.loadComplete();
+      } else {
+        canLoadMore(false);
+        refreshController.loadNoData();
+      }
+
+    } catch (e, stacktrace) {
+      refreshController.loadFailed();
+      await Sentry.captureException(e, stackTrace: stacktrace);
+    }
+  }
+  // end function for smart refresh //
+
+  // start function for listMenu //
   Future<void> deleteItem(MenuModel item) async {
     try {
-      listRepository.deleteItem(item.idMenu);
-      listItems.remove(item);
+      listMenu.removeWhere((element) => element.idMenu == item.idMenu);
 
     } catch (exception, stacktrace) {
       await Sentry.captureException(
@@ -107,8 +96,7 @@ class HomeListController extends GetxController {
     }
   }
 
-  // get listItems //
-  List<MenuModel> get filteredList => listItems.where(
+  List<MenuModel> get filteredList => listMenu.where(
           (element) => element.nama
           .toString()
           .toLowerCase()
@@ -116,8 +104,9 @@ class HomeListController extends GetxController {
           (selectCategory.value == 'semua' || element.kategori == selectCategory.value)
   ).toList();
 
-  // get promoList //
+
   List<PromoModel> get promoList => listPromo;
+  // end function for listMenu //
 
   // push to detail //
   void pushPage(int id) async {
@@ -129,10 +118,9 @@ class HomeListController extends GetxController {
     }
   }
 
-
   void increaseQty(MenuModel menuModel) {
     menuModel.jumlah++;
-    listItems.refresh();
+    allListMenu.refresh();
   }
 
   void decreaseQty(MenuModel menuModel) async {
@@ -141,6 +129,6 @@ class HomeListController extends GetxController {
     } else if (menuModel.jumlah == 1) {
       menuModel.jumlah = 0;
     }
-    listItems.refresh();
+    allListMenu.refresh();
   }
 }

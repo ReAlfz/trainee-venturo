@@ -1,7 +1,7 @@
 class CreateMenuModel {
   int idMenu;
   int harga;
-  int level;
+  String level;
   List<int> topping;
   int jumlah;
 

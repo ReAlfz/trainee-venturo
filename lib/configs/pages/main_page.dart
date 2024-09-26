@@ -7,6 +7,8 @@ import 'package:trainee/modules/features/forgot_password/binddings/otp_bindding.
 import 'package:trainee/modules/features/forgot_password/views/ui/forgot_password_view.dart';
 import 'package:trainee/modules/features/forgot_password/views/ui/otp_view.dart';
 import 'package:trainee/modules/features/error_handler//views/ui/NoConnectionView.dart';
+import 'package:trainee/modules/features/order/binddings/detail_order_bindding.dart';
+import 'package:trainee/modules/features/order/views/ui/detail_order_view.dart';
 import 'package:trainee/modules/features/page_view/binddings/all_page_bindding.dart';
 import 'package:trainee/modules/features/page_view/views/ui/all_page_view.dart';
 import 'package:trainee/modules/features/sign_in/binddings/sign_in_bindding.dart';
@@ -72,10 +74,11 @@ abstract class MainPage {
     //   binding: OrderBindding(),
     // ),
     //
-    // GetPage(
-    //   name: MainRoute.orderDetail,
-    //   page: () => const DetailOrderView(),
-    //   binding: DetailOrderBindding(),
-    // ),
+
+    GetPage(
+      name: MainRoute.orderDetail,
+      page: () => const DetailOrderView(),
+      binding: DetailOrderBindding(),
+    ),
   ];
 }

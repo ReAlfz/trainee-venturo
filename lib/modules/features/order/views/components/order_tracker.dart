@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:trainee/modules/features/order/controllers/detail_report_controller.dart';
+import 'package:trainee/modules/features/order/controllers/detail_order_controller.dart';
 import 'package:trainee/modules/features/order/views/components/check_step.dart';
 import 'package:trainee/modules/features/order/views/components/uncheck_step.dart';
 

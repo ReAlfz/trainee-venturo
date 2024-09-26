@@ -28,7 +28,8 @@ class BottomNavBar extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.home,
-                    color: Colors.grey[100],
+                    color: (AllPageController.to.currentIndex.value == 0)
+                        ? MainColor.white : Colors.grey[100],
                   ),
 
                   2.verticalSpace,
@@ -37,7 +38,8 @@ class BottomNavBar extends StatelessWidget {
                     'Beranda',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: Colors.grey[100],
+                      color: (AllPageController.to.currentIndex.value == 0)
+                          ? MainColor.white : Colors.grey[100],
                     ),
                   ),
                 ],
@@ -53,7 +55,8 @@ class BottomNavBar extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.bakery_dining_rounded,
-                    color: Colors.grey[100],
+                    color: (AllPageController.to.currentIndex.value == 1)
+                        ? MainColor.white : Colors.grey[100],
                   ),
 
                   2.verticalSpace,
@@ -62,7 +65,8 @@ class BottomNavBar extends StatelessWidget {
                     'Pesanan',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: Colors.grey[100],
+                      color: (AllPageController.to.currentIndex.value == 1)
+                          ? MainColor.white : Colors.grey[100],
                     ),
                   ),
                 ],
@@ -78,7 +82,8 @@ class BottomNavBar extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.fact_check_outlined,
-                    color: Colors.grey[100],
+                    color: (AllPageController.to.currentIndex.value == 2)
+                        ? MainColor.white : Colors.grey[100],
                   ),
 
                   2.verticalSpace,
@@ -87,7 +92,8 @@ class BottomNavBar extends StatelessWidget {
                     'Checkout',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: Colors.grey[100],
+                      color: (AllPageController.to.currentIndex.value == 2)
+                          ? MainColor.white : Colors.grey[100],
                     ),
                   ),
                 ],
@@ -103,16 +109,18 @@ class BottomNavBar extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.person,
-                    color: Colors.grey[100],
+                    color: (AllPageController.to.currentIndex.value == 3)
+                        ? MainColor.white : Colors.grey[100],
                   ),
 
                   2.verticalSpace,
 
                   Text(
-                    'Beranda',
+                    'Profil',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: Colors.grey[100],
+                      color: (AllPageController.to.currentIndex.value == 3)
+                          ? MainColor.white : Colors.grey[100],
                     ),
                   ),
                 ],

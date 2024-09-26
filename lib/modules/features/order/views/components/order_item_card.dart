@@ -155,69 +155,69 @@ class OrderItemCard extends StatelessWidget {
 
                         Text(
                           DateFormat('dd MMMM yyyy', Get.locale?.countryCode)
-                              .format(DateTime.parse(order.tanggal as String)),
+                              .format(DateTime.parse(order.tanggal)),
                           style: Get.textTheme.labelMedium!.copyWith(
                             color: Colors.grey[400],
                           ),
                         ),
+                      ],
+                    ),
 
-                        14.verticalSpace,
+                    14.verticalSpace,
 
+                    Text(
+                      order.menu.map((element) => element.nama).join(', '),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      style: Get.textTheme.bodyMedium,
+                    ),
+
+                    5.verticalSpace,
+
+                    Row(
+                      children: [
                         Text(
-                          order.menu.map((element) => element.nama).join(', '),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: Get.textTheme.bodyMedium,
+                          'Rp ${order.totalBayar}',
+                          style: Get.textTheme.labelLarge!
+                              .copyWith(color: Theme.of(context).primaryColor),
                         ),
-
-                        5.verticalSpace,
-
-                        Row(
-                          children: [
-                            Text(
-                              'Rp ${order.totalBayar}',
-                              style: Get.textTheme.labelLarge!
-                                  .copyWith(color: Theme.of(context).primaryColor),
-                            ),
-                            5.horizontalSpace,
-                            Text(
-                              '(${order.menu.length} Menu)',
-                              style: Get.textTheme.labelLarge!
-                                  .copyWith(color: Colors.grey[400]),
-                            ),
-                          ],
-                        ),
-
-                        Conditional.single(
-                          context: context,
-                          conditionBuilder: (context) => order.status == 3 || order.status == 4,
-                          widgetBuilder: (context) => Wrap(
-                            spacing: 15.r,
-                            children: [
-                              if (order.status == 3)
-                                Padding(
-                                  padding: EdgeInsets.only(top: 10.r, bottom: 5.r),
-                                  child: OutlinedTittleButton.compact(
-                                    text: 'Give review'.tr,
-                                    onPressed: () => onGiveReview?.call(order.idOrder),
-                                  ),
-                                ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  top: 10.r,
-                                  bottom: 5.r,
-                                  right: order.status == 3 ? 0.r : 0.3.sw,
-                                ),
-                                child: PrimaryButtonWithTitle.compact(
-                                  title: 'Order again'.tr,
-                                  onPressed: onOrderAgain,
-                                ),
-                              ),
-                            ],
-                          ),
+                        5.horizontalSpace,
+                        Text(
+                          '(${order.menu.length} Menu)',
+                          style: Get.textTheme.labelLarge!
+                              .copyWith(color: Colors.grey[400]),
                         ),
                       ],
+                    ),
+
+                    Conditional.single(
+                      context: context,
+                      conditionBuilder: (context) => order.status == 3 || order.status == 4,
+                      widgetBuilder: (context) => Wrap(
+                        spacing: 15.r,
+                        children: [
+                          if (order.status == 3)
+                            Padding(
+                              padding: EdgeInsets.only(top: 10.r, bottom: 5.r),
+                              child: OutlinedTittleButton.compact(
+                                text: 'Give review'.tr,
+                                onPressed: () => onGiveReview?.call(order.idOrder),
+                              ),
+                            ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: 10.r,
+                              bottom: 5.r,
+                              right: order.status == 3 ? 0.r : 0.3.sw,
+                            ),
+                            child: PrimaryButtonWithTitle.compact(
+                              title: 'Order again'.tr,
+                              onPressed: onOrderAgain,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
