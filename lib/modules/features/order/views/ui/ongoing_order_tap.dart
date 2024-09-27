@@ -19,21 +19,24 @@ class OnGoingOrderTabView extends StatelessWidget {
       screenClassOverride: 'Trainee',
     );
 
-    return SmartRefresher(
-      controller: controller.refreshControllerOnGoingOrder,
-      onRefresh: controller.onRefreshOnGoingOrder,
-      onLoading: controller.onLoadingOnGoingOrder,
-      enablePullUp: controller.canLoadMore.isTrue ? true : false,
-      enablePullDown: true,
-      child: Obx(() => ListView.separated(
-        padding: EdgeInsets.all(25.r),
-        itemCount: controller.listOrder.length,
-        itemBuilder: (context, index) => OrderItemCard(
-          order: controller.listOrder[index],
-          onTap: () => Get.toNamed('${MainRoute.home}/order/${controller.allOnGoingOrder[index].idOrder}'),
-          onOrderAgain: () {},
+    return SizedBox(
+      height: 1.sh,
+      child: Obx(() => SmartRefresher(
+        controller: controller.refreshControllerOnGoingOrder,
+        onRefresh: controller.onRefreshOnGoingOrder,
+        onLoading: controller.onLoadingOnGoingOrder,
+        enablePullUp: controller.canLoadMore.isTrue ? true : false,
+        enablePullDown: true,
+        child: ListView.separated(
+          padding: EdgeInsets.all(25.r),
+          itemCount: controller.listOrder.length,
+          itemBuilder: (context, index) => OrderItemCard(
+            order: controller.listOrder[index],
+            onTap: () => Get.toNamed('${MainRoute.home}/order/${controller.allOnGoingOrder[index].idOrder}'),
+            onOrderAgain: () {},
+          ),
+          separatorBuilder: (context, index) => 16.verticalSpace,
         ),
-        separatorBuilder: (context, index) => 16.verticalSpace,
       )),
     );
   }

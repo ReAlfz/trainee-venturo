@@ -13,7 +13,7 @@ class MenuModel {
   List<dynamic> level;
   int jumlah;
   int total;
-  final String catatan;
+  String catatan;
 
   MenuModel({
     required this.idMenu,
@@ -34,12 +34,12 @@ class MenuModel {
   factory MenuModel.fromJson(Map<String, dynamic> json) {
     try {
       return MenuModel(
-        idMenu: json['id_menu'] ?? 0,
-        nama: json['nama'] ?? '',
-        kategori: json['kategori'] ?? '',
+        idMenu: json['id_menu'],
+        nama: json['nama'],
+        kategori: json['kategori'],
         harga: json['harga'] is String ? int.parse(json['harga']) : json['harga'],
         foto: json['foto'] ?? '',
-        status: json['status'] ?? 1,
+        status: json['status'],
         deskripsi: json['deskripsi'] ?? '',
         topping: _parseList(json['topping']),
         level: _parseList(json['level']),

@@ -5,7 +5,7 @@ import 'package:trainee/modules/features/chekout/controllers/checkout_controller
 import 'package:trainee/modules/features/chekout/views/components/cart_list_sliver.dart';
 import 'package:trainee/modules/features/chekout/views/components/cart_order_bottom_bar.dart';
 import 'package:trainee/shared/widgets/rounded_custom_appbar.dart';
-import 'package:trainee/modules/features/chekout/views/components/tile_option.dart';
+import 'package:trainee/shared/widgets/tile_option.dart';
 import 'package:trainee/modules/features/home/views/components/section_header.dart';
 
 class CheckoutView extends StatelessWidget {

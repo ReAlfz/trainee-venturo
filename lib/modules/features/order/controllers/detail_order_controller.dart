@@ -54,8 +54,6 @@ class DetailOrderController extends GetxController {
 
       orderDetailState('error');
     }
-
-    print(orderDetailState.value);
   }
 
   List<MenuModel> get foodItem {

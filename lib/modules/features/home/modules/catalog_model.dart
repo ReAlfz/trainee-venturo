@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:trainee/modules/features/catalog/modules/sub_catalog_model.dart';
+import 'package:trainee/modules/features/home/modules/sub_catalog_model.dart';
 import 'package:trainee/modules/global_models/menu_model.dart';
 
 class CatalogModel {

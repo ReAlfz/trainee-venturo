@@ -23,51 +23,53 @@ class HistoryOrderTapView extends StatelessWidget {
       screenClassOverride: 'Trainee',
     );
 
-    return SmartRefresher(
-      controller: controller.refreshControllerHistoryOrder,
-      onLoading: controller.onLoadingHistoryOrder,
-      onRefresh: controller.onRefreshHistoryOrder,
-      enablePullUp: controller.canLoadMore.isTrue ? true : false,
-      enablePullDown: true,
-      child: Obx(() => ConditionalSwitch.single(
-        context: context,
-        valueBuilder: (context) => controller.orderHistoryState.value,
-        caseBuilders: {},
-        fallbackBuilder: (context) => CustomScrollView(
-          physics: const ClampingScrollPhysics(),
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: DropdownStatus(
-                        items: controller.dateFilterStatus,
-                        selectedItem: controller.selectCategory.value,
-                        onChanged: (value) => controller.setDateFilter(category: value),
+    return SizedBox(
+      height: 1.sh,
+      child: Obx(() => SmartRefresher(
+        controller: controller.refreshControllerHistoryOrder,
+        onLoading: controller.onLoadingHistoryOrder,
+        onRefresh: controller.onRefreshHistoryOrder,
+        enablePullUp: controller.canLoadMore.isTrue ? true : false,
+        enablePullDown: true,
+        child: ConditionalSwitch.single(
+          context: context,
+          valueBuilder: (context) => controller.orderHistoryState.value,
+          caseBuilders: {},
+          fallbackBuilder: (context) => CustomScrollView(
+            physics: const ClampingScrollPhysics(),
+            slivers: [
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: DropdownStatus(
+                          items: controller.dateFilterStatus,
+                          selectedItem: controller.selectCategory.value,
+                          onChanged: (value) => controller.setDateFilter(category: value),
+                        ),
                       ),
-                    ),
-                    22.horizontalSpaceRadius,
-                    Expanded(
-                      child: DatePicker(
-                        selectDate: controller.selectDateRange.value,
-                        onChanged: (value) => controller.setDateFilter(range: value),
+                      22.horizontalSpaceRadius,
+                      Expanded(
+                        child: DatePicker(
+                          selectDate: controller.selectDateRange.value,
+                          onChanged: (value) => controller.setDateFilter(range: value),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-            Conditional.single(
-              context: context,
-              conditionBuilder: (context) => controller.filterHistoryOrder.isNotEmpty,
-              widgetBuilder: (context) => SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: 25.w),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) => Padding(
+              Conditional.single(
+                context: context,
+                conditionBuilder: (context) => controller.filterHistoryOrder.isNotEmpty,
+                widgetBuilder: (context) => SliverPadding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.w),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) => Padding(
                       padding: EdgeInsets.only(bottom: 16.r),
                       child: OrderItemCard(
                         order: controller.filterHistoryOrder[index],
@@ -76,14 +78,15 @@ class HistoryOrderTapView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    childCount: controller.filterHistoryOrder.length,
+                      childCount: controller.filterHistoryOrder.length,
+                    ),
                   ),
                 ),
+                fallbackBuilder: (context) => const SliverToBoxAdapter(child: SizedBox()),
               ),
-              fallbackBuilder: (context) => const SliverToBoxAdapter(child: SizedBox()),
-            ),
-          ],
-        )
+            ],
+          ),
+        ),
       )),
     );
   }

@@ -8,6 +8,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/themes/main_color.dart';
+import 'package:trainee/modules/features/profile/repositories/profile_repository.dart';
 import 'package:trainee/shared/widgets/image_picker_dialog.dart';
 
 class ProfileController extends GetxController {
@@ -19,10 +20,12 @@ class ProfileController extends GetxController {
   RxBool isVerify = false.obs;
 
   File? get imageFile => _imageFile.value;
+  late final ProfileRepository repository;
 
   @override
   void onInit() async {
     await getDeviceInformation();
+    repository = ProfileRepository();
     super.onInit();
   }
 
@@ -84,8 +87,11 @@ class ProfileController extends GetxController {
   Future<void> getDeviceInformation() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    print('device info : ${androidInfo.version}');
     deviceModel.value = androidInfo.model;
     deviceVersion.value = androidInfo.version.release;
+  }
+
+  void logout() async {
+
   }
 }

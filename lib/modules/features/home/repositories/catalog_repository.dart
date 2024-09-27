@@ -1,12 +1,11 @@
 import 'dart:developer';
 
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:trainee/modules/features/catalog/modules/catalog_model.dart';
+import 'package:trainee/modules/features/home/modules/catalog_model.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 
 class CatalogRepository {
-
   Future<CatalogModel?> fetchMenuFromApi(int id) async {
     CatalogModel catalogModel;
     final dio = DioServices.dioCall(token: GlobalController.to.session.value);

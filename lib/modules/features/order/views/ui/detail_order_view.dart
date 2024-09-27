@@ -4,7 +4,7 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_conditional_rendering/conditional_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:trainee/modules/features/chekout/views/components/tile_option.dart';
+import 'package:trainee/shared/widgets/tile_option.dart';
 import 'package:trainee/modules/features/home/views/components/section_header.dart';
 import 'package:trainee/modules/features/order/controllers/detail_order_controller.dart';
 import 'package:trainee/modules/features/order/views/components/order_list_sliver.dart';

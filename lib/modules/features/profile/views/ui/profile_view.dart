@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
-import 'package:trainee/modules/features/chekout/views/components/tile_option.dart';
+import 'package:trainee/shared/widgets/tile_option.dart';
 import 'package:trainee/modules/features/profile/controllers/profile_controller.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/shared/widgets/rounded_custom_appbar.dart';
@@ -241,6 +241,23 @@ class ProfileView extends StatelessWidget {
                     message: controller.deviceVersion.value,
                   ))
                 ],
+              ),
+            ),
+
+            15.verticalSpacingRadius,
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 5.r),
+              color: MainColor.lightColor2,
+              child: TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Logout',
+                  style: Get.textTheme.labelLarge!.copyWith(
+                    color: MainColor.danger,
+                    fontSize: 18.sp,
+                  ),
+                ),
               ),
             ),
           ],

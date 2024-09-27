@@ -28,12 +28,14 @@ class CheckoutController extends GetxController {
 
   void decreaseQty(MenuModel item) {
     if (cart.contains(item)) {
-      if (item.jumlah > 0) {
+      if (item.jumlah > 1) {
         item.jumlah--;
-        cart.add(item);
+      } else {
+        item.jumlah--;
+        cart.remove(item);
       }
-      cart.refresh();
     }
+    cart.refresh();
   }
 
   List<MenuModel> get foodItems => cart.where((element) => element.kategori == 'makanan').toList();

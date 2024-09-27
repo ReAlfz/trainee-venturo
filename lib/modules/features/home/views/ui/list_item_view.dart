@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/chekout/controllers/checkout_controller.dart';
 import 'package:trainee/modules/features/home/controllers/list_controller.dart';
@@ -158,11 +159,11 @@ class HomeListView extends StatelessWidget {
                             onTap: () => controller.pushPage(menuItem.idMenu),
                             onIncrement: () {
                               cartController.increaseQty(menuItem);
-                              controller.allListMenu.refresh();
+                              controller.listMenu.refresh();
                             },
                             onDecrement: () {
                               cartController.decreaseQty(menuItem);
-                              controller.allListMenu.refresh();
+                              controller.listMenu.refresh();
                             },
                           ),
                         ),

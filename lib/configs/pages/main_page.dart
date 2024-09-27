@@ -1,7 +1,7 @@
 import 'package:get/route_manager.dart';
 import 'package:trainee/configs/routes/main_route.dart';
-import 'package:trainee/modules/features/catalog/binddings/catalog_bindding.dart';
-import 'package:trainee/modules/features/catalog/views/ui/catalog_view.dart';
+import 'package:trainee/modules/features/home/binddings/catalog_bindding.dart';
+import 'package:trainee/modules/features/home/views/ui/catalog_view.dart';
 import 'package:trainee/modules/features/forgot_password/binddings/forgot_password_bindding.dart';
 import 'package:trainee/modules/features/forgot_password/binddings/otp_bindding.dart';
 import 'package:trainee/modules/features/forgot_password/views/ui/forgot_password_view.dart';
@@ -55,25 +55,10 @@ abstract class MainPage {
     ),
 
     GetPage(
-      name: MainRoute.catalog,
+      name: MainRoute.menuDetail,
       page: () => const CatalogView(),
       binding: CatalogBindding(),
     ),
-
-
-    // page-view //
-    // GetPage(
-    //   name: MainRoute.listHome,
-    //   page: () => const HomeListView(),
-    //   binding: HomeListBinddings(),
-    // ),
-    //
-    // GetPage(
-    //   name: MainRoute.order,
-    //   page: () => const OrderView(),
-    //   binding: OrderBindding(),
-    // ),
-    //
 
     GetPage(
       name: MainRoute.orderDetail,

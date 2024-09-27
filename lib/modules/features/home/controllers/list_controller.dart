@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
-import 'package:trainee/modules/features/catalog/repositories/catalog_repository.dart';
+import 'package:trainee/modules/features/home/repositories/catalog_repository.dart';
 import 'package:trainee/modules/global_models/menu_model.dart';
 import 'package:trainee/modules/features/home/modules/promo_item_model.dart';
 import 'package:trainee/modules/features/home/repositories/list_repository.dart';
@@ -108,19 +108,17 @@ class HomeListController extends GetxController {
   List<PromoModel> get promoList => listPromo;
   // end function for listMenu //
 
-  // push to detail //
-  void pushPage(int id) async {
-    await GlobalController.to.checkConnection(MainRoute.home);
-    final CatalogRepository repository = CatalogRepository();
-    final catalogData = await repository.fetchMenuFromApi(id);
-    if (GlobalController.to.isConnect.value == true) {
-      Get.toNamed(MainRoute.catalog, arguments: catalogData);
+  // start function for change list //
+  Future<void> pushPage(int idMenu) async {
+    final result = await Get.toNamed('${MainRoute.home}/menu/$idMenu');
+    if (result != null) {
+      print('got data!!!');
     }
   }
 
   void increaseQty(MenuModel menuModel) {
     menuModel.jumlah++;
-    allListMenu.refresh();
+    listMenu.refresh();
   }
 
   void decreaseQty(MenuModel menuModel) async {
@@ -129,6 +127,7 @@ class HomeListController extends GetxController {
     } else if (menuModel.jumlah == 1) {
       menuModel.jumlah = 0;
     }
-    allListMenu.refresh();
+    listMenu.refresh();
   }
+  // end function for change list //
 }
