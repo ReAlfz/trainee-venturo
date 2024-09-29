@@ -3,7 +3,7 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/modules/features/home/controllers/catalog_controller.dart';
+import 'package:trainee/modules/features/list_food/controllers/detail_food_controller.dart';
 
 class CatalogAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CatalogAppbar({super.key});
@@ -12,7 +12,7 @@ class CatalogAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Obx(() => Conditional.single(
       context: context,
-      conditionBuilder: (context) => CatalogController.to.catalogState.value == 'success',
+      conditionBuilder: (context) => DetailFoodController.to.catalogState.value == 'success',
       widgetBuilder: (context) => AppBar(
         backgroundColor: MainColor.white,
         elevation: 2,
@@ -23,12 +23,12 @@ class CatalogAppbar extends StatelessWidget implements PreferredSizeWidget {
           )
         ),
         title: Text(
-          CatalogController.to.catalogData!.menu.nama,
+          DetailFoodController.to.catalogData.value!.menu.nama,
           style: Get.textTheme.titleMedium,
         ),
 
         leading: IconButton(
-          onPressed: () => Get.back(result: CatalogController.to.catalogData),
+          onPressed: () => DetailFoodController.to.updateData(),
           icon: Icon(
             Icons.chevron_left,
             color: MainColor.black,

@@ -124,7 +124,7 @@ class SignInView extends StatelessWidget {
                 svgIcon: ImageConstant.ic_google,
                 bg_color: MainColor.white,
                 text_color: MainColor.black,
-                function: () => SignInController.to.requestWithGoogle(),
+                function: () => SignInController.to.signWithGoogle(),
               ),
 
               SizedBox(height: 10.h),

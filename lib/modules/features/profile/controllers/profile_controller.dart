@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/profile/repositories/profile_repository.dart';
 import 'package:trainee/shared/widgets/image_picker_dialog.dart';
@@ -92,6 +93,7 @@ class ProfileController extends GetxController {
   }
 
   void logout() async {
-
+    repository.logoutUser();
+    Get.offAllNamed(MainRoute.signIn);
   }
 }

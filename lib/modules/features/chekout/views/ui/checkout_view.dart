@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:trainee/modules/features/chekout/controllers/checkout_controller.dart';
 import 'package:trainee/modules/features/chekout/views/components/cart_list_sliver.dart';
 import 'package:trainee/modules/features/chekout/views/components/cart_order_bottom_bar.dart';
+import 'package:trainee/modules/features/list_food/views/components/section_header.dart';
 import 'package:trainee/shared/widgets/rounded_custom_appbar.dart';
 import 'package:trainee/shared/widgets/tile_option.dart';
-import 'package:trainee/modules/features/home/views/components/section_header.dart';
 
 class CheckoutView extends StatelessWidget {
   const CheckoutView({super.key});
@@ -16,7 +16,7 @@ class CheckoutView extends StatelessWidget {
     final CheckoutController controller = Get.put(CheckoutController());
     return Scaffold(
       appBar: const RoundedAppBar(
-        title: 'Order',
+        title: 'Pesanan',
         iconData: Icons.shopping_cart,
       ),
 
@@ -92,7 +92,7 @@ class CheckoutView extends StatelessWidget {
                         ),
                       ),
 
-                      Divider(color: Colors.black54, height: 2.h),
+                      const Divider(color: Colors.grey, thickness: 0.5),
 
                       TileOption(
                         title: 'Discount',
@@ -104,6 +104,8 @@ class CheckoutView extends StatelessWidget {
                           color: Theme.of(context).colorScheme.error,
                         ),
                       ),
+
+                      const Divider(color: Colors.grey, thickness: 0.5),
 
                       TileOption(
                         title: 'Payment',

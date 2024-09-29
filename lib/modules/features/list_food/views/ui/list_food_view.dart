@@ -2,33 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/chekout/controllers/checkout_controller.dart';
-import 'package:trainee/modules/features/home/controllers/list_controller.dart';
+import 'package:trainee/modules/features/list_food/controllers/list_food_controller.dart';
+import 'package:trainee/modules/features/list_food/views/components/menu_chip.dart';
+import 'package:trainee/modules/features/list_food/views/components/promo_card.dart';
+import 'package:trainee/modules/features/list_food/views/components/search_app_bar.dart';
+import 'package:trainee/modules/features/list_food/views/components/section_header.dart';
 import 'package:trainee/shared/widgets/menu_card.dart';
-import 'package:trainee/modules/features/home/views/components/menu_chip.dart';
-import 'package:trainee/modules/features/home/views/components/promo_card.dart';
-import 'package:trainee/modules/features/home/views/components/search_app_bar.dart';
-import 'package:trainee/modules/features/home/views/components/section_header.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class HomeListView extends StatelessWidget {
-  const HomeListView({super.key});
+class ListFoodView extends StatelessWidget {
+  const ListFoodView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final HomeListController controller = Get.put(HomeListController());
-    final CheckoutController cartController = Get.put(CheckoutController());
-    final List<IconData> categoryIcon = [
-      Icons.list_alt_outlined,
-      Icons.fastfood_outlined,
-      Icons.coffee_outlined,
-    ];
-
     return Scaffold(
       appBar: SearchAppBar(
-        onChange: (value) => controller.keyword(value),
+        onChange: (value) => ListFoodController.to.keyword(value),
       ),
       body: NestedScrollView(
         physics: const ClampingScrollPhysics(),
@@ -38,7 +29,7 @@ class HomeListView extends StatelessWidget {
             const SliverToBoxAdapter(
               child: SectionHeader(
                 icon: Icons.note_alt_outlined,
-                title: 'Available promo',
+                title: 'Promo yang tersedia',
               ),
             ),
 
@@ -52,10 +43,10 @@ class HomeListView extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.symmetric(horizontal: 25.w),
-                    itemCount: controller.promoList.length,
+                    itemCount: ListFoodController.to.promoList.length,
                     separatorBuilder: (context, index) => 26.horizontalSpace,
                     itemBuilder: (context, index) {
-                      final promo = controller.promoList[index];
+                      final promo = ListFoodController.to.promoList[index];
                       return PromoCard(
                         enableShadow: false,
                         promo: promo,
@@ -74,14 +65,14 @@ class HomeListView extends StatelessWidget {
                 height: 45.h,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemCount: controller.categories.length,
+                  itemCount: ListFoodController.to.categories.length,
                   padding: EdgeInsets.symmetric(horizontal: 25.w),
                   itemBuilder: (context, index) {
-                    final category = controller.categories[index];
+                    final category = ListFoodController.to.categories[index];
                     return Obx(() => MenuChip(
-                      onTap: () => controller.selectCategory(category.toLowerCase()),
-                      isSelected: controller.selectCategory.value == category.toLowerCase(),
-                      iconData: categoryIcon[index],
+                      onTap: () => ListFoodController.to.selectCategory(category.toLowerCase()),
+                      isSelected: ListFoodController.to.selectCategory.value == category.toLowerCase(),
+                      iconData: ListFoodController.to.categoryIcon[index],
                       text: category,
                     ));
                   },
@@ -97,7 +88,7 @@ class HomeListView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Obx(() {
-              final currentCategory = controller.selectCategory.value;
+              final currentCategory = ListFoodController.to.selectCategory.value;
               return Container(
                 width: 1.sw,
                 height: 35.h,
@@ -108,30 +99,33 @@ class HomeListView extends StatelessWidget {
                       ? 'Semua Menu'
                       : (currentCategory == 'makanan')
                       ? 'Makanan'
-                      : 'Minuman',
+                      : (currentCategory == 'minuman')
+                      ? 'Minuman' : 'Snack',
 
                   icon: (currentCategory == 'semua')
                       ? Icons.menu_book
                       : (currentCategory == 'makanan')
                       ? Icons.food_bank
-                      : Icons.local_drink,
+                      : (currentCategory == 'minuman')
+                      ? Icons.local_drink : Icons.no_food_outlined,
                 ),
               );
             }),
 
             Expanded(
               child: Obx(() => SmartRefresher(
-                controller: controller.refreshController,
-                onRefresh: controller.onRefresh,
-                onLoading: controller.onLoading,
-                enablePullUp: controller.canLoadMore.isTrue ? true : false,
+                controller: ListFoodController.to.refreshController,
+                onRefresh: ListFoodController.to.onRefresh,
+                onLoading: ListFoodController.to.onLoading,
+                enablePullUp: ListFoodController.to.canLoadMore.isTrue ? true : false,
                 enablePullDown: true,
                 child: ListView.builder(
-                  itemCount: controller.filteredList.length,
+                  itemCount: ListFoodController.to.filteredList.length,
                   itemExtent: 122.h,
                   padding: EdgeInsets.symmetric(horizontal: 25.w),
                   itemBuilder: (context, index) {
-                    final menuItem = controller.filteredList[index];
+                    final menuItem = ListFoodController.to.filteredList[index];
+                    final cartController = Get.put(CheckoutController());
                     return Padding(
                       padding: EdgeInsets.symmetric(vertical: 8.5.h),
                       child: Slidable(
@@ -139,7 +133,7 @@ class HomeListView extends StatelessWidget {
                           motion: const ScrollMotion(),
                           children: [
                             SlidableAction(
-                              onPressed: (context) => controller.deleteItem(menuItem),
+                              onPressed: (context) => ListFoodController.to.deleteItem(menuItem),
                               borderRadius: BorderRadius.horizontal(
                                   right: Radius.circular(10.r)
                               ),
@@ -156,14 +150,14 @@ class HomeListView extends StatelessWidget {
                           elevation: 2,
                           child: MenuCard(
                             menu: menuItem,
-                            onTap: () => controller.pushPage(menuItem.idMenu),
+                            onTap: () => ListFoodController.to.pushPage(menuItem),
                             onIncrement: () {
                               cartController.increaseQty(menuItem);
-                              controller.listMenu.refresh();
+                              ListFoodController.to.listMenu.refresh();
                             },
                             onDecrement: () {
                               cartController.decreaseQty(menuItem);
-                              controller.listMenu.refresh();
+                              ListFoodController.to.listMenu.refresh();
                             },
                           ),
                         ),

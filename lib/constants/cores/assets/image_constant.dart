@@ -10,4 +10,8 @@ class ImageConstant {
   static const String ic_review = 'assets/svgs/ic_review.svg';
   static const String ic_ktp = 'assets/svgs/ic_ktp.svg';
 
+  static const String ic_catatan = 'assets/svgs/detail_order/ic_catatan.svg';
+  static const String ic_harga = 'assets/svgs/detail_order/ic_harga.svg';
+  static const String ic_level = 'assets/svgs/detail_order/ic_level.svg';
+  static const String ic_topping = 'assets/svgs/detail_order/ic_topping.svg';
 }

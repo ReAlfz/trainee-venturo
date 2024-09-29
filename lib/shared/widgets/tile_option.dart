@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TileOption extends StatelessWidget {
   final IconData? icon;
+  final String? svgPicture;
   final String title;
   final String? subtitle;
   final String message;
@@ -20,6 +22,7 @@ class TileOption extends StatelessWidget {
   const TileOption({
     super.key,
     this.icon,
+    this.svgPicture,
     required this.title,
     this.subtitle,
     required this.message,
@@ -44,15 +47,16 @@ class TileOption extends StatelessWidget {
           child: Row(
             children: [
               if (icon != null)
-                Container(
-                  constraints: BoxConstraints(
-                    minWidth: (iconSize ??  20.r) * 2,
-                  ),
-                  child: Icon(
-                    icon,
-                    size: iconSize ?? 20.r,
-                  ),
+                Icon(
+                  icon,
+                  size: iconSize ?? 20.r,
                 ),
+
+              if (svgPicture != null)
+                SvgPicture.asset(svgPicture!),
+
+              if (icon != null || svgPicture != null)
+                10.horizontalSpaceRadius,
 
               Text(
                 title,
@@ -71,6 +75,7 @@ class TileOption extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       message,
@@ -96,9 +101,9 @@ class TileOption extends StatelessWidget {
               ),
 
               if (onTap != null)
-                Icon(
+                const Icon(
                   Icons.chevron_right,
-                  color: Colors.grey[300],
+                  color: Colors.black54,
                 ),
             ],
           ),

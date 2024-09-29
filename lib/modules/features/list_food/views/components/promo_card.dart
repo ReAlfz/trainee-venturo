@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/modules/features/home/modules/promo_item_model.dart';
+import 'package:trainee/modules/features/list_food/modules/promo_item_model.dart';
 
 class PromoCard extends StatelessWidget {
   final bool? enableShadow;

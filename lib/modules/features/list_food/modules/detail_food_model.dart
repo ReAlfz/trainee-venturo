@@ -1,23 +1,23 @@
 import 'dart:developer';
 
-import 'package:trainee/modules/features/home/modules/sub_catalog_model.dart';
-import 'package:trainee/modules/global_models/menu_model.dart';
+import 'package:trainee/modules/features/list_food/modules/detail_menu_model.dart';
+import 'package:trainee/modules/features/list_food/modules/sub_catalog_model.dart';
 
-class CatalogModel {
-  final MenuModel menu;
+class DetailFoodModel {
+  final DetailMenuModel menu;
   final List<SubCatalogModel> topping;
   final List<SubCatalogModel> level;
 
-  CatalogModel({
+  DetailFoodModel({
     required this.menu,
     required this.level,
     required this.topping,
   });
 
-  factory CatalogModel.fromJson(Map<String, dynamic> json) {
+  factory DetailFoodModel.fromJson(Map<String, dynamic> json) {
     try {
-      return CatalogModel(
-        menu: MenuModel.fromJson(json['menu']),
+      return DetailFoodModel(
+        menu: DetailMenuModel.fromJson(json['menu']),
         level: List<SubCatalogModel>.from(json['level'].map((x) => SubCatalogModel.fromJson(x))),
         topping: List<SubCatalogModel>.from(json['topping'].map((x) => SubCatalogModel.fromJson(x))),
       );

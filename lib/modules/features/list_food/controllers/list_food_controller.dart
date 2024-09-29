@@ -1,16 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
-import 'package:trainee/modules/features/home/repositories/catalog_repository.dart';
+import 'package:trainee/modules/features/chekout/controllers/checkout_controller.dart';
 import 'package:trainee/modules/global_models/menu_model.dart';
-import 'package:trainee/modules/features/home/modules/promo_item_model.dart';
-import 'package:trainee/modules/features/home/repositories/list_repository.dart';
-import 'package:trainee/modules/features/home/repositories/promo_repository.dart';
-import 'package:trainee/modules/global_controllers/global_controller.dart';
+import 'package:trainee/modules/features/list_food/modules/promo_item_model.dart';
+import 'package:trainee/modules/features/list_food/repositories/list_repository.dart';
+import 'package:trainee/modules/features/list_food/repositories/promo_repository.dart';
 
-class HomeListController extends GetxController {
-  static HomeListController get to => Get.find();
+class ListFoodController extends GetxController {
+  static ListFoodController get to => Get.find();
 
   late final ListRepository listRepository;
   final RxList<MenuModel> allListMenu = <MenuModel>[].obs;
@@ -23,9 +23,17 @@ class HomeListController extends GetxController {
   final RxString keyword = ''.obs;
 
   final List<String> categories = [
-    'semua',
-    'makanan',
-    'minuman',
+    'Semua',
+    'Makanan',
+    'Minuman',
+    'Snack',
+  ];
+
+  final List<IconData> categoryIcon = [
+    Icons.list_alt_outlined,
+    Icons.fastfood_outlined,
+    Icons.coffee_outlined,
+    Icons.no_food_outlined
   ];
 
   @override
@@ -109,25 +117,31 @@ class HomeListController extends GetxController {
   // end function for listMenu //
 
   // start function for change list //
-  Future<void> pushPage(int idMenu) async {
-    final result = await Get.toNamed('${MainRoute.home}/menu/$idMenu');
-    if (result != null) {
-      print('got data!!!');
+  Future<void> pushPage(MenuModel menu) async {
+    try {
+      final result = await Get.toNamed(
+        '${MainRoute.home}/food/${menu.idMenu}',
+        arguments: menu,
+      );
+      if (result != null) {
+        MenuModel data = result as MenuModel;
+        int menuIndex = listMenu.indexWhere((element) => element.idMenu == data.idMenu);
+        listMenu[menuIndex] = data;
+
+        int cartIndex = CheckoutController.to.cart.indexWhere((element) => element.idMenu == data.idMenu);
+        if (cartIndex != -1) {
+          (data.jumlah > 0)
+              ? CheckoutController.to.cart[cartIndex] = data
+              : CheckoutController.to.cart.removeAt(cartIndex);
+
+        } else {
+          if (data.jumlah > 0) {
+            CheckoutController.to.cart.add(data);
+          }
+        }
+      }
+    } catch (e, stacktrace) {
+      await Sentry.captureException(e, stackTrace: stacktrace);
     }
   }
-
-  void increaseQty(MenuModel menuModel) {
-    menuModel.jumlah++;
-    listMenu.refresh();
-  }
-
-  void decreaseQty(MenuModel menuModel) async {
-    if (menuModel.jumlah > 1) {
-      menuModel.jumlah--;
-    } else if (menuModel.jumlah == 1) {
-      menuModel.jumlah = 0;
-    }
-    listMenu.refresh();
-  }
-  // end function for change list //
 }

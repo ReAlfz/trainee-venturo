@@ -27,13 +27,11 @@ class CheckoutController extends GetxController {
   }
 
   void decreaseQty(MenuModel item) {
-    if (cart.contains(item)) {
-      if (item.jumlah > 1) {
-        item.jumlah--;
-      } else {
-        item.jumlah--;
-        cart.remove(item);
-      }
+    if (item.jumlah > 1) {
+      item.jumlah--;
+    } else {
+      item.jumlah--;
+      cart.remove(item);
     }
     cart.refresh();
   }

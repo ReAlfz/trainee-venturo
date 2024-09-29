@@ -9,8 +9,8 @@ class MenuModel {
 
   final int status;
   final String deskripsi;
-  List<dynamic> topping;
-  List<dynamic> level;
+  List<int> topping;
+  int level;
   int jumlah;
   int total;
   String catatan;
@@ -34,15 +34,15 @@ class MenuModel {
   factory MenuModel.fromJson(Map<String, dynamic> json) {
     try {
       return MenuModel(
-        idMenu: json['id_menu'],
-        nama: json['nama'],
-        kategori: json['kategori'],
+        idMenu: json['id_menu'] ?? 0,
+        nama: json['nama'] ?? '',
+        kategori: json['kategori'] ?? '',
         harga: json['harga'] is String ? int.parse(json['harga']) : json['harga'],
         foto: json['foto'] ?? '',
-        status: json['status'],
+        status: json['status'] ?? 1,
         deskripsi: json['deskripsi'] ?? '',
-        topping: _parseList(json['topping']),
-        level: _parseList(json['level']),
+        topping: json['topping'] ?? [],
+        level: json['level'] ?? 1,
         jumlah: json['jumlah'] ?? 0,
         total: json['total'] ?? 0,
         catatan: json['catatan'] ?? '',
@@ -51,17 +51,6 @@ class MenuModel {
       log('Error parsing MenuItems from JSON: $e', name: 'PARSING JSON');
       log('Stack MenuItems trace: $stacktrace', name: 'PARSING JSON');
       rethrow;
-    }
-  }
-
-  static List<dynamic> _parseList(dynamic value) {
-    if (value is String || value == null) {
-      return [];
-    } else if (value is List) {
-      return value;
-    } else {
-      log('Error parsing MenuItems from JSON: $value', name: 'PARSING JSON');
-      throw Exception('Unexpected type for list parsing');
     }
   }
 }

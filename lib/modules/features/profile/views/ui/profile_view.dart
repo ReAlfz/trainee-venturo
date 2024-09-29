@@ -150,15 +150,15 @@ class ProfileView extends StatelessWidget {
               child: Column(
                 children: [
                   TileOption(title: 'Name'.tr, message: user.nama),
-                  const Divider(),
+                  const Divider(thickness: 0.5),
                   TileOption(title: 'Birth date'.tr, message: "01/02/2003"),
-                  const Divider(),
+                  const Divider(thickness: 0.5),
                   TileOption(title: 'Phone number'.tr, message: "088888888888"),
-                  const Divider(),
+                  const Divider(thickness: 0.5),
                   TileOption(title: 'Email'.tr, message: user.email),
-                  const Divider(),
+                  const Divider(thickness: 0.5),
                   TileOption(title: 'Change PIN'.tr, message: "******"),
-                  const Divider(),
+                  const Divider(thickness: 0.5),
                   TileOption(title: 'Change language'.tr, message: "English")
                 ],
               ),
@@ -235,7 +235,7 @@ class ProfileView extends StatelessWidget {
                     title: 'Device Info',
                     message: controller.deviceModel.value,
                   )),
-                  const Divider(),
+                  const Divider(thickness: 0.5),
                   Obx(() => TileOption(
                     title: 'Device Version',
                     message: controller.deviceVersion.value,
@@ -250,7 +250,7 @@ class ProfileView extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 5.r),
               color: MainColor.lightColor2,
               child: TextButton(
-                onPressed: () {},
+                onPressed: ProfileController.to.logout,
                 child: Text(
                   'Logout',
                   style: Get.textTheme.labelLarge!.copyWith(

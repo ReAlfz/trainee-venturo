@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:trainee/modules/features/home/modules/catalog_model.dart';
+import 'package:trainee/modules/features/list_food/modules/detail_food_model.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 
-class CatalogRepository {
-  Future<CatalogModel?> fetchMenuFromApi(int id) async {
-    CatalogModel catalogModel;
+class DetailFoodRepository {
+  Future<DetailFoodModel?> fetchMenuFromApi(int id) async {
+    DetailFoodModel catalogModel;
     final dio = DioServices.dioCall(token: GlobalController.to.session.value);
     final url = 'menu/detail/$id';
 
@@ -16,7 +16,7 @@ class CatalogRepository {
       if (response.statusCode == 200) {
         final responseData = response.data;
         if (responseData['status_code'] == 200) {
-          catalogModel = CatalogModel.fromJson(responseData['data']);
+          catalogModel = DetailFoodModel.fromJson(responseData['data']);
           return catalogModel;
         }
 

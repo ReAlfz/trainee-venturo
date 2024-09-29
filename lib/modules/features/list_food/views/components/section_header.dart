@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
   final Color? color;
+  final String? svgIcon;
   final IconData? icon;
 
-  const SectionHeader({super.key, required this.title, this.color, this.icon});
+  const SectionHeader({super.key, required this.title, this.color, this.icon, this.svgIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +18,19 @@ class SectionHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Icon(
-            icon,
-            size: 28.r,
-            color: color ?? Theme.of(context).primaryColor,
-          ),
+          if (icon != null)
+            Icon(
+              icon,
+              size: 28.r,
+              color: color ?? Theme.of(context).primaryColor,
+            ),
+
+          if (svgIcon != null)
+            SvgPicture.asset(
+              svgIcon!,
+              height: 28.r,
+              width: 28.r,
+            ),
 
           10.horizontalSpace,
           

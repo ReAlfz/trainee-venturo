@@ -63,12 +63,14 @@ class OrderItemCard extends StatelessWidget {
                       imageUrl: order.menu.isNotEmpty
                           ? order.menu.first.foto
                           : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
-                      errorWidget: (context, url, error) => CachedNetworkImage(
-                        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
-                        fit: BoxFit.contain,
-                        height: 75.h,
-                        width: 75.w,
-                      ),
+                      errorWidget: (context, url, error) {
+                        return CachedNetworkImage(
+                          imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
+                          fit: BoxFit.contain,
+                          height: 75.h,
+                          width: 75.w,
+                        );
+                      }
                     ),
                   ),
                 ),

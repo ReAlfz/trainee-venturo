@@ -1,21 +1,14 @@
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/api/api_constant.dart';
-import 'package:trainee/modules/features/sign_in/modules/user_model.dart';
+import 'package:trainee/modules/features/sign_in/repositories/sign_repository.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/shared/styles/google_text_style.dart';
-import 'package:trainee/utils/services/dio_service.dart';
-import 'package:trainee/utils/services/session_services.dart';
 
 class SignInController extends GetxController {
   static SignInController get to => Get.find();
@@ -29,9 +22,11 @@ class SignInController extends GetxController {
 
   var isPassword = true.obs;
   var isRememberMe = false.obs;
+  late final SignRepository repository;
 
   void showPassword() => isPassword.value = !isPassword.value;
   void forgetPasswordPush() => Get.toNamed(MainRoute.forgotPassword);
+  void signWithGoogle() async => await repository.requestWithGoogle();
 
   @override
   void onClose() {
@@ -40,8 +35,13 @@ class SignInController extends GetxController {
     super.onClose();
   }
 
-  // validate textfield with form //
+  @override
+  void onInit() {
+    repository = SignRepository();
+    super.onInit();
+  }
 
+  // validate textfield with form //
   void validateForm(context) async {
     await GlobalController.to.checkConnection(MainRoute.signIn);
 
@@ -56,7 +56,10 @@ class SignInController extends GetxController {
       );
 
       formKey.currentState!.save();
-      bool checkAuth = await requestAuth();
+      bool checkAuth = await repository.requestAuth(
+        email: emailCtrl.text, password: passwordCtrl.text,
+      );
+
       if (checkAuth) {
         EasyLoading.dismiss();
         Get.offAllNamed(MainRoute.home);
@@ -77,74 +80,7 @@ class SignInController extends GetxController {
     }
   }
 
-  // Sign in with google //
-
-  Future<bool> requestWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      return true;
-    } catch (exception, stackTrace) {
-      await Sentry.captureException(
-        exception,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return false;
-  }
-
-  // Sign in with api //
-
-  Future<bool> requestAuth() async {
-    final SessionService sessionService = SessionService();
-    final dio = DioServices.dioCall();
-    const url = '/auth/login';
-    final data = {'email': emailCtrl.text, 'password': passwordCtrl.text};
-
-    try {
-      final response = await dio.post(url, data: data);
-
-      if (response.statusCode == 200) {
-        Map<String, dynamic> responseData = response.data;
-        int statusCode = responseData['status_code'];
-        if (statusCode == 200) {
-          UserModel userData = UserModel.fromJson(responseData['data']['user']);
-
-          sessionService.saveUser('user', userData);
-          GlobalController.to.user(userData);
-
-          sessionService.saveToken('token', responseData['data']['token']);
-          GlobalController.to.session.value = responseData['data']['token'];
-
-          log('Login Success');
-          log('Response body: ${response.data}');
-          return true;
-        }
-
-      } else {
-        log('Login failed with status: ${response.statusCode}');
-        log('Response body: ${response.data}');
-      }
-
-    } catch (exception, stackTrace) {
-      await Sentry.captureException(
-        exception,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return false;
-  }
-
   // change api //
-
   void flavorSetting() async {
     Get.bottomSheet(
       Obx(() => Wrap(

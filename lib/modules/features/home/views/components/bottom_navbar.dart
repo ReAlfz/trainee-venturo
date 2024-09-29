@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/modules/features/page_view/controllers/all_page_controller.dart';
+import 'package:trainee/modules/features/home/controllers/home_controller.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -22,13 +22,13 @@ class BottomNavBar extends StatelessWidget {
         children: [
           Expanded(
             child: InkWell(
-              onTap: () => AllPageController.to.changePage(0),
+              onTap: () => HomeController.to.changePage(0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.home,
-                    color: (AllPageController.to.currentIndex.value == 0)
+                    color: (HomeController.to.currentIndex.value == 0)
                         ? MainColor.white : Colors.grey[100],
                   ),
 
@@ -38,7 +38,7 @@ class BottomNavBar extends StatelessWidget {
                     'Beranda',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: (AllPageController.to.currentIndex.value == 0)
+                      color: (HomeController.to.currentIndex.value == 0)
                           ? MainColor.white : Colors.grey[100],
                     ),
                   ),
@@ -49,13 +49,13 @@ class BottomNavBar extends StatelessWidget {
 
           Expanded(
             child: InkWell(
-              onTap: () => AllPageController.to.changePage(1),
+              onTap: () => HomeController.to.changePage(1),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.bakery_dining_rounded,
-                    color: (AllPageController.to.currentIndex.value == 1)
+                    color: (HomeController.to.currentIndex.value == 1)
                         ? MainColor.white : Colors.grey[100],
                   ),
 
@@ -65,7 +65,7 @@ class BottomNavBar extends StatelessWidget {
                     'Pesanan',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: (AllPageController.to.currentIndex.value == 1)
+                      color: (HomeController.to.currentIndex.value == 1)
                           ? MainColor.white : Colors.grey[100],
                     ),
                   ),
@@ -76,13 +76,13 @@ class BottomNavBar extends StatelessWidget {
 
           Expanded(
             child: InkWell(
-              onTap: () => AllPageController.to.changePage(2),
+              onTap: () => HomeController.to.changePage(2),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.fact_check_outlined,
-                    color: (AllPageController.to.currentIndex.value == 2)
+                    color: (HomeController.to.currentIndex.value == 2)
                         ? MainColor.white : Colors.grey[100],
                   ),
 
@@ -92,7 +92,7 @@ class BottomNavBar extends StatelessWidget {
                     'Checkout',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: (AllPageController.to.currentIndex.value == 2)
+                      color: (HomeController.to.currentIndex.value == 2)
                           ? MainColor.white : Colors.grey[100],
                     ),
                   ),
@@ -103,13 +103,13 @@ class BottomNavBar extends StatelessWidget {
 
           Expanded(
             child: InkWell(
-              onTap: () => AllPageController.to.changePage(3),
+              onTap: () => HomeController.to.changePage(3),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.person,
-                    color: (AllPageController.to.currentIndex.value == 3)
+                    color: (HomeController.to.currentIndex.value == 3)
                         ? MainColor.white : Colors.grey[100],
                   ),
 
@@ -119,7 +119,7 @@ class BottomNavBar extends StatelessWidget {
                     'Profil',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: (AllPageController.to.currentIndex.value == 3)
+                      color: (HomeController.to.currentIndex.value == 3)
                           ? MainColor.white : Colors.grey[100],
                     ),
                   ),
