@@ -14,4 +14,9 @@ class ImageConstant {
   static const String ic_harga = 'assets/svgs/detail_order/ic_harga.svg';
   static const String ic_level = 'assets/svgs/detail_order/ic_level.svg';
   static const String ic_topping = 'assets/svgs/detail_order/ic_topping.svg';
+
+  static const String ic_discount = 'assets/svgs/checkout/ic_discount.svg';
+  static const String ic_payment_method = 'assets/svgs/checkout/ic_payment.svg';
+  static const String ic_total_payment = 'assets/svgs/checkout/ic_total_payment.svg';
+  static const String ic_voucher = 'assets/svgs/checkout/ic_voucher.svg';
 }

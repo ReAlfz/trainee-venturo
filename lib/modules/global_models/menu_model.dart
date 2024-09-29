@@ -41,7 +41,7 @@ class MenuModel {
         foto: json['foto'] ?? '',
         status: json['status'] ?? 1,
         deskripsi: json['deskripsi'] ?? '',
-        topping: json['topping'] ?? [],
+        topping: (json['topping'] is String) ? [] : json['topping'] ?? [],
         level: json['level'] ?? 1,
         jumlah: json['jumlah'] ?? 0,
         total: json['total'] ?? 0,

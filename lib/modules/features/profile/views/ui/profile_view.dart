@@ -15,7 +15,6 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProfileController controller = Get.put(ProfileController());
     final user = GlobalController.to.user.value!;
     return Scaffold(
       appBar: const RoundedAppBar(
@@ -43,9 +42,9 @@ class ProfileView extends StatelessWidget {
                   children: [
                     Obx(() => Conditional.single(
                       context: context,
-                      conditionBuilder: (context) => controller.imageFile != null,
+                      conditionBuilder: (context) => ProfileController.to.imageFile != null,
                       widgetBuilder: (context) => Image.file(
-                        controller.imageFile!,
+                        ProfileController.to.imageFile!,
                         width: 170.r,
                         height: 170.r,
                         fit: BoxFit.cover,
@@ -63,7 +62,7 @@ class ProfileView extends StatelessWidget {
                       child: Material(
                         color: MainColor.primary,
                         child: InkWell(
-                          onTap: controller.pickImage,
+                          onTap: ProfileController.to.pickImage,
                           child: Container(
                             width: double.infinity,
                             padding: EdgeInsets.only(top: 10.r, bottom: 15.r),
@@ -87,7 +86,7 @@ class ProfileView extends StatelessWidget {
             
             Obx(() => Conditional.single(
               context: context,
-              conditionBuilder: (context) => controller.isVerify.value != false,
+              conditionBuilder: (context) => ProfileController.to.isVerify.value != false,
               widgetBuilder: (context) => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -108,7 +107,7 @@ class ProfileView extends StatelessWidget {
                 ],
               ),
               fallbackBuilder: (context) => InkWell(
-                onTap: controller.pickFile,
+                onTap: ProfileController.to.pickFile,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -233,12 +232,12 @@ class ProfileView extends StatelessWidget {
                 children: [
                   Obx(() => TileOption(
                     title: 'Device Info',
-                    message: controller.deviceModel.value,
+                    message: ProfileController.to.deviceModel.value,
                   )),
                   const Divider(thickness: 0.5),
                   Obx(() => TileOption(
                     title: 'Device Version',
-                    message: controller.deviceVersion.value,
+                    message: ProfileController.to.deviceVersion.value,
                   ))
                 ],
               ),

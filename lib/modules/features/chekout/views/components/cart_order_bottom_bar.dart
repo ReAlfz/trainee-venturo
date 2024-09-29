@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
+import 'package:trainee/constants/cores/assets/image_constant.dart';
 
 class CartOrderBottomBar extends StatelessWidget {
   final VoidCallback? onOrderPressed;
@@ -27,9 +29,8 @@ class CartOrderBottomBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
 
-          Icon(
-            Icons.shopping_cart_outlined,
-            size: 35.r,
+          SvgPicture.asset(
+            ImageConstant.ic_total_payment,
           ),
 
           9.horizontalSpace,

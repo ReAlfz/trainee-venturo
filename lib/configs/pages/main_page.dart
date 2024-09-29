@@ -79,15 +79,15 @@ abstract class MainPage {
         ),
 
         GetPage(
-            name: MainRoute.checkout,
-            page: () => const CheckoutView(),
-            binding: CheckoutBindding()
+          name: MainRoute.checkout,
+          page: () => const CheckoutView(),
+          binding: CheckoutBindding(),
         ),
 
         GetPage(
-            name: MainRoute.profile,
-            page: () => const ProfileView(),
-            binding: ProfileBindding()
+          name: MainRoute.profile,
+          page: () => const ProfileView(),
+          binding: ProfileBindding(),
         ),
       ]
     ),

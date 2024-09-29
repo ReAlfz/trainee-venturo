@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trainee/constants/cores/assets/image_constant.dart';
 import 'package:trainee/modules/features/chekout/controllers/checkout_controller.dart';
 import 'package:trainee/modules/features/chekout/views/components/cart_list_sliver.dart';
 import 'package:trainee/modules/features/chekout/views/components/cart_order_bottom_bar.dart';
@@ -13,7 +14,6 @@ class CheckoutView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CheckoutController controller = Get.put(CheckoutController());
     return Scaffold(
       appBar: const RoundedAppBar(
         title: 'Pesanan',
@@ -27,7 +27,7 @@ class CheckoutView extends StatelessWidget {
               physics: const ClampingScrollPhysics(),
               slivers: [
                 SliverToBoxAdapter(child: 28.verticalSpace),
-                if (controller.foodItems.isNotEmpty) ...[
+                if (CheckoutController.to.foodItems.isNotEmpty) ...[
                   SliverToBoxAdapter(
                     child: SectionHeader(
                       icon: Icons.food_bank_outlined,
@@ -36,15 +36,14 @@ class CheckoutView extends StatelessWidget {
                     ),
                   ),
                   SliverPadding(
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 25.w, vertical: 8.h),
+                    padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 8.h),
                     sliver: CartListSliver(
-                      cart: controller.foodItems,
+                      cart: CheckoutController.to.foodItems,
                     ),
                   )
                 ],
                 SliverToBoxAdapter(child: 17.verticalSpace),
-                if (controller.drinkItems.isNotEmpty) ...[
+                if (CheckoutController.to.drinkItems.isNotEmpty) ...[
                   SliverToBoxAdapter(
                     child: SectionHeader(
                       icon: Icons.local_drink_outlined,
@@ -53,10 +52,9 @@ class CheckoutView extends StatelessWidget {
                     ),
                   ),
                   SliverPadding(
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 25.w, vertical: 8.h),
+                    padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 8.h),
                     sliver: CartListSliver(
-                      cart: controller.drinkItems,
+                      cart: CheckoutController.to.drinkItems,
                     ),
                   )
                 ],
@@ -66,10 +64,10 @@ class CheckoutView extends StatelessWidget {
 
           Obx(() => Container(
             decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(30.r),
-                )
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(30.r),
+              ),
             ),
 
             child: Column(
@@ -83,12 +81,12 @@ class CheckoutView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TileOption(
-                        title: 'Total Orders',
-                        message: 'Rp. ${controller.totalPrice.toString()}',
-                        icon: Icons.payment_outlined,
+                        title: 'Total Pesanan (${CheckoutController.to.cart.length} Menu) :',
+                        message: 'Rp ${CheckoutController.to.totalPrice.toString()}',
                         titleStyle: Get.textTheme.bodyLarge,
                         messageStyle: Get.textTheme.bodyLarge!.copyWith(
                           color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
 
@@ -96,13 +94,26 @@ class CheckoutView extends StatelessWidget {
 
                       TileOption(
                         title: 'Discount',
-                        message: 'Rp. ${controller.discountPrice.toString()}',
-                        iconSize: 24.r,
-                        icon: Icons.discount_outlined,
+                        message: 'Rp ${CheckoutController.to.discountPrice.toString()}',
+                        svgPicture: ImageConstant.ic_discount,
                         titleStyle: Get.textTheme.bodyLarge,
                         messageStyle: Get.textTheme.bodyLarge!.copyWith(
                           color: Theme.of(context).colorScheme.error,
                         ),
+                        onTap: () {},
+                      ),
+
+                      const Divider(color: Colors.grey, thickness: 0.5),
+
+                      TileOption(
+                        title: 'Voucher',
+                        message: 'Rp ${CheckoutController.to.discountPrice.toString()}',
+                        svgPicture: ImageConstant.ic_voucher,
+                        titleStyle: Get.textTheme.bodyLarge,
+                        messageStyle: Get.textTheme.bodyLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                        onTap: () {},
                       ),
 
                       const Divider(color: Colors.grey, thickness: 0.5),
@@ -110,7 +121,7 @@ class CheckoutView extends StatelessWidget {
                       TileOption(
                         title: 'Payment',
                         message: 'Pay later',
-                        icon: Icons.payment_outlined,
+                        svgPicture: ImageConstant.ic_payment_method,
                         titleStyle: Get.textTheme.bodyLarge,
                         messageStyle: Get.textTheme.bodyLarge,
                       ),
@@ -119,8 +130,8 @@ class CheckoutView extends StatelessWidget {
                 ),
 
                 CartOrderBottomBar(
-                  totalPrice: 'Rp. ${controller.grandTotal}',
-                  onOrderPressed: controller.verify,
+                  totalPrice: 'Rp. ${CheckoutController.to.grandTotal}',
+                  onOrderPressed: CheckoutController.to.verify,
                 ),
               ],
             ),
