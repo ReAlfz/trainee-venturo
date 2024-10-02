@@ -31,35 +31,37 @@ class ListFoodView extends StatelessWidget {
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverToBoxAdapter(child: 22.verticalSpace),
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: SectionHeader(
                 icon: Icons.note_alt_outlined,
-                title: 'Promo yang tersedia',
+                title: 'Promo Available'.tr,
               ),
             ),
 
             // Promo card //
             SliverToBoxAdapter(child: 22.verticalSpace),
             SliverToBoxAdapter(
-                child: Obx(() => SizedBox(
-                      width: 1.sw,
-                      height: 188.h,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(horizontal: 25.w),
-                        itemCount: ListFoodController.to.promoList.length,
-                        separatorBuilder: (context, index) =>
-                            26.horizontalSpace,
-                        itemBuilder: (context, index) {
-                          final promo = ListFoodController.to.promoList[index];
-                          return PromoCard(
-                            enableShadow: false,
-                            promo: promo,
-                            witdh: 300.w,
-                          );
-                        },
-                      ),
-                    ))),
+              child: Obx(
+                () => SizedBox(
+                  width: 1.sw,
+                  height: 188.h,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 25.w),
+                    itemCount: ListFoodController.to.promoList.length,
+                    separatorBuilder: (context, index) => 26.horizontalSpace,
+                    itemBuilder: (context, index) {
+                      final promo = ListFoodController.to.promoList[index];
+                      return PromoCard(
+                        enableShadow: false,
+                        promo: promo,
+                        witdh: 300.w,
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
 
             // row of categories
             SliverToBoxAdapter(child: 22.verticalSpace),
@@ -73,15 +75,17 @@ class ListFoodView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 25.w),
                   itemBuilder: (context, index) {
                     final category = ListFoodController.to.categories[index];
-                    return Obx(() => MenuChip(
-                          onTap: () => ListFoodController.to
-                              .selectCategory(category.toLowerCase()),
-                          isSelected:
-                              ListFoodController.to.selectCategory.value ==
-                                  category.toLowerCase(),
-                          frontIcon: ListFoodController.to.categoryIcon[index],
-                          text: category,
-                        ));
+                    return Obx(
+                      () => MenuChip(
+                        onTap: () => ListFoodController.to
+                            .selectCategory(category.toLowerCase()),
+                        isSelected:
+                            ListFoodController.to.selectCategory.value ==
+                                category.toLowerCase(),
+                        frontIcon: ListFoodController.to.categoryIcon[index],
+                        text: category.tr,
+                      ),
+                    );
                   },
                   separatorBuilder: (context, index) => 13.horizontalSpace,
                 ),
@@ -100,22 +104,22 @@ class ListFoodView extends StatelessWidget {
               late IconData icon;
               switch (currentCategory) {
                 case 'makanan':
-                  title = 'Makanan';
+                  title = 'Makanan'.tr;
                   icon = Icons.food_bank;
                   break;
 
                 case 'minuman':
-                  title = 'Minuman';
+                  title = 'Minuman'.tr;
                   icon = Icons.local_drink;
                   break;
 
                 case 'snack':
-                  title = 'Snack';
+                  title = 'Snack'.tr;
                   icon = Icons.no_food_outlined;
                   break;
 
                 default:
-                  title = 'Semua Menu';
+                  title = 'Semua Menu'.tr;
                   icon = Icons.menu_book;
               }
 

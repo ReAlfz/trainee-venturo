@@ -33,9 +33,9 @@ class OrderTopBar extends StatelessWidget implements PreferredSizeWidget{
         labelStyle: Get.textTheme.bodyLarge?.copyWith(
           fontWeight: FontWeight.w600,
         ),
-        tabs: const [
-          Tab(text: 'Sedang berjalan'),
-          Tab(text: 'Riwayat'),
+        tabs: [
+          Tab(text: 'On going'.tr),
+          Tab(text: 'History'.tr),
         ],
       ),
     );

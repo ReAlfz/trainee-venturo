@@ -56,7 +56,7 @@ class PromoCard extends StatelessWidget {
                 softWrap: true,
                 textAlign: TextAlign.center,
                 TextSpan(
-                  text: promo.type,
+                  text: promo.type.tr,
                   style: Get.textTheme.titleLarge?.copyWith(
                     fontSize: 22,
                     fontWeight: FontWeight.w800,

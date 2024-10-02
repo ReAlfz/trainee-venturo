@@ -3,13 +3,16 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:trainee/configs/localization/localization.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/profile/repositories/profile_repository.dart';
+import 'package:trainee/modules/features/profile/views/components/language_bottom_sheet.dart';
 import 'package:trainee/shared/widgets/image_picker_dialog.dart';
 
 class ProfileController extends GetxController {
@@ -17,6 +20,7 @@ class ProfileController extends GetxController {
 
   final Rx<File?> _imageFile = Rx<File?>(null);
   RxString deviceModel = ''.obs;
+  RxString currentLang = Localization.currentLanguage.obs;
   RxString deviceVersion = ''.obs;
   RxBool isVerify = false.obs;
 
@@ -96,4 +100,23 @@ class ProfileController extends GetxController {
     repository.logoutUser();
     Get.offAllNamed(MainRoute.signIn);
   }
+
+  Future<void> updateLanguage() async {
+    String? language = await Get.bottomSheet(
+      const LanguageBottomSheet(),
+      isScrollControlled: true,
+      backgroundColor: MainColor.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30.r),
+        )
+      ),
+    );
+
+    if (language != null) {
+      Localization.changeLocale(language);
+      currentLang(language);
+    }
+  }
+
 }

@@ -41,7 +41,7 @@ class BottomNavBar extends StatelessWidget {
                           ? MainColor.white
                           : Colors.grey[400],
                     ),
-                    title: 'Beranda',
+                    title: 'Home'.tr,
                     checkIndex: 0,
                   ),
                   ItemNavbar(
@@ -54,7 +54,7 @@ class BottomNavBar extends StatelessWidget {
                           ? MainColor.white
                           : Colors.grey[400],
                     ),
-                    title: 'Pesanan',
+                    title: 'Order'.tr,
                     checkIndex: 1,
                   ),
                   ItemNavbar(
@@ -67,7 +67,7 @@ class BottomNavBar extends StatelessWidget {
                           ? MainColor.white
                           : Colors.grey[400],
                     ),
-                    title: 'Profile',
+                    title: 'Profile'.tr,
                     checkIndex: 2,
                   ),
                 ],

@@ -36,4 +36,7 @@ class ImageConstant {
   // order //
   static const String ic_empty_list_order = 'assets/svgs/order/ic_empty_list_order.svg';
 
+  static const String flag_en = 'assets/svgs/localization/flag_en.svg';
+  static const String flag_id = 'assets/svgs/localization/flag_id.svg';
+
 }

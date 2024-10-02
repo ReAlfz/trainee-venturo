@@ -101,7 +101,7 @@ class HistoryOrderTapView extends StatelessWidget {
                         ),
 
                         Text(
-                          'Mulai buat pesanan',
+                          'Start making orders'.tr,
                           style: Get.textTheme.bodyMedium!.copyWith(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
@@ -109,10 +109,10 @@ class HistoryOrderTapView extends StatelessWidget {
                         ),
                         7.5.verticalSpace,
                         Text(
-                          'Makanan yang kamu pesan'
-                              '\nakan muncul di sini agar\n'
-                              'kamu bisa menemukan'
-                              '\nmenu favoritmu lagi!',
+                          'The food you ordered\n'
+                              'will appear here so that\n'
+                              'You can find\n'
+                              'your favorite menu again!'.tr,
                           textAlign: TextAlign.center,
                           style: Get.textTheme.bodyMedium!.copyWith(
                             fontSize: 20,

@@ -64,14 +64,14 @@ class OnGoingOrderTabView extends StatelessWidget {
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      text: 'Sudah Pesan?',
+                      text: 'Already ordered?'.tr,
                       style: Get.textTheme.bodyMedium!.copyWith(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
                       ),
                       children: [
                         TextSpan(
-                          text: '\nLacak pesananmu\ndisini.',
+                          text: '\nTrack your order\nhere.'.tr,
                           style: Get.textTheme.bodyMedium!.copyWith(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,

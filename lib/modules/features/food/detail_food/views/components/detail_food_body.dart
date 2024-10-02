@@ -70,7 +70,7 @@ class DetailFoodBody extends StatelessWidget {
           height: heightTileOption,
           margin: EdgeInsets.symmetric(vertical: 1.5.h),
           child: TileOption(
-            title: 'Harga',
+            title: 'Harga'.tr,
             svgPicture: ImageConstant.ic_harga,
             titleStyle: Get.textTheme.titleMedium!.copyWith(
               fontWeight: FontWeight.w600,
@@ -88,7 +88,7 @@ class DetailFoodBody extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 1.5.h),
           child: Obx(
             () => TileOption(
-              title: 'Level',
+              title: 'Level'.tr,
               svgPicture: ImageConstant.ic_level,
               titleStyle: Get.textTheme.titleMedium!.copyWith(
                 fontWeight: FontWeight.w600,
@@ -113,7 +113,7 @@ class DetailFoodBody extends StatelessWidget {
                 .toList();
             final message = getList.join(', ');
             return TileOption(
-              title: 'Topping',
+              title: 'Topping'.tr,
               svgPicture: ImageConstant.ic_topping,
               titleStyle: Get.textTheme.titleMedium!.copyWith(
                 fontWeight: FontWeight.w600,
@@ -134,7 +134,7 @@ class DetailFoodBody extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 1.5.h),
           child: Obx(
             () => TileOption(
-              title: 'Catatan',
+              title: 'Catatan'.tr,
               svgPicture: ImageConstant.ic_catatan,
               titleStyle: Get.textTheme.titleMedium!.copyWith(
                 fontWeight: FontWeight.w600,
@@ -159,7 +159,7 @@ class DetailFoodBody extends StatelessWidget {
             ),
           ),
           child: Text(
-            'Tambahkan ke Pesanan',
+            'Tambahkan ke Pesanan'.tr,
             style: Get.textTheme.titleMedium!.copyWith(
               color: MainColor.white,
               fontWeight: FontWeight.bold,

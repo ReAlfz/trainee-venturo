@@ -5,10 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
-import 'package:trainee/shared/widgets/tile_option.dart';
 import 'package:trainee/modules/features/profile/controllers/profile_controller.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/shared/widgets/rounded_custom_appbar.dart';
+import 'package:trainee/shared/widgets/tile_option.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -17,8 +17,8 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = GlobalController.to.user.value!;
     return Scaffold(
-      appBar: const RoundedAppBar(
-        title: 'Profile',
+      appBar: RoundedAppBar(
+        title: 'Profile'.tr,
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -28,7 +28,6 @@ class ProfileView extends StatelessWidget {
             fit: BoxFit.fitHeight,
           ),
         ),
-
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 25.r),
           children: [
@@ -40,23 +39,25 @@ class ProfileView extends StatelessWidget {
                 decoration: const BoxDecoration(shape: BoxShape.circle),
                 child: Stack(
                   children: [
-                    Obx(() => Conditional.single(
-                      context: context,
-                      conditionBuilder: (context) => ProfileController.to.imageFile != null,
-                      widgetBuilder: (context) => Image.file(
-                        ProfileController.to.imageFile!,
-                        width: 170.r,
-                        height: 170.r,
-                        fit: BoxFit.cover,
+                    Obx(
+                      () => Conditional.single(
+                        context: context,
+                        conditionBuilder: (context) =>
+                            ProfileController.to.imageFile != null,
+                        widgetBuilder: (context) => Image.file(
+                          ProfileController.to.imageFile!,
+                          width: 170.r,
+                          height: 170.r,
+                          fit: BoxFit.cover,
+                        ),
+                        fallbackBuilder: (context) => Image.asset(
+                          ImageConstant.bg_profile,
+                          width: 170.r,
+                          height: 170.r,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                      fallbackBuilder: (context) => Image.asset(
-                        ImageConstant.bg_profile,
-                        width: 170.r,
-                        height: 170.r,
-                        fit: BoxFit.cover,
-                      ),
-                    )),
-
+                    ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Material(
@@ -81,51 +82,48 @@ class ProfileView extends StatelessWidget {
                 ),
               ),
             ),
-
             21.verticalSpacingRadius,
-            
-            Obx(() => Conditional.single(
-              context: context,
-              conditionBuilder: (context) => ProfileController.to.isVerify.value != false,
-              widgetBuilder: (context) => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.check,
-                    color: Colors.green,
-                    size: 20.r,
-                  ),
-
-                  7.horizontalSpaceRadius,
-
-                  Text(
-                    'Your have verified your ID card'.tr,
-                    style: Get.textTheme.labelMedium!.copyWith(
-                      color: MainColor.blueColor,
-                    ),
-                  ),
-                ],
-              ),
-              fallbackBuilder: (context) => InkWell(
-                onTap: ProfileController.to.pickFile,
-                child: Row(
+            Obx(
+              () => Conditional.single(
+                context: context,
+                conditionBuilder: (context) =>
+                    ProfileController.to.isVerify.value != false,
+                widgetBuilder: (context) => Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(ImageConstant.ic_ktp),
+                    Icon(
+                      Icons.check,
+                      color: Colors.green,
+                      size: 20.r,
+                    ),
                     7.horizontalSpaceRadius,
                     Text(
-                      'Verify your ID card now!',
+                      'Your have verified your ID card'.tr,
                       style: Get.textTheme.labelMedium!.copyWith(
                         color: MainColor.blueColor,
                       ),
                     ),
                   ],
                 ),
-              )
-            )),
-
+                fallbackBuilder: (context) => InkWell(
+                  onTap: ProfileController.to.pickFile,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(ImageConstant.ic_ktp),
+                      7.horizontalSpaceRadius,
+                      Text(
+                        'Verify your ID card now!'.tr,
+                        style: Get.textTheme.labelMedium!.copyWith(
+                          color: MainColor.blueColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             18.verticalSpacingRadius,
-            
             Padding(
               padding: EdgeInsets.only(left: 20.r),
               child: Text(
@@ -137,9 +135,7 @@ class ProfileView extends StatelessWidget {
                 ),
               ),
             ),
-
             14.verticalSpacingRadius,
-
             Container(
               padding: EdgeInsets.symmetric(horizontal: 21.r, vertical: 30.r),
               decoration: BoxDecoration(
@@ -158,13 +154,17 @@ class ProfileView extends StatelessWidget {
                   const Divider(thickness: 0.5),
                   TileOption(title: 'Change PIN'.tr, message: "******"),
                   const Divider(thickness: 0.5),
-                  TileOption(title: 'Change language'.tr, message: "English")
+                  Obx(
+                    () => TileOption(
+                      title: 'Change language'.tr,
+                      message: ProfileController.to.currentLang.value,
+                      onTap: ProfileController.to.updateLanguage,
+                    ),
+                  ),
                 ],
               ),
             ),
-
             16.verticalSpacingRadius,
-
             Container(
               padding: EdgeInsets.symmetric(horizontal: 21.r, vertical: 14.r),
               decoration: BoxDecoration(
@@ -184,7 +184,7 @@ class ProfileView extends StatelessWidget {
                             SvgPicture.asset(ImageConstant.ic_review),
                             9.horizontalSpaceRadius,
                             Text(
-                              'Rating',
+                              'Rating'.tr,
                               style: Get.textTheme.titleSmall,
                             ),
                           ],
@@ -196,7 +196,8 @@ class ProfileView extends StatelessWidget {
                           backgroundColor: MainColor.primary,
                           elevation: 3,
                           shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: MainColor.white, width: 1),
+                            side: const BorderSide(
+                                color: MainColor.white, width: 1),
                             borderRadius: BorderRadius.circular(24),
                           ),
                         ),
@@ -207,9 +208,7 @@ class ProfileView extends StatelessWidget {
                 ),
               ),
             ),
-
             27.verticalSpacingRadius,
-
             Padding(
               padding: EdgeInsets.only(left: 20.r),
               child: Text(
@@ -230,19 +229,22 @@ class ProfileView extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Obx(() => TileOption(
-                    title: 'Device Info',
-                    message: ProfileController.to.deviceModel.value,
-                  )),
+                  Obx(
+                    () => TileOption(
+                      title: 'Device Info'.tr,
+                      message: ProfileController.to.deviceModel.value,
+                    ),
+                  ),
                   const Divider(thickness: 0.5),
-                  Obx(() => TileOption(
-                    title: 'Device Version',
-                    message: ProfileController.to.deviceVersion.value,
-                  ))
+                  Obx(
+                    () => TileOption(
+                      title: 'Device Version'.tr,
+                      message: ProfileController.to.deviceVersion.value,
+                    ),
+                  )
                 ],
               ),
             ),
-
             15.verticalSpacingRadius,
             Container(
               alignment: Alignment.center,
@@ -251,7 +253,7 @@ class ProfileView extends StatelessWidget {
               child: TextButton(
                 onPressed: ProfileController.to.logout,
                 child: Text(
-                  'Logout',
+                  'Logout'.tr,
                   style: Get.textTheme.labelLarge!.copyWith(
                     color: MainColor.danger,
                     fontSize: 18.sp,
