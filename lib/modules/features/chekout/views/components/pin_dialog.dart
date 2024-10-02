@@ -13,7 +13,7 @@ class PinDialog extends StatefulWidget {
 }
 
 class _PinDialog extends State<PinDialog> {
-  final RxBool obscure = RxBool(false);
+  final RxBool obscure = RxBool(true);
   final RxnString errorText = RxnString();
   final TextEditingController controller = TextEditingController();
   int tries = 0;
@@ -30,9 +30,7 @@ class _PinDialog extends State<PinDialog> {
         Get.back<bool>(result: false);
       } else {
         controller.clear();
-        errorText.value = 'Pin wrong!, n chances left'.trParams({
-          'n': (3 - tries).toString()
-        });
+        errorText.value = 'Pin wrong!, ${(3 - tries).toString()} chances left'.tr;
       }
     }
   }
@@ -84,6 +82,7 @@ class _PinDialog extends State<PinDialog> {
                   keyboardType: TextInputType.number,
                   closeKeyboardWhenCompleted: false,
                   defaultPinTheme: defaultPinTheme,
+                  obscuringCharacter: '*',
                   obscureText: obscure.value,
                   onSubmitted: processPin,
                   onCompleted: processPin,
@@ -101,25 +100,27 @@ class _PinDialog extends State<PinDialog> {
                   size: 20.r,
                 ),
               )),
-              
-              Obx(() => (errorText.value != null)
-                  ? Padding(
-                padding: EdgeInsets.only(
-                  left: 15.r,
-                  right: 15.r,
-                  top: 10.r,
-                ),
-                child: Text(
-                  errorText.value!,
-                  textAlign: TextAlign.center,
-                  style: Get.textTheme.bodySmall!.copyWith(
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-                ),
-              )
-                  : const SizedBox(),
-              ),
             ],
+          ),
+
+          10.verticalSpace,
+
+          Obx(() => (errorText.value != null)
+              ? Padding(
+            padding: EdgeInsets.only(
+              left: 15.r,
+              right: 15.r,
+              top: 10.r,
+            ),
+            child: Text(
+              errorText.value!,
+              textAlign: TextAlign.center,
+              style: Get.textTheme.bodySmall!.copyWith(
+                color: Theme.of(context).colorScheme.error,
+              ),
+            ),
+          )
+              : const SizedBox(),
           ),
         ],
       ),

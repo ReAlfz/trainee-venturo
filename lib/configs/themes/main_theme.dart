@@ -11,6 +11,7 @@ final ThemeData mainTheme = ThemeData(
     cardColor: MainColor.white,
     errorColor: MainColor.danger,
   ),
+  dividerColor: MainColor.divider,
   iconTheme: IconThemeData(
     color: MainColor.primary,
     size: 24.sp,

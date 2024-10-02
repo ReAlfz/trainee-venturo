@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
-import 'package:trainee/shared/widgets/quantitiy_counter.dart';
 import 'package:trainee/modules/global_models/menu_model.dart';
+import 'package:trainee/shared/widgets/quantitiy_counter.dart';
 
 class MenuCard extends StatelessWidget {
   final MenuModel menu;
@@ -34,7 +34,6 @@ class MenuCard extends StatelessWidget {
           color: MainColor.white,
           borderRadius: BorderRadius.circular(10.r),
         ),
-
         child: Row(
           children: [
             Container(
@@ -46,21 +45,20 @@ class MenuCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.r),
                 color: Colors.grey[100],
               ),
-
               child: CachedNetworkImage(
                 imageUrl: menu.foto,
                 useOldImageOnUrlChange: true,
                 fit: BoxFit.contain,
                 errorWidget: (context, url, error) {
                   return CachedNetworkImage(
-                    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
+                    imageUrl:
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
                     useOldImageOnUrlChange: true,
                     fit: BoxFit.contain,
                   );
                 },
               ),
             ),
-            
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -71,50 +69,50 @@ class MenuCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
-                      flex: 7,
-                      fit: FlexFit.tight,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            menu.nama,
-                            style: Get.textTheme.titleMedium!.copyWith(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
+                        flex: 7,
+                        fit: FlexFit.tight,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              menu.nama,
+                              style: Get.textTheme.titleMedium!.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-
-                          5.verticalSpace,
-
-                          Text(
-                            'Rp ${menu.harga.toString()}',
-                            style: Get.textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
+                            5.verticalSpace,
+                            Text(
+                              'Rp ${menu.harga.toString()}',
+                              style: Get.textTheme.bodyMedium!.copyWith(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ),
-
+                          ],
+                        )),
                     Flexible(
                       flex: 3,
-                      fit: FlexFit.loose,
+                      fit: FlexFit.tight,
                       child: Row(
                         children: [
                           SvgPicture.asset(
                             ImageConstant.ic_catatan,
                             fit: BoxFit.cover,
                           ),
-
                           2.5.horizontalSpaceRadius,
-
-                          Text(
-                            (menu.catatan != '') ? menu.catatan : 'tambahkan catatan',
-                            style: Get.textTheme.bodySmall,
+                          Expanded(
+                            child: Text(
+                              (menu.catatan != '')
+                                  ? menu.catatan
+                                  : 'tambahkan catatan',
+                              style: Get.textTheme.bodySmall,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           ),
                         ],
                       ),
@@ -135,7 +133,7 @@ class MenuCard extends StatelessWidget {
                   onDecrement: onDecrement,
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),

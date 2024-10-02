@@ -20,7 +20,9 @@ class CartOrderBottomBar extends StatelessWidget {
         horizontal: 22.w,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30.r),
+        ),
         color: MainColor.white,
       ),
 

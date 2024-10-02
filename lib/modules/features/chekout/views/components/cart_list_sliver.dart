@@ -15,10 +15,14 @@ class CartListSliver extends StatelessWidget {
       delegate: SliverChildBuilderDelegate((context, index) {
         return Padding(
           padding: EdgeInsets.symmetric(vertical: 8.5.h),
-          child: MenuCard(
-            menu: cart[index],
-            onIncrement: () => CheckoutController.to.increaseQty(cart[index]),
-            onDecrement: () => CheckoutController.to.decreaseQty(cart[index]),
+          child: Material(
+            elevation: 5,
+            borderRadius: BorderRadius.circular(10.r),
+            child: MenuCard(
+              menu: cart[index],
+              onIncrement: () => CheckoutController.to.increaseQty(cart[index]),
+              onDecrement: () => CheckoutController.to.decreaseQty(cart[index]),
+            ),
           ),
         );
       }, childCount: cart.length),

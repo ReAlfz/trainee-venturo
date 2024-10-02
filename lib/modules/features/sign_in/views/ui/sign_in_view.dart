@@ -135,7 +135,7 @@ class SignInView extends StatelessWidget {
                 svgIcon: ImageConstant.ic_apple,
                 bg_color: MainColor.black,
                 text_color: MainColor.white,
-                function: () => SignInController.to.validateForm(context),
+                function: () {},
               ),
             ],
           ),

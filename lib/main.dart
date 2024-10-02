@@ -9,7 +9,8 @@ import 'package:trainee/configs/pages/main_page.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_theme.dart';
 import 'package:trainee/firebase_options.dart';
-import 'package:trainee/modules/global_binddings/global_bindding.dart';
+
+import 'modules/global_bindings/global_binding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
           theme: mainTheme,
           defaultTransition: Transition.native,
           getPages: MainPage.main,
-          initialBinding: GlobalBindding(),
+          initialBinding: GlobalBinding(),
           builder: EasyLoading.init(),
         );
       },

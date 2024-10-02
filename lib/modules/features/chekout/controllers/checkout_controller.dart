@@ -13,7 +13,7 @@ class CheckoutController extends GetxController {
   static CheckoutController get to => Get.find();
 
   RxList<MenuModel> cart = <MenuModel>[].obs;
-  late CreateOrderRepository repository;
+  late CreateOrderRepository createOrderRepository;
   RxString cartViewState = 'success'.obs;
 
   void increaseQty(MenuModel item) {
@@ -36,14 +36,22 @@ class CheckoutController extends GetxController {
     cart.refresh();
   }
 
-  List<MenuModel> get foodItems => cart.where((element) => element.kategori == 'makanan').toList();
-  List<MenuModel> get drinkItems => cart.where((element) => element.kategori == 'minuman').toList();
+  List<MenuModel> get foodItems =>
+      cart.where((element) => element.kategori == 'makanan').toList();
+
+  List<MenuModel> get drinkItems =>
+      cart.where((element) => element.kategori == 'minuman').toList();
+
+  List<MenuModel> get snackItems =>
+      cart.where((element) => element.kategori == 'snack').toList();
 
   int get totalPrice => cart.fold(
-      0, (previousValue, element) => previousValue + (element.harga * element.jumlah)
-  );
+      0,
+      (previousValue, element) =>
+          previousValue + (element.harga * element.jumlah));
 
   int get discountPrice => totalPrice ~/ 100;
+
   int get grandTotal => totalPrice - discountPrice;
 
   // function for handle transaction //
@@ -66,7 +74,6 @@ class CheckoutController extends GetxController {
         if (authenticated) {
           showOrderSuccessDialog();
         }
-
       } else if (authType == 'pin') {
         await showPinDialog();
       }
@@ -76,7 +83,7 @@ class CheckoutController extends GetxController {
   }
 
   Future<void> showPinDialog() async {
-    Get.until(ModalRoute.withName(MainRoute.home));
+    Get.until(ModalRoute.withName(MainRoute.checkout));
     final String userPin = GlobalController.to.user.value!.pin;
 
     final bool? authenticated = await Get.defaultDialog(
@@ -86,24 +93,22 @@ class CheckoutController extends GetxController {
     );
 
     if (authenticated == true) {
-      repository = CreateOrderRepository();
-      await repository.createOrder(
+      createOrderRepository = CreateOrderRepository();
+      await createOrderRepository.createOrder(
         menu: cart,
         discount: discountPrice,
         grandTotalPrice: grandTotal,
       );
       cart.clear();
       showOrderSuccessDialog();
-
     } else if (authenticated != null) {
-      Get.until(ModalRoute.withName(MainRoute.home));
+      Get.until(ModalRoute.withName(MainRoute.checkout));
     }
   }
 
-
 // function dialog for checkout state //
   Future<String?> showFingerprintDialog() async {
-    Get.until(ModalRoute.withName(MainRoute.home));
+    Get.until(ModalRoute.withName(MainRoute.checkout));
     final result = await Get.defaultDialog(
       title: '',
       titleStyle: const TextStyle(fontSize: 0),
@@ -114,13 +119,13 @@ class CheckoutController extends GetxController {
   }
 
   Future<void> showOrderSuccessDialog() async {
-    Get.until(ModalRoute.withName(MainRoute.home));
+    Get.until(ModalRoute.withName(MainRoute.checkout));
     await Get.defaultDialog(
       title: '',
       titleStyle: const TextStyle(fontSize: 0),
       content: const OrderSuccessDialog(),
     );
 
-    Get.back();
+    Get.offAllNamed(MainRoute.home);
   }
 }
