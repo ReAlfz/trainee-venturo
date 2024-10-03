@@ -34,7 +34,7 @@ class CheckoutView extends StatelessWidget {
                     SliverToBoxAdapter(
                       child: SectionHeader(
                         icon: Icons.food_bank_outlined,
-                        title: 'Food',
+                        title: 'Food'.tr,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
@@ -51,7 +51,7 @@ class CheckoutView extends StatelessWidget {
                     SliverToBoxAdapter(
                       child: SectionHeader(
                         icon: Icons.local_drink_outlined,
-                        title: 'Drink',
+                        title: 'Drink'.tr,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
@@ -69,7 +69,7 @@ class CheckoutView extends StatelessWidget {
                     SliverToBoxAdapter(
                       child: SectionHeader(
                         icon: Icons.no_food_outlined,
-                        title: 'Snack',
+                        title: 'Snack'.tr,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),

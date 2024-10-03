@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EvelatedButtonStyle {
+class ElevatedButtonStyle {
   static mainRounded({
     required Color bg_color,
+    double? width, height
   }) {
     return ButtonStyle(
       minimumSize: MaterialStateProperty.all<Size>(
-        const Size(double.infinity, 50),
+        Size(width ?? double.infinity, height ?? 50),
       ),
       shape: MaterialStateProperty.all<OutlinedBorder>(
         RoundedRectangleBorder(

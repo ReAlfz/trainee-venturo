@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
   final Color? color;
   final String? svgIcon;
   final IconData? icon;
+  final double? heightSvg;
+  final double? widthSvg;
 
-  const SectionHeader({super.key, required this.title, this.color, this.icon, this.svgIcon});
+  const SectionHeader(
+      {super.key,
+      required this.title,
+      this.color,
+      this.icon,
+      this.svgIcon,
+      this.heightSvg,
+      this.widthSvg});
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +33,13 @@ class SectionHeader extends StatelessWidget {
               size: 28.r,
               color: color ?? Theme.of(context).primaryColor,
             ),
-
           if (svgIcon != null)
             SvgPicture.asset(
               svgIcon!,
-              height: 28.r,
-              width: 28.r,
+              height: heightSvg ?? 28.r,
+              width: widthSvg ?? 28.r,
             ),
-
           10.horizontalSpace,
-          
           Text(
             title,
             style: Get.textTheme.titleMedium?.copyWith(

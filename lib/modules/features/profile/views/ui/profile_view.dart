@@ -7,6 +7,7 @@ import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
 import 'package:trainee/modules/features/profile/controllers/profile_controller.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
+import 'package:trainee/shared/customs/elevated_button_sign_in.dart';
 import 'package:trainee/shared/widgets/rounded_custom_appbar.dart';
 import 'package:trainee/shared/widgets/tile_option.dart';
 
@@ -250,15 +251,13 @@ class ProfileView extends StatelessWidget {
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 5.r),
               color: MainColor.lightColor2,
-              child: TextButton(
-                onPressed: ProfileController.to.logout,
-                child: Text(
-                  'Logout'.tr,
-                  style: Get.textTheme.labelLarge!.copyWith(
-                    color: MainColor.danger,
-                    fontSize: 18.sp,
-                  ),
-                ),
+              child: ElevatedButtonCustom(
+                title: 'Logout'.tr,
+                bg_color: MainColor.primary,
+                text_color: MainColor.white,
+                widthButton: 200.w,
+                heightButton: 40.h,
+                function: ProfileController.to.logout,
               ),
             ),
           ],

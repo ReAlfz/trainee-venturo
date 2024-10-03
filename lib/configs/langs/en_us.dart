@@ -71,4 +71,17 @@ const Map<String, String> translationsEnUs = {
 
   'Already ordered?': 'Already ordered?',
   '\nTrack your order\nhere.': '\nTrack your order\nhere.',
+
+  // sign in view//
+  'Masuk menggunakan ': 'Sign in with ',
+  'atau': 'or',
+  'Masuk': 'Sign in',
+  'Lupa Password?': 'Forgot your password?',
+  'Masuk untuk melanjutkan!': 'Sign in to continue!',
+  'Email Address': 'Email Address',
+  'Input Email address': 'Input Email address',
+  'Email address cannot be empty': 'Email address cannot be empty',
+  'Password': 'Password',
+  'Input Password': 'Input Password',
+  'Password cannot be empty': 'Password cannot be empty',
 };

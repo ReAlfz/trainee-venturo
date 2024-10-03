@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_conditional_rendering/conditional_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/modules/features/food/list_food/views/components/list_food_shimmer.dart';
+import 'package:trainee/constants/cores/assets/image_constant.dart';
+import 'package:trainee/modules/features/food/list_food/views/components/categories_list.dart';
 import 'package:trainee/modules/features/home/views/components/fab_checkout.dart';
-import 'package:trainee/shared/widgets/menu_card.dart';
 
-import '../../../../chekout/controllers/checkout_controller.dart';
 import '../../controller/list_food_controller.dart';
 import '../components/menu_chip.dart';
 import '../components/promo_card.dart';
@@ -33,8 +31,10 @@ class ListFoodView extends StatelessWidget {
             SliverToBoxAdapter(child: 22.verticalSpace),
             SliverToBoxAdapter(
               child: SectionHeader(
-                icon: Icons.note_alt_outlined,
                 title: 'Promo Available'.tr,
+                svgIcon: ImageConstant.ic_promo,
+                widthSvg: 17.5.r,
+                heightSvg: 17.5.r,
               ),
             ),
 
@@ -94,116 +94,100 @@ class ListFoodView extends StatelessWidget {
             SliverToBoxAdapter(child: 10.verticalSpace),
           ];
         },
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Obx(() {
-              final currentCategory =
-                  ListFoodController.to.selectCategory.value;
-              late String title;
-              late IconData icon;
-              switch (currentCategory) {
-                case 'makanan':
-                  title = 'Makanan'.tr;
-                  icon = Icons.food_bank;
-                  break;
-
-                case 'minuman':
-                  title = 'Minuman'.tr;
-                  icon = Icons.local_drink;
-                  break;
-
-                case 'snack':
-                  title = 'Snack'.tr;
-                  icon = Icons.no_food_outlined;
-                  break;
-
-                default:
-                  title = 'Semua Menu'.tr;
-                  icon = Icons.menu_book;
-              }
-
-              return Container(
-                width: 1.sw,
-                height: 35.h,
-                color: Colors.grey[100],
-                margin: EdgeInsets.only(bottom: 10.h),
-                child: SectionHeader(
-                  title: title,
-                  icon: icon,
-                ),
-              );
-            }),
-            Expanded(
-              child: Obx(
-                () => SmartRefresher(
-                  controller: ListFoodController.to.refreshController,
-                  onRefresh: ListFoodController.to.onRefresh,
-                  onLoading: ListFoodController.to.onLoading,
-                  enablePullUp:
-                      ListFoodController.to.canLoadMore.isTrue ? true : false,
-                  enablePullDown: true,
-                  child: ListView.builder(
-                    itemCount: ListFoodController.to.filteredList.length,
-                    itemExtent: 122.h,
-                    padding: EdgeInsets.symmetric(horizontal: 25.w),
-                    itemBuilder: (context, index) {
-                      final menuItem =
-                          ListFoodController.to.filteredList[index];
-                      final cartController = Get.put(CheckoutController());
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.5.h),
-                        child: Slidable(
-                          endActionPane: ActionPane(
-                            motion: const ScrollMotion(),
-                            children: [
-                              SlidableAction(
-                                onPressed: (context) =>
-                                    ListFoodController.to.deleteItem(menuItem),
-                                borderRadius: BorderRadius.horizontal(
-                                  right: Radius.circular(10.r),
-                                ),
-                                backgroundColor: const Color(0xFFFE4A49),
-                                foregroundColor: MainColor.white,
-                                icon: Icons.delete,
-                                label: 'delete',
-                              ),
-                            ],
-                          ),
-                          child: Obx(
-                            () => Material(
-                              elevation: 5,
-                              borderRadius: BorderRadius.circular(10.r),
-                              child: (ListFoodController
-                                          .to.listFoodState.value ==
-                                      'success')
-                                  ? MenuCard(
-                                      menu: menuItem,
-                                      onTap: () => ListFoodController.to
-                                          .pushPage(menuItem),
-                                      onIncrement: () {
-                                        cartController.increaseQty(menuItem);
-                                        ListFoodController.to.listMenu
-                                            .refresh();
-                                      },
-                                      onDecrement: () {
-                                        cartController.decreaseQty(menuItem);
-                                        ListFoodController.to.listMenu
-                                            .refresh();
-                                      },
-                                    )
-                                  : const ListFoodShimmer(),
+        body: Obx(() {
+          return SmartRefresher(
+            controller: ListFoodController.to.refreshController,
+            onRefresh: ListFoodController.to.onRefresh,
+            onLoading: ListFoodController.to.onLoading,
+            enablePullUp:
+                ListFoodController.to.canLoadMore.isTrue ? true : false,
+            enablePullDown: true,
+            child: CustomScrollView(
+              physics: const ClampingScrollPhysics(),
+              slivers: [
+                SliverToBoxAdapter(child: 15.verticalSpace),
+                if (ListFoodController.to.selectCategory.value != 'semua') ...[
+                  SliverToBoxAdapter(
+                    child: ConditionalSwitch.single(
+                      context: context,
+                      valueBuilder: (context) =>
+                          ListFoodController.to.selectCategory.value,
+                      caseBuilders: {
+                        'minuman': (context) => SectionHeader(
+                              title: ListFoodController.to.categories[2],
+                              icon: Icons.local_drink,
                             ),
-                          ),
-                        ),
-                      );
-                    },
+                        'snack': (context) => SectionHeader(
+                              title: ListFoodController.to.categories[3],
+                              icon: Icons.no_food_outlined,
+                            ),
+                      },
+                      fallbackBuilder: (context) => SectionHeader(
+                        title: ListFoodController.to.categories[1],
+                        icon: Icons.food_bank,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                  CategoriesList(
+                    itemExtent: 122.h,
+                    horizontalSliverPadding: 20.w,
+                  ),
+                ],
+                if (ListFoodController.to.selectCategory.value == 'semua') ...[
+                  if (ListFoodController.to.filteredList
+                      .where((element) => element.kategori == 'makanan')
+                      .toList()
+                      .isNotEmpty) ...[
+                    SliverToBoxAdapter(
+                      child: SectionHeader(
+                        title: ListFoodController.to.categories[1],
+                        icon: Icons.food_bank,
+                      ),
+                    ),
+                    CategoriesList(
+                      itemExtent: 122.h,
+                      horizontalSliverPadding: 20.w,
+                      condition: 'makanan',
+                    ),
+                    SliverToBoxAdapter(child: 20.verticalSpace),
+                  ],
+
+                  if (ListFoodController.to.filteredList
+                      .where((element) => element.kategori == 'minuman')
+                      .toList()
+                      .isNotEmpty) ...[
+                    SliverToBoxAdapter(
+                      child: SectionHeader(
+                        title: ListFoodController.to.categories[2],
+                        icon: Icons.local_drink,
+                      ),
+                    ),
+                    CategoriesList(
+                      itemExtent: 122.h,
+                      horizontalSliverPadding: 20.w,
+                      condition: 'minuman',
+                    ),
+                    SliverToBoxAdapter(child: 20.verticalSpace),
+                  ],
+
+                  if (ListFoodController.to.filteredList.where((element) => element.kategori == 'snack').toList().isNotEmpty) ...[
+                    SliverToBoxAdapter(
+                      child: SectionHeader(
+                        title: ListFoodController.to.categories[3],
+                        icon: Icons.no_food_outlined,
+                      ),
+                    ),
+                    CategoriesList(
+                      itemExtent: 122.h,
+                      horizontalSliverPadding: 20.w,
+                      condition: 'snack',
+                    ),
+                  ]
+                ],
+              ],
             ),
-          ],
-        ),
+          );
+        }),
       ),
     );
   }

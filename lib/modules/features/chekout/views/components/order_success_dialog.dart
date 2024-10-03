@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:trainee/configs/themes/main_color.dart';
+import 'package:trainee/constants/cores/assets/image_constant.dart';
+import 'package:trainee/shared/styles/elevated_button_style.dart';
 
 class OrderSuccessDialog extends StatelessWidget {
   const OrderSuccessDialog({super.key});
@@ -8,60 +12,55 @@ class OrderSuccessDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.r),
+      padding: EdgeInsets.symmetric(horizontal: 20.r),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          28.verticalSpace,
-          Icon(
-            Icons.check_circle,
-            size: 80.r,
-            color: Theme.of(context).primaryColor,
+          15.verticalSpace,
+          SvgPicture.asset(
+            ImageConstant.ic_order_success,
           ),
 
-          28.verticalSpace,
+          30.verticalSpace,
           Text(
             'Order is being prepared'.tr,
             style: Get.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w400,
+              fontSize: 27.sp,
             ),
             textAlign: TextAlign.center,
           ),
 
-          14.verticalSpace,
+          5.verticalSpace,
           Text.rich(
             textAlign: TextAlign.center,
             TextSpan(children: [
               TextSpan(
-                text: 'You can track your order in',
-                style: Get.textTheme.bodySmall!.copyWith(
-                  color: Colors.black,
+                text: 'You can track your order in'.tr,
+                style: Get.textTheme.headlineSmall!.copyWith(
+                  fontSize: 16.sp,
                 ),
               ),
               TextSpan(
-                text: ' ${'Order history'}',
-                style: Get.textTheme.bodySmall!.copyWith(
+                text: ' Order'.tr,
+                style: Get.textTheme.titleSmall!.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: Colors.black,
+                  fontSize: 17.sp,
                 ),
               ),
             ]),
           ),
 
-          14.verticalSpace,
+          20.verticalSpace,
 
           SizedBox(
             width: 168.w,
             child: ElevatedButton(
               onPressed: () => Get.back(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                maximumSize: Size(1.sw, 56.h),
-                side: BorderSide(color: Theme.of(context).primaryColorDark),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.r)),
-                elevation: 2,
-                tapTargetSize: null,
-                minimumSize: Size(1.sw, 56.h),
+              style: ElevatedButtonStyle.mainRounded(
+                bg_color: MainColor.primary,
+                height: 40.h,
+                width: 100.w,
               ),
 
               child: Row(
@@ -79,7 +78,9 @@ class OrderSuccessDialog extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+
+          5.verticalSpace,
         ],
       ),
     );

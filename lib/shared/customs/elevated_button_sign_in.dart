@@ -10,11 +10,14 @@ class ElevatedButtonCustom extends StatelessWidget {
   final Color bg_color;
   final String? method;
   final String? svgIcon;
+  final double? widthButton, heightButton;
   final VoidCallback function;
 
   const ElevatedButtonCustom({
     super.key,
     required this.title,
+    this.widthButton,
+    this.heightButton,
     this.method,
     this.svgIcon,
     required this.bg_color,
@@ -25,43 +28,42 @@ class ElevatedButtonCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: EvelatedButtonStyle.mainRounded(bg_color: bg_color),
+      style: ElevatedButtonStyle.mainRounded(
+          bg_color: bg_color, width: widthButton, height: heightButton),
       onPressed: function,
       child: (method != null)
           ? Row(
-        children: [
-          SvgPicture.asset(
-            svgIcon!,
-          ),
-          SizedBox(width: 10.h),
-          RichText(
-            text: TextSpan(
-              text: title,
-              style: GoogleTextStyle.fw400.copyWith(
-                color: text_color,
-                fontSize: 14.sp,
-              ),
               children: [
-                TextSpan(
-                  text: method,
-                  style: GoogleTextStyle.fw800.copyWith(
-                    fontSize: 14.sp,
-                    color: text_color
+                SvgPicture.asset(
+                  svgIcon!,
+                ),
+                SizedBox(width: 10.h),
+                RichText(
+                  text: TextSpan(
+                    text: title,
+                    style: GoogleTextStyle.fw400.copyWith(
+                      color: text_color,
+                      fontSize: 14.sp,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: method,
+                        style: GoogleTextStyle.fw800
+                            .copyWith(fontSize: 14.sp, color: text_color),
+                      ),
+                    ],
                   ),
                 ),
               ],
-            ),
-          ),
-        ],
-      )
+            )
           : Text(
-        title,
-        style: GoogleTextStyle.fw800.copyWith(
-          fontSize: 14.sp,
-          color: text_color,
-        ),
-        textAlign: TextAlign.center,
-      ),
+              title,
+              style: GoogleTextStyle.fw800.copyWith(
+                fontSize: 14.sp,
+                color: text_color,
+              ),
+              textAlign: TextAlign.center,
+            ),
     );
   }
 }

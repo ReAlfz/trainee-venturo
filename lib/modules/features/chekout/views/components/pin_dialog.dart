@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 
 class PinDialog extends StatefulWidget {
   final String pin;
+
   const PinDialog({super.key, required this.pin});
 
   @override
@@ -30,7 +31,8 @@ class _PinDialog extends State<PinDialog> {
         Get.back<bool>(result: false);
       } else {
         controller.clear();
-        errorText.value = 'Pin wrong!, ${(3 - tries).toString()} chances left'.tr;
+        errorText.value =
+            'Pin wrong!, ${(3 - tries).toString()} chances left'.tr;
       }
     }
   }
@@ -38,8 +40,8 @@ class _PinDialog extends State<PinDialog> {
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
-      width: 34.w,
-      height: 50.h,
+      width: 50.w,
+      height: 40.h,
       textStyle: Get.textTheme.titleLarge,
       margin: EdgeInsets.symmetric(horizontal: 3.w),
       decoration: BoxDecoration(
@@ -50,77 +52,84 @@ class _PinDialog extends State<PinDialog> {
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: 15.h,
-        horizontal: 6.w,
+        vertical: 5.h,
+        horizontal: 12.w,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Verify',
-            style: Get.textTheme.labelLarge,
-          ),
-
-          Text(
-            'Enter Pin',
-            style: Get.textTheme.bodySmall!.copyWith(
-              color: MainColor.black,
+            'Verify Order'.tr,
+            style: Get.textTheme.labelLarge!.copyWith(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w700,
             ),
           ),
-
+          Text(
+            'Enter Pin'.tr,
+            style: Get.textTheme.bodySmall!.copyWith(
+              color: MainColor.black,
+              fontSize: 15,
+            ),
+          ),
           24.verticalSpacingRadius,
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Obx(() => Expanded(
-                child: Pinput(
-                  controller: controller,
-                  showCursor: false,
-                  length: 6,
-                  autofocus: true,
-                  keyboardType: TextInputType.number,
-                  closeKeyboardWhenCompleted: false,
-                  defaultPinTheme: defaultPinTheme,
-                  obscuringCharacter: '*',
-                  obscureText: obscure.value,
-                  onSubmitted: processPin,
-                  onCompleted: processPin,
-                ),
-              )),
-
+                    child: Pinput(
+                      controller: controller,
+                      showCursor: false,
+                      length: 6,
+                      autofocus: true,
+                      keyboardType: TextInputType.number,
+                      closeKeyboardWhenCompleted: false,
+                      defaultPinTheme: defaultPinTheme,
+                      obscuringCharacter: '*',
+                      obscureText: obscure.value,
+                      onSubmitted: processPin,
+                      onCompleted: processPin,
+                      separatorBuilder: (index) {
+                        if (index == 1 || index == 3) {
+                          return const Text('-');
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
+                    ),
+                  )),
               10.horizontalSpace,
-
               Obx(() => InkWell(
-                radius: 24.r,
-                onTap: () => obscure.value = !obscure.value,
-                child: Icon(
-                  obscure.value ? Icons.visibility_off : Icons.visibility,
-                  color: Theme.of(context).primaryColor,
-                  size: 20.r,
-                ),
-              )),
+                    radius: 24.r,
+                    onTap: () => obscure.value = !obscure.value,
+                    child: Icon(
+                      obscure.value
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      color: Colors.grey,
+                      size: 20.r,
+                    ),
+                  )),
             ],
           ),
-
           10.verticalSpace,
-
-          Obx(() => (errorText.value != null)
-              ? Padding(
-            padding: EdgeInsets.only(
-              left: 15.r,
-              right: 15.r,
-              top: 10.r,
-            ),
-            child: Text(
-              errorText.value!,
-              textAlign: TextAlign.center,
-              style: Get.textTheme.bodySmall!.copyWith(
-                color: Theme.of(context).colorScheme.error,
-              ),
-            ),
-          )
-              : const SizedBox(),
+          Obx(
+            () => (errorText.value != null)
+                ? Padding(
+                    padding: EdgeInsets.only(
+                      left: 15.r,
+                      right: 15.r,
+                      top: 10.r,
+                    ),
+                    child: Text(
+                      errorText.value!.tr,
+                      textAlign: TextAlign.center,
+                      style: Get.textTheme.bodySmall!.copyWith(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
           ),
         ],
       ),

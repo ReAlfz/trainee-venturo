@@ -17,10 +17,10 @@ class FormSignInCompoent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           TextFormFieldCustoms(
-            label: 'Email Address',
-            hint: 'Input Email address',
+            label: 'Email Address'.tr,
+            hint: 'Input Email address'.tr,
             isRequired: true,
-            requiredText: 'Email address cannot be empty',
+            requiredText: 'Email address cannot be empty'.tr,
             initialValue: SignInController.to.emailValue.value,
             controller: SignInController.to.emailCtrl,
             keyboardType: TextInputType.emailAddress,
@@ -31,14 +31,14 @@ class FormSignInCompoent extends StatelessWidget {
           ),
 
           Obx(() => TextFormFieldCustoms(
-            label: 'Password',
-            hint: 'Input Password',
+            label: 'Password'.tr,
+            hint: 'Input Password'.tr,
             isRequired: true,
             controller: SignInController.to.passwordCtrl,
             keyboardType: TextInputType.visiblePassword,
             initialValue: SignInController.to.passwordValue.value,
             isPassword: SignInController.to.isPassword.value,
-            requiredText: 'Password cannot be empty',
+            requiredText: 'Password cannot be empty'.tr,
             suffixIcon: GestureDetector(
               onTap: () => SignInController.to.showPassword(),
               child: Align(
@@ -46,8 +46,8 @@ class FormSignInCompoent extends StatelessWidget {
                 heightFactor: 1.0,
                 child: Icon(
                   (SignInController.to.isPassword.value)
-                      ? Icons.visibility
-                      : Icons.visibility_off,
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
                   size: 16,
                   color: MainColor.grey,
                 ),

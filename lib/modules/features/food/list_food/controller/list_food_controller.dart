@@ -52,7 +52,7 @@ class ListFoodController extends GetxController {
 
   // start function for smart refresh //
   RxInt currentPage = 1.obs;
-  final int pageSize = 5;
+  final int pageSize = 3;
   RxList<MenuModel> listMenu = RxList<MenuModel>();
   final RefreshController refreshController = RefreshController(initialRefresh: false);
 
@@ -107,6 +107,7 @@ class ListFoodController extends GetxController {
     }
   }
 
+  // all list //
   List<MenuModel> get filteredList => listMenu.where(
           (element) => element.nama
           .toString()

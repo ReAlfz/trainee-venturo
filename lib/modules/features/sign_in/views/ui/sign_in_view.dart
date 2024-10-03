@@ -4,6 +4,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
 import 'package:trainee/modules/features/sign_in/controllers/sign_in_controller.dart';
@@ -62,7 +63,7 @@ class SignInView extends StatelessWidget {
 
               SizedBox(height: 121.h),
               Text(
-                'Masuk untuk melanjutkan!',
+                'Masuk untuk melanjutkan!'.tr,
                 style: GoogleTextStyle.fw600.copyWith(
                   fontSize: 22.sp,
                   color: MainColor.black,
@@ -77,7 +78,7 @@ class SignInView extends StatelessWidget {
                 child: TextButton(
                   onPressed: () => SignInController.to.forgetPasswordPush(),
                   child: Text(
-                    "Lupa Password?",
+                    "Lupa Password?".tr,
                     style: GoogleTextStyle.fw600.copyWith(
                       fontSize: 14.sp,
                       color: MainColor.black,
@@ -89,7 +90,7 @@ class SignInView extends StatelessWidget {
 
               SizedBox(height: 40.h),
               ElevatedButtonCustom(
-                title: 'Masuk',
+                title: 'Masuk'.tr,
                 text_color: MainColor.white,
                 bg_color: MainColor.primary,
                 function: () => SignInController.to.validateForm(context),
@@ -103,7 +104,7 @@ class SignInView extends StatelessWidget {
                   ),
 
                   Text(
-                    'atau',
+                    'atau'.tr,
                     style: GoogleTextStyle.fw300.copyWith(
                       color: MainColor.grey,
                       fontSize: 12,
@@ -119,8 +120,8 @@ class SignInView extends StatelessWidget {
               SizedBox(height: 10.h),
 
               ElevatedButtonCustom(
-                title: 'Masuk menggunakan ',
-                method: 'Google',
+                title: 'Masuk menggunakan '.tr,
+                method: 'Google'.tr,
                 svgIcon: ImageConstant.ic_google,
                 bg_color: MainColor.white,
                 text_color: MainColor.black,
@@ -130,8 +131,8 @@ class SignInView extends StatelessWidget {
               SizedBox(height: 10.h),
 
               ElevatedButtonCustom(
-                title: 'Masuk menggunakan ',
-                method: 'Apple',
+                title: 'Masuk menggunakan '.tr,
+                method: 'Apple'.tr,
                 svgIcon: ImageConstant.ic_apple,
                 bg_color: MainColor.black,
                 text_color: MainColor.white,

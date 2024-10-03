@@ -70,4 +70,17 @@ const Map<String, String> translationsIdId = {
 
   'Already ordered?': 'Sudah memesan?',
   '\nTrack your order\nhere.': '\nLacak pesanan Anda\ndi sini.',
+
+  // sign in view//
+  'Masuk menggunakan ': 'Masuk menggunakan ',
+  'atau': 'atau',
+  'Masuk': 'Masuk',
+  'Lupa Password?': 'Lupa Password?',
+  'Masuk untuk melanjutkan!': 'Masuk untuk melanjutkan!',
+  'Email Address': 'Alamat email',
+  'Input Email address': 'Masukkan alamat email',
+  'Email address cannot be empty': 'Alamat email tidak boleh kosong',
+  'Password': 'Kata sandi',
+  'Input Password': 'Masukkan kata sandi',
+  'Password cannot be empty': 'Kata sandi tidak boleh kosong',
 };

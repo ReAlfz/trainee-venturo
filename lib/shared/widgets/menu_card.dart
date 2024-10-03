@@ -133,7 +133,7 @@ class MenuCard extends StatelessWidget {
                   onDecrement: onDecrement,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

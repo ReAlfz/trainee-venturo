@@ -89,6 +89,7 @@ class CheckoutController extends GetxController {
     final bool? authenticated = await Get.defaultDialog(
       title: '',
       titleStyle: const TextStyle(fontSize: 0),
+      radius: 30,
       content: PinDialog(pin: '${userPin}1'),
     );
 
@@ -123,6 +124,7 @@ class CheckoutController extends GetxController {
     await Get.defaultDialog(
       title: '',
       titleStyle: const TextStyle(fontSize: 0),
+      radius: 30,
       content: const OrderSuccessDialog(),
     );
 
