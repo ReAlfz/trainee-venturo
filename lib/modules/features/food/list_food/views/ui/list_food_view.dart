@@ -54,6 +54,7 @@ class ListFoodView extends StatelessWidget {
                       final promo = ListFoodController.to.promoList[index];
                       return PromoCard(
                         enableShadow: false,
+                        onTap: () => ListFoodController.to.pushPromo(index: index),
                         promo: promo,
                         witdh: 300.w,
                       );

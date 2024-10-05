@@ -28,6 +28,7 @@ class DetailOrderView extends StatelessWidget {
         title: 'Order',
         iconData: Icons.shopping_bag_outlined,
         enableBackButton: true,
+        onBackPressed: DetailOrderController.to.backOrder,
         actions: [
           Obx(() => Conditional.single(
             context: context,

@@ -8,19 +8,21 @@ import '../../models/promo_item_model.dart';
 
 class PromoCard extends StatelessWidget {
   final bool? enableShadow;
+  final VoidCallback? onTap;
   final PromoModel promo;
   final double? witdh;
 
   const PromoCard({
     super.key, this.enableShadow,
     required this.promo,
+    this.onTap,
     this.witdh
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       borderRadius: BorderRadius.circular(15.r),
       child: Container(
         width: witdh ?? 282.w,

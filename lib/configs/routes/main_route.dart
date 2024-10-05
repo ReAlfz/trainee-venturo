@@ -8,15 +8,12 @@ abstract class MainRoute {
 
   static const String home = '/home';
   // start children of home //
-  static const String lobby = '/lobby';
-  // start children of lobby //
-  static const String foodDetail = '/food/:idMenu';
-  // end children of lobby //
+  static const String food = '/food';
+  static const String promo = '/food/promo';
+  static const String foodDetail = '/food/detail-menu';
 
   static const String order = '/order';
-  // start children of order //
-  static const String orderDetail = '/:orderId';
-  // end children of order //
+  static const String orderDetail = '/order/detail-order';
 
   static const String checkout = '/checkout';
   static const String profile = '/profile';

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:trainee/configs/routes/main_route.dart';
+import 'package:trainee/modules/features/home/controllers/home_controller.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 
 import '../modules/order_model.dart';
@@ -22,7 +24,8 @@ class OrderController extends GetxController {
     end: DateTime.now(),
   ).obs;
 
-  Map<String, String> get dateFilterStatus => {
+  Map<String, String> get dateFilterStatus =>
+      {
         'semua': 'Semua Status'.tr,
         'selesai': 'Selesai'.tr,
         'dibatalkan': 'Dibatalkan'.tr
@@ -84,14 +87,15 @@ class OrderController extends GetxController {
 
   // start OnGoing tabview //
   RxList<OrderModel> listOrder = <OrderModel>[].obs;
-  final RefreshController refreshControllerOnGoingOrder = RefreshController(initialRefresh: false);
+  final RefreshController refreshControllerOnGoingOrder = RefreshController(
+      initialRefresh: false);
+
   void onRefreshOnGoingOrder() async {
     try {
       canLoadMore(true);
       currentPage.value = 1;
       listOrder.addAll(allOnGoingOrder.take(pageSize).toList());
       refreshControllerOnGoingOrder.refreshCompleted();
-
     } catch (e, stacktrace) {
       refreshControllerOnGoingOrder.refreshFailed();
       await Sentry.captureException(e, stackTrace: stacktrace);
@@ -114,24 +118,25 @@ class OrderController extends GetxController {
         canLoadMore(false);
         refreshControllerOnGoingOrder.loadNoData();
       }
-
     } catch (e, stacktrace) {
       refreshControllerOnGoingOrder.loadFailed();
       await Sentry.captureException(e, stackTrace: stacktrace);
     }
   }
+
   // end OnGoing tabview //
 
   // start History tabview //
   RxList<OrderModel> listHistory = <OrderModel>[].obs;
-  final RefreshController refreshControllerHistoryOrder = RefreshController(initialRefresh: false);
+  final RefreshController refreshControllerHistoryOrder = RefreshController(
+      initialRefresh: false);
+
   void onRefreshHistoryOrder() async {
     try {
       canLoadMore(true);
       currentPage.value = 1;
       listHistory.addAll(allHistoryOrder.take(pageSize).toList());
       refreshControllerHistoryOrder.refreshCompleted();
-
     } catch (e, stacktrace) {
       refreshControllerHistoryOrder.refreshFailed();
       await Sentry.captureException(e, stackTrace: stacktrace);
@@ -154,12 +159,12 @@ class OrderController extends GetxController {
         canLoadMore(false);
         refreshControllerHistoryOrder.loadNoData();
       }
-
     } catch (e, stacktrace) {
       refreshControllerHistoryOrder.loadFailed();
       await Sentry.captureException(e, stackTrace: stacktrace);
     }
   }
+
   // end History tabview //
   // end function smart refresh //
 
@@ -179,18 +184,20 @@ class OrderController extends GetxController {
     }
 
     historyOrderList.removeWhere((element) =>
-        DateTime.parse(element.tanggal)
-            .isBefore(selectDateRange.value.start) ||
+    DateTime.parse(element.tanggal)
+        .isBefore(selectDateRange.value.start) ||
         DateTime.parse(element.tanggal)
             .isAfter(selectDateRange.value.end)
     );
 
-    historyOrderList.sort((a, b) => DateTime.parse(b.tanggal)
-        .compareTo(DateTime.parse(a.tanggal))
+    historyOrderList.sort((a, b) =>
+        DateTime.parse(b.tanggal)
+            .compareTo(DateTime.parse(a.tanggal))
     );
 
     return historyOrderList;
   }
+
   // end function for date //
 
   String get totalHistoryOrder {
@@ -203,4 +210,15 @@ class OrderController extends GetxController {
   }
 
   int get orderIndicator => listOrder.length;
+
+  void pushOrder({required int index, required bool currentPage}) {
+    final int idOrder = (currentPage)
+        ? listOrder[index].idOrder
+        : filterHistoryOrder[index].idOrder;
+    Get.toNamed(
+        MainRoute.orderDetail,
+        id: HomeController.to.navigatorOrderId,
+        arguments: idOrder,
+    );
+  }
 }

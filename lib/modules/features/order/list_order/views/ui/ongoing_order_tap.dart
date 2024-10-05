@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
 
 import '../../controllers/order_controller.dart';
@@ -18,7 +17,6 @@ class OnGoingOrderTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final OrderController controller = Get.put(OrderController());
     analytics.setCurrentScreen(
       screenName: 'Ongoing Order Screen',
       screenClassOverride: 'Trainee',
@@ -28,23 +26,24 @@ class OnGoingOrderTabView extends StatelessWidget {
       height: 1.sh,
       child: Obx(
         () => SmartRefresher(
-          controller: controller.refreshControllerOnGoingOrder,
-          onRefresh: controller.onRefreshOnGoingOrder,
-          onLoading: controller.onLoadingOnGoingOrder,
-          enablePullUp: controller.canLoadMore.isTrue ? true : false,
+          controller: OrderController.to.refreshControllerOnGoingOrder,
+          onRefresh: OrderController.to.onRefreshOnGoingOrder,
+          onLoading: OrderController.to.onLoadingOnGoingOrder,
+          enablePullUp: OrderController.to.canLoadMore.isTrue ? true : false,
           enablePullDown: true,
           child: Conditional.single(
             context: context,
-            conditionBuilder: (context) => controller.listOrder.isNotEmpty,
+            conditionBuilder: (context) =>
+                OrderController.to.listOrder.isNotEmpty,
             widgetBuilder: (context) {
               return ListView.separated(
                 padding: EdgeInsets.all(25.r),
-                itemCount: controller.listOrder.length,
+                itemCount: OrderController.to.listOrder.length,
                 itemBuilder: (context, index) {
                   return OrderItemCard(
-                    order: controller.listOrder[index],
-                    onTap: () => Get.toNamed(
-                        '${MainRoute.home}/order/${controller.allOnGoingOrder[index].idOrder}'),
+                    order: OrderController.to.listOrder[index],
+                    onTap: () => OrderController.to
+                        .pushOrder(index: index, currentPage: true),
                     onOrderAgain: () {},
                   );
                 },

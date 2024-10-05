@@ -4,7 +4,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 
-import '../models/promo_item_model.dart';
+import '../../list_food/models/promo_item_model.dart';
 
 class PromoRepository {
   Future<List<PromoModel>> fetchPromoFromApi() async {

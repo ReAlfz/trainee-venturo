@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:trainee/modules/features/home/controllers/home_controller.dart';
 import 'package:trainee/modules/global_models/menu_model.dart';
 
 import '../../list_order/modules/order_model.dart';
@@ -22,7 +23,7 @@ class DetailOrderController extends GetxController {
     super.onInit();
 
     repository = DetailOrderRepository();
-    final orderId = int.parse(Get.parameters['orderId']!);
+    final orderId = Get.arguments;
     getOrderDetail(orderId).then((value) {
       timer = Timer.periodic(
           const Duration(seconds: 10), (timer) {
@@ -68,4 +69,6 @@ class DetailOrderController extends GetxController {
             (element) => element.kategori == 'minuman'
     ).toList() ?? [];
   }
+
+  void backOrder() => Get.back(id: HomeController.to.navigatorOrderId);
 }

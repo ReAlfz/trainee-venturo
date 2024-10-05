@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 
 class RoundedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final String? svgPicture;
+  final double? heightSvg, widthSvg;
   final IconData? iconData;
   final VoidCallback? onBackPressed;
   final List<Widget>? actions;
@@ -17,7 +20,10 @@ class RoundedAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.title,
     this.iconData,
     this.onBackPressed,
+    this.heightSvg,
+    this.widthSvg,
     this.actions,
+    this.svgPicture,
     this.titleWidget,
     this.enableBackButton,
     this.textStyle
@@ -40,7 +46,15 @@ class RoundedAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: Theme.of(context).primaryColor,
             ),
 
-          if (iconData != null) 10.horizontalSpaceRadius,
+          if (svgPicture != null)
+            SvgPicture.asset(
+              svgPicture!,
+              width: widthSvg,
+              height: heightSvg,
+              color: Theme.of(context).primaryColor,
+            ),
+
+          if (iconData != null || svgPicture != null) 10.horizontalSpaceRadius,
 
           Column(
             mainAxisSize: MainAxisSize.min,

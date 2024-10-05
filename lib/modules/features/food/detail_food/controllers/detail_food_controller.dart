@@ -5,6 +5,7 @@ import 'package:trainee/modules/features/food/detail_food/views/components/toppi
 import 'package:trainee/modules/features/food/detail_food/views/components/catatan_bottom_sheet.dart';
 import 'package:trainee/modules/features/food/list_food/controller/list_food_controller.dart';
 import 'package:trainee/modules/features/food/list_food/models/sub_catalog_model.dart';
+import 'package:trainee/modules/features/home/controllers/home_controller.dart';
 
 import '../../../../global_models/menu_model.dart';
 import '../../../chekout/controllers/checkout_controller.dart';
@@ -36,9 +37,8 @@ class DetailFoodController extends GetxController {
   void onInit() async {
     super.onInit();
     catalogRepository = DetailFoodRepository();
-    final idMenu = int.parse(Get.parameters['idMenu']!);
     menu(Get.arguments);
-    catalogData(await catalogRepository.fetchMenuFromApi(idMenu));
+    catalogData(await catalogRepository.fetchMenuFromApi(menu.value!.idMenu));
     quantity.value = menu.value!.jumlah;
     currentLevel.value =
         (menu.value!.level != -1) ? '${menu.value!.level}' : '';
@@ -72,7 +72,7 @@ class DetailFoodController extends GetxController {
       catatan: catatan.value,
     );
 
-    Get.back(result: data);
+    Get.back(result: data, id: HomeController.to.navigatorFoodId);
   }
 
   void selectOption(String code) async {

@@ -4,11 +4,12 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/chekout/controllers/checkout_controller.dart';
+import 'package:trainee/modules/features/home/controllers/home_controller.dart';
 import 'package:trainee/modules/global_models/menu_model.dart';
 
+import '../../promo/repositories/promo_repository.dart';
 import '../models/promo_item_model.dart';
 import '../repositories/list_repository.dart';
-import '../repositories/promo_repository.dart';
 
 class ListFoodController extends GetxController {
   static ListFoodController get to => Get.find();
@@ -54,7 +55,8 @@ class ListFoodController extends GetxController {
   RxInt currentPage = 1.obs;
   final int pageSize = 3;
   RxList<MenuModel> listMenu = RxList<MenuModel>();
-  final RefreshController refreshController = RefreshController(initialRefresh: false);
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
   void onRefresh() async {
     try {
@@ -62,7 +64,6 @@ class ListFoodController extends GetxController {
       currentPage.value = 1;
       listMenu.addAll(allListMenu.take(pageSize).toList());
       refreshController.refreshCompleted();
-
     } catch (e, stacktrace) {
       refreshController.refreshFailed();
       await Sentry.captureException(e, stackTrace: stacktrace);
@@ -86,19 +87,18 @@ class ListFoodController extends GetxController {
         canLoadMore(false);
         refreshController.loadNoData();
       }
-
     } catch (e, stacktrace) {
       refreshController.loadFailed();
       await Sentry.captureException(e, stackTrace: stacktrace);
     }
   }
+
   // end function for smart refresh //
 
   // start function for listMenu //
   Future<void> deleteItem(MenuModel item) async {
     try {
       listMenu.removeWhere((element) => element.idMenu == item.idMenu);
-
     } catch (exception, stacktrace) {
       await Sentry.captureException(
         exception,
@@ -108,36 +108,40 @@ class ListFoodController extends GetxController {
   }
 
   // all list //
-  List<MenuModel> get filteredList => listMenu.where(
-          (element) => element.nama
-          .toString()
-          .toLowerCase()
-          .contains(keyword.value.toLowerCase()) &&
-          (selectCategory.value == 'semua' || element.kategori == selectCategory.value)
-  ).toList();
-
+  List<MenuModel> get filteredList => listMenu
+      .where((element) =>
+          element.nama
+              .toString()
+              .toLowerCase()
+              .contains(keyword.value.toLowerCase()) &&
+          (selectCategory.value == 'semua' ||
+              element.kategori == selectCategory.value))
+      .toList();
 
   List<PromoModel> get promoList => listPromo;
+
   // end function for listMenu //
 
   // start function for change list //
   Future<void> pushPage(MenuModel menu) async {
     try {
       final result = await Get.toNamed(
-        '${MainRoute.home}/food/${menu.idMenu}',
+        MainRoute.foodDetail,
         arguments: menu,
+        id: HomeController.to.navigatorFoodId,
       );
       if (result != null) {
         MenuModel data = result as MenuModel;
-        int menuIndex = listMenu.indexWhere((element) => element.idMenu == data.idMenu);
+        int menuIndex =
+            listMenu.indexWhere((element) => element.idMenu == data.idMenu);
         listMenu[menuIndex] = data;
 
-        int cartIndex = CheckoutController.to.cart.indexWhere((element) => element.idMenu == data.idMenu);
+        int cartIndex = CheckoutController.to.cart
+            .indexWhere((element) => element.idMenu == data.idMenu);
         if (cartIndex != -1) {
           (data.jumlah > 0)
               ? CheckoutController.to.cart[cartIndex] = data
               : CheckoutController.to.cart.removeAt(cartIndex);
-
         } else {
           if (data.jumlah > 0) {
             CheckoutController.to.cart.add(data);
@@ -147,5 +151,14 @@ class ListFoodController extends GetxController {
     } catch (e, stacktrace) {
       await Sentry.captureException(e, stackTrace: stacktrace);
     }
+  }
+
+  void pushPromo({required int index}) {
+    final idPromo = promoList[index].idPromo;
+    Get.toNamed(
+      MainRoute.promo,
+      id: HomeController.to.navigatorFoodId,
+      arguments: idPromo,
+    );
   }
 }

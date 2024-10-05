@@ -11,101 +11,95 @@ import '../../../../../../shared/widgets/rounded_custom_appbar.dart';
 import '../../controllers/detail_food_controller.dart';
 import '../components/detail_food_body.dart';
 
-class FoodDetailView extends StatelessWidget {
-  const FoodDetailView({super.key});
+class DetailFoodView extends StatelessWidget {
+  const DetailFoodView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: WillPopScope(
-        onWillPop: () async {
-          DetailFoodController.to.updateData();
-          return false;
-        },
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: RoundedAppBar(
-            title: 'Detail Menu',
-            enableBackButton: true,
-            onBackPressed: DetailFoodController.to.updateData,
-          ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 3,
-                child: Obx(
-                  () => Conditional.single(
-                    context: context,
-                    conditionBuilder: (context) =>
-                        DetailFoodController.to.catalogState.value == 'success',
-                    widgetBuilder: (context) => CachedNetworkImage(
-                      imageUrl:
-                          DetailFoodController.to.catalogData.value!.menu.foto,
-                      height: 1.sh,
-                      fit: BoxFit.fitHeight,
-                      errorWidget: (context, url, error) {
-                        return CachedNetworkImage(
-                          imageUrl:
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
-                          height: 1.sh,
-                          fit: BoxFit.fitHeight,
-                        );
-                      },
-                    ),
-                    fallbackBuilder: (context) => Shimmer.fromColors(
-                      baseColor: Colors.grey,
-                      highlightColor: Colors.grey[400]!,
-                      child: Container(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: RoundedAppBar(
+          title: 'Detail Menu',
+          enableBackButton: true,
+          onBackPressed: DetailFoodController.to.updateData,
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 3,
+              child: Obx(
+                    () => Conditional.single(
+                  context: context,
+                  conditionBuilder: (context) =>
+                  DetailFoodController.to.catalogState.value == 'success',
+                  widgetBuilder: (context) => CachedNetworkImage(
+                    imageUrl:
+                    DetailFoodController.to.catalogData.value!.menu.foto,
+                    height: 1.sh,
+                    fit: BoxFit.fitHeight,
+                    errorWidget: (context, url, error) {
+                      return CachedNetworkImage(
+                        imageUrl:
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
                         height: 1.sh,
-                        width: 250.w,
-                        margin: EdgeInsets.symmetric(vertical: 10.r),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15.r),
-                        ),
+                        fit: BoxFit.fitHeight,
+                      );
+                    },
+                  ),
+                  fallbackBuilder: (context) => Shimmer.fromColors(
+                    baseColor: Colors.grey,
+                    highlightColor: Colors.grey[400]!,
+                    child: Container(
+                      height: 1.sh,
+                      width: 250.w,
+                      margin: EdgeInsets.symmetric(vertical: 10.r),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.r),
                       ),
                     ),
                   ),
                 ),
               ),
-              Flexible(
-                flex: 6,
-                fit: FlexFit.tight,
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
-                  decoration: BoxDecoration(
-                    color: MainColor.white,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(25.r),
-                    ),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: MainColor.black,
-                        offset: Offset(0, 1),
-                        spreadRadius: 0.3,
-                        blurRadius: 3,
-                      ),
-                    ],
+            ),
+            Flexible(
+              flex: 6,
+              fit: FlexFit.tight,
+              child: Container(
+                padding:
+                EdgeInsets.symmetric(horizontal: 20.r, vertical: 10.r),
+                decoration: BoxDecoration(
+                  color: MainColor.white,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(25.r),
                   ),
-                  child: Obx(
-                    () => Conditional.single(
+                  boxShadow: const [
+                    BoxShadow(
+                      color: MainColor.black,
+                      offset: Offset(0, 1),
+                      spreadRadius: 0.3,
+                      blurRadius: 3,
+                    ),
+                  ],
+                ),
+                child: Obx(
+                      () => Conditional.single(
                       context: context,
                       conditionBuilder: (context) =>
-                          DetailFoodController.to.catalogState.value ==
+                      DetailFoodController.to.catalogState.value ==
                           'success',
                       widgetBuilder: (context) {
                         final food = DetailFoodController.to.catalogData.value!;
                         return DetailFoodBody(food: food);
                       },
                       fallbackBuilder: (context) => const DetailFoodShimmer()
-                    ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
