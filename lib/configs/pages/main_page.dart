@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:trainee/modules/features/location/bindings/location_binding.dart';
+import 'package:trainee/modules/features/location/views/ui/location_view.dart';
 
 import '../../modules/features/chekout/binddings/checkout_bindding.dart';
 import '../../modules/features/chekout/views/ui/checkout_view.dart';
@@ -57,6 +59,12 @@ abstract class MainPage {
       name: MainRoute.checkout,
       page: () => const CheckoutView(),
       binding: CheckoutBinding(),
+    ),
+
+    GetPage(
+      name: MainRoute.location,
+      page: () => const LocationView(),
+      binding: LocationBinding(),
     ),
   ];
 }

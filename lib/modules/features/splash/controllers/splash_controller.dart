@@ -17,7 +17,7 @@ class SplashController extends GetxController {
 
       bool checkAuth = await checkSession();
       if (checkAuth) {
-        Get.offAllNamed(MainRoute.home);
+        Get.offAllNamed(MainRoute.location);
       } else {
         Get.offAllNamed(MainRoute.signIn);
       }

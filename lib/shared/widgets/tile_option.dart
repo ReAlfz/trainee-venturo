@@ -77,24 +77,30 @@ class TileOption extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      message,
-                      style: messageStyle ?? Get.textTheme.bodyMedium,
-                      textAlign: TextAlign.end,
-                      maxLines: messageMaxLines,
-                      overflow: TextOverflow.ellipsis,
+                    Container(
+                      constraints: BoxConstraints(maxWidth: 125.w),
+                      child: Text(
+                        message,
+                        style: messageStyle ?? Get.textTheme.bodyMedium,
+                        textAlign: TextAlign.end,
+                        maxLines: messageMaxLines,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     if (messageSubtitle != null)
-                      Text(
-                        messageSubtitle!,
-                        textAlign: TextAlign.end,
-                        style: messageSubtitleStyle ??
-                            GoogleFonts.montserrat(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                              height: 1.219,
-                            ),
+                      Container(
+                        constraints: BoxConstraints(maxWidth: 125.w),
+                        child: Text(
+                          messageSubtitle!,
+                          textAlign: TextAlign.end,
+                          style: messageSubtitleStyle ??
+                              GoogleFonts.montserrat(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                height: 1.219,
+                              ),
+                        ),
                       ),
                   ],
                 ),

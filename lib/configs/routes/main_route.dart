@@ -7,6 +7,7 @@ abstract class MainRoute {
   static const String forgotPassword = '/forgot-password';
 
   static const String home = '/home';
+  static const String location = '/location';
   // start children of home //
   static const String food = '/food';
   static const String promo = '/food/promo';

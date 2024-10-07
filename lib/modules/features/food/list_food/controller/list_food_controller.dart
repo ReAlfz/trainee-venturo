@@ -7,7 +7,6 @@ import 'package:trainee/modules/features/chekout/controllers/checkout_controller
 import 'package:trainee/modules/features/home/controllers/home_controller.dart';
 import 'package:trainee/modules/global_models/menu_model.dart';
 
-import '../../promo/repositories/promo_repository.dart';
 import '../models/promo_item_model.dart';
 import '../repositories/list_repository.dart';
 
@@ -16,9 +15,8 @@ class ListFoodController extends GetxController {
 
   late final ListRepository listRepository;
   final RxList<MenuModel> allListMenu = <MenuModel>[].obs;
+  final RxList<PromoModel> listPromo = <PromoModel>[].obs;
 
-  late final PromoRepository promoRepository;
-  RxList<PromoModel> listPromo = <PromoModel>[].obs;
   RxString listFoodState = 'loading'.obs;
 
   final RxBool canLoadMore = true.obs;
@@ -44,10 +42,8 @@ class ListFoodController extends GetxController {
     super.onInit();
     listRepository = ListRepository();
     allListMenu.value = await listRepository.fetchListFromApi();
+    listPromo.value = await listRepository.fetchPromoFromApi();
     listMenu(allListMenu.take(pageSize).toList());
-
-    promoRepository = PromoRepository();
-    listPromo.value = await promoRepository.fetchPromoFromApi();
     listFoodState('success');
   }
 

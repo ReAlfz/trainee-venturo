@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
 import 'package:trainee/modules/features/food/promo/controllers/detail_promo_controller.dart';
@@ -17,10 +18,9 @@ class DetailPromoView extends StatelessWidget {
           onBackPressed: DetailPromoController.to.backPromo,
           enableBackButton: true,
         ),
-        body: Column(
-          children: [
-            Container(),
-          ],
+        body: SizedBox(
+          height: 1.sh,
+
         ),
       ),
     );

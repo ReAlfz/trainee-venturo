@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:flutter_conditional_rendering/conditional_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
 import 'package:trainee/modules/features/profile/controllers/profile_controller.dart';
-import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/shared/customs/elevated_button_sign_in.dart';
 import 'package:trainee/shared/widgets/rounded_custom_appbar.dart';
 import 'package:trainee/shared/widgets/tile_option.dart';
@@ -16,7 +16,6 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = GlobalController.to.user.value!;
     return Scaffold(
       appBar: RoundedAppBar(
         title: 'Profile'.tr,
@@ -41,22 +40,31 @@ class ProfileView extends StatelessWidget {
                 child: Stack(
                   children: [
                     Obx(
-                      () => Conditional.single(
+                      () => ConditionalSwitch.single(
                         context: context,
-                        conditionBuilder: (context) =>
-                            ProfileController.to.imageFile != null,
-                        widgetBuilder: (context) => Image.file(
-                          ProfileController.to.imageFile!,
-                          width: 170.r,
-                          height: 170.r,
-                          fit: BoxFit.cover,
-                        ),
-                        fallbackBuilder: (context) => Image.asset(
-                          ImageConstant.bg_profile,
-                          width: 170.r,
-                          height: 170.r,
-                          fit: BoxFit.cover,
-                        ),
+                        valueBuilder: (context) =>
+                            ProfileController.to.photoValue.value,
+                        caseBuilders: {
+                          'data-file': (context) => Image.file(
+                            ProfileController.to.imageFile!,
+                            width: 170.r,
+                            height: 170.r,
+                            fit: BoxFit.cover,
+                          ),
+                          'data-api': (context) => Image.network(
+                            ProfileController.to.photo.value,
+                            width: 170.r,
+                            height: 170.r,
+                            fit: BoxFit.cover,
+                          ),
+
+                          'no-data': (context) => Image.asset(
+                            ImageConstant.bg_profile,
+                            width: 170.r,
+                            height: 170.r,
+                            fit: BoxFit.cover,
+                          ),
+                        },
                       ),
                     ),
                     Align(
@@ -143,26 +151,43 @@ class ProfileView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.r),
                 color: MainColor.lightColor2,
               ),
-              child: Column(
-                children: [
-                  TileOption(title: 'Name'.tr, message: user.nama),
-                  const Divider(thickness: 0.5),
-                  TileOption(title: 'Birth date'.tr, message: "01/02/2003"),
-                  const Divider(thickness: 0.5),
-                  TileOption(title: 'Phone number'.tr, message: "088888888888"),
-                  const Divider(thickness: 0.5),
-                  TileOption(title: 'Email'.tr, message: user.email),
-                  const Divider(thickness: 0.5),
-                  TileOption(title: 'Change PIN'.tr, message: "******"),
-                  const Divider(thickness: 0.5),
-                  Obx(
-                    () => TileOption(
+              child: Obx(
+                () => Column(
+                  children: [
+                    TileOption(
+                      title: 'Name'.tr,
+                      message: ProfileController.to.name.value,
+                      onTap: () => ProfileController.to.changeUser(info: 'Name'),
+                    ),
+                    const Divider(thickness: 0.5),
+                    TileOption(
+                      title: 'Birth date'.tr,
+                      message: "01/02/2003",
+                    ),
+                    const Divider(thickness: 0.5),
+                    TileOption(
+                      title: 'Phone number'.tr,
+                      message: "088888888888",
+                    ),
+                    const Divider(thickness: 0.5),
+                    TileOption(
+                      title: 'Email'.tr,
+                      message: ProfileController.to.email.value,
+                      onTap: () => ProfileController.to.changeUser(info: 'Email'),
+                    ),
+                    const Divider(thickness: 0.5),
+                    TileOption(
+                      title: 'Change PIN'.tr,
+                      message: "******",
+                    ),
+                    const Divider(thickness: 0.5),
+                    TileOption(
                       title: 'Change language'.tr,
                       message: ProfileController.to.currentLang.value,
                       onTap: ProfileController.to.updateLanguage,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             16.verticalSpacingRadius,

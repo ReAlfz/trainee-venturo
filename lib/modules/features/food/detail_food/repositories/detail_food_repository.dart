@@ -8,7 +8,7 @@ import '../models/detail_food_model.dart';
 
 class DetailFoodRepository {
   Future<DetailFoodModel?> fetchMenuFromApi(int id) async {
-    DetailFoodModel catalogModel;
+    final DetailFoodModel catalogModel;
     final dio = DioServices.dioCall(token: GlobalController.to.session.value);
     final url = 'menu/detail/$id';
 

@@ -12,7 +12,8 @@ class SignRepository {
   Future<bool> requestWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
@@ -30,7 +31,8 @@ class SignRepository {
     return false;
   }
 
-  Future<bool> requestAuth({required String email, required String password}) async {
+  Future<bool> requestAuth(
+      {required String email, required String password}) async {
     final SessionService sessionService = SessionService();
     final dio = DioServices.dioCall();
     const url = '/auth/login';
@@ -43,6 +45,7 @@ class SignRepository {
         Map<String, dynamic> responseData = response.data;
         int statusCode = responseData['status_code'];
         if (statusCode == 200) {
+          int userId = responseData['data']['user']['id_user'];
           UserModel userData = UserModel.fromJson(responseData['data']['user']);
 
           sessionService.saveUser('user', userData);
@@ -55,12 +58,10 @@ class SignRepository {
           log('Response body: ${response.data}');
           return true;
         }
-
       } else {
         log('Login failed with status: ${response.statusCode}');
         log('Response body: ${response.data}');
       }
-
     } catch (exception, stackTrace) {
       await Sentry.captureException(
         exception,
@@ -69,5 +70,22 @@ class SignRepository {
     }
 
     return false;
+  }
+
+  Future<void> getUser(
+      {required String token,
+      required String userId,
+      required SessionService sessionService}) async {
+    final dio = DioServices.dioCall();
+    const url = '/user/all';
+
+    try {
+      final response = dio.get(url);
+    } catch (e, stacktrace) {
+      await Sentry.captureException(
+        e,
+        stackTrace: stacktrace,
+      );
+    }
   }
 }

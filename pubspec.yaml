@@ -58,7 +58,7 @@ dependencies:
 
   geolocator: ^9.0.2
   geocoding: ^3.0.0
-  app_settings: ^5.1.1
+  app_settings: ^4.2.0
 
   loadmore: ^2.1.0
   pull_to_refresh: ^2.0.0
@@ -76,6 +76,9 @@ dependencies:
   image_cropper: ^4.0.1
   image_picker: ^1.0.4
   shimmer: ^3.0.0
+
+  firebase_messaging: ^14.6.3
+  flutter_local_notifications: ^14.1.1
 
 dev_dependencies:
   flutter_test:

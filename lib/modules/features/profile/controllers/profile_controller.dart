@@ -13,26 +13,22 @@ import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/profile/repositories/profile_repository.dart';
 import 'package:trainee/modules/features/profile/views/components/language_bottom_sheet.dart';
+import 'package:trainee/modules/features/profile/views/components/profile_bottom_sheet.dart';
 import 'package:trainee/shared/widgets/image_picker_dialog.dart';
+
+import '../../../global_controllers/global_controller.dart';
 
 class ProfileController extends GetxController {
   static ProfileController get to => Get.find();
 
   final Rx<File?> _imageFile = Rx<File?>(null);
   RxString deviceModel = ''.obs;
-  RxString currentLang = Localization.currentLanguage.obs;
   RxString deviceVersion = ''.obs;
   RxBool isVerify = false.obs;
 
   File? get imageFile => _imageFile.value;
+  RxString photoValue = 'no-data'.obs;
   late final ProfileRepository repository;
-
-  @override
-  void onInit() async {
-    await getDeviceInformation();
-    repository = ProfileRepository();
-    super.onInit();
-  }
 
   Future<void> pickImage() async {
     try {
@@ -61,8 +57,7 @@ class ProfileController extends GetxController {
                 toolbarColor: MainColor.primary,
                 toolbarWidgetColor: MainColor.white,
                 initAspectRatio: CropAspectRatioPreset.square,
-                lockAspectRatio: true
-            ),
+                lockAspectRatio: true),
             IOSUiSettings(
               aspectRatioPickerButtonHidden: true,
               aspectRatioLockEnabled: true,
@@ -72,6 +67,7 @@ class ProfileController extends GetxController {
 
         if (croppedFile != null) {
           _imageFile.value = File(croppedFile.path);
+          photoValue('data-file');
         }
       }
     } catch (e, stacktrace) {
@@ -101,16 +97,17 @@ class ProfileController extends GetxController {
     Get.offAllNamed(MainRoute.signIn);
   }
 
+  RxString currentLang = Localization.currentLanguage.obs;
+
   Future<void> updateLanguage() async {
     String? language = await Get.bottomSheet(
       const LanguageBottomSheet(),
       isScrollControlled: true,
       backgroundColor: MainColor.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(30.r),
-        )
-      ),
+          borderRadius: BorderRadius.vertical(
+        top: Radius.circular(30.r),
+      )),
     );
 
     if (language != null) {
@@ -119,4 +116,44 @@ class ProfileController extends GetxController {
     }
   }
 
+  final user = GlobalController.to.user.value!;
+  RxString name = ''.obs;
+  RxString date = ''.obs;
+  RxString photo = 'no-data'.obs;
+  RxString phone = ''.obs;
+  RxString email = ''.obs;
+  RxString pin = ''.obs;
+
+  void changeUser({required String info}) async {
+    switch (info) {
+      case 'Name':
+        name.value = await Get.bottomSheet(
+          ProfileBottomSheet(hint: name.value, title: info),
+        );
+        break;
+
+      case 'Email':
+        email.value = await Get.bottomSheet(
+          ProfileBottomSheet(hint: email.value, title: info),
+        );
+        break;
+    }
+  }
+
+  @override
+  void onInit() async {
+    await getDeviceInformation();
+    repository = ProfileRepository();
+
+    name(user.nama);
+    email(user.email);
+    if (user.foto.isNotEmpty) {
+      photo(user.foto);
+      photoValue('data-api');
+    }
+    // date(user.);
+    // phone(user);
+    pin(user.pin);
+    super.onInit();
+  }
 }

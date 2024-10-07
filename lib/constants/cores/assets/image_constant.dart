@@ -39,5 +39,6 @@ class ImageConstant {
 
   static const String flag_en = 'assets/svgs/localization/flag_en.svg';
   static const String flag_id = 'assets/svgs/localization/flag_id.svg';
+  static const String bg_map = 'assets/images/bg-map.png';
 
 }
