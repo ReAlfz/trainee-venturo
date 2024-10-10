@@ -6,7 +6,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/modules/features/sign_in/modules/user_model.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/utils/services/dio_service.dart';
-import 'package:trainee/utils/services/session_services.dart';
+import 'package:trainee/utils/services/hive_services.dart';
 
 class SignRepository {
   Future<bool> requestWithGoogle() async {
@@ -33,7 +33,6 @@ class SignRepository {
 
   Future<bool> requestAuth(
       {required String email, required String password}) async {
-    final SessionService sessionService = SessionService();
     final dio = DioServices.dioCall();
     const url = '/auth/login';
     final data = {'email': email, 'password': password};
@@ -48,10 +47,10 @@ class SignRepository {
           int userId = responseData['data']['user']['id_user'];
           UserModel userData = UserModel.fromJson(responseData['data']['user']);
 
-          sessionService.saveUser('user', userData);
+          LocalStorageService.saveUser(userData);
           GlobalController.to.user(userData);
 
-          sessionService.saveToken('token', responseData['data']['token']);
+          LocalStorageService.saveToken(responseData['data']['token']);
           GlobalController.to.session.value = responseData['data']['token'];
 
           log('Login Success');
@@ -74,8 +73,7 @@ class SignRepository {
 
   Future<void> getUser(
       {required String token,
-      required String userId,
-      required SessionService sessionService}) async {
+      required String userId}) async {
     final dio = DioServices.dioCall();
     const url = '/user/all';
 

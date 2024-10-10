@@ -83,4 +83,6 @@ const Map<String, String> translationsIdId = {
   'Password': 'Kata sandi',
   'Input Password': 'Masukkan kata sandi',
   'Password cannot be empty': 'Kata sandi tidak boleh kosong',
+  'Nama Promo': 'Nama Promo',
+  'Syarat dan Ketentuan': 'Syarat dan Ketentuan',
 };

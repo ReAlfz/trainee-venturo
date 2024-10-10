@@ -72,13 +72,14 @@ class DetailFoodController extends GetxController {
       catatan: catatan.value,
     );
 
-    Get.back(result: data, id: HomeController.to.navigatorFoodId);
+    HomeController.to.foodKey!.currentState!.pop([data]);
   }
 
   void selectOption(String code) async {
     switch (code) {
       case 'level':
         final result = await Get.bottomSheet(
+          barrierColor: Colors.transparent,
           const LevelBottomSheet(),
         );
 
@@ -86,12 +87,16 @@ class DetailFoodController extends GetxController {
         break;
 
       case 'topping':
-        Get.bottomSheet(const ToppingBottomSheet());
+        Get.bottomSheet(
+          barrierColor: Colors.transparent,
+          const ToppingBottomSheet(),
+        );
         break;
 
       default:
         textController = TextEditingController(text: catatan.value);
         final result = await Get.bottomSheet(
+          barrierColor: Colors.transparent,
           const CatatanBottomSheet(),
         );
 

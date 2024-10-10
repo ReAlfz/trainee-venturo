@@ -130,14 +130,10 @@ class CheckoutView extends StatelessWidget {
                         const Divider(color: Colors.grey, thickness: 0.5),
                         TileOption(
                           title: 'Voucher',
-                          message:
-                              'Rp ${CheckoutController.to.discountPrice.toString()}',
+                          message: CheckoutController.to.voucher.value,
                           svgPicture: ImageConstant.ic_voucher,
                           titleStyle: Get.textTheme.bodyLarge,
-                          messageStyle: Get.textTheme.bodyLarge!.copyWith(
-                            color: Theme.of(context).colorScheme.error,
-                          ),
-                          onTap: () {},
+                          onTap: CheckoutController.to.pushVoucher,
                         ),
                         const Divider(color: Colors.grey, thickness: 0.5),
                         TileOption(

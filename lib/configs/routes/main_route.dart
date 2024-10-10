@@ -17,6 +17,7 @@ abstract class MainRoute {
   static const String orderDetail = '/order/detail-order';
 
   static const String checkout = '/checkout';
+  static const String voucher = '/voucher';
   static const String profile = '/profile';
   // end children of home //
 }

@@ -16,10 +16,10 @@ class ImageConstant {
   static const String ic_ktp = 'assets/svgs/profile/ic_ktp.svg';
 
   // detail food //
-  static const String ic_catatan = 'assets/svgs/detail_order/ic_catatan.svg';
-  static const String ic_harga = 'assets/svgs/detail_order/ic_harga.svg';
-  static const String ic_level = 'assets/svgs/detail_order/ic_level.svg';
-  static const String ic_topping = 'assets/svgs/detail_order/ic_topping.svg';
+  static const String ic_catatan = 'assets/svgs/details/ic_catatan.svg';
+  static const String ic_harga = 'assets/svgs/details/ic_harga.svg';
+  static const String ic_level = 'assets/svgs/details/ic_level.svg';
+  static const String ic_topping = 'assets/svgs/details/ic_topping.svg';
 
   // checkout //
   static const String ic_discount = 'assets/svgs/checkout/ic_discount.svg';
@@ -36,6 +36,7 @@ class ImageConstant {
   // order //
   static const String ic_empty_list_order = 'assets/svgs/order/ic_empty_list_order.svg';
   static const String ic_promo = 'assets/svgs/order/ic_promo.svg';
+  static const String ic_syarat = 'assets/svgs/details/ic_syarat.svg';
 
   static const String flag_en = 'assets/svgs/localization/flag_en.svg';
   static const String flag_id = 'assets/svgs/localization/flag_id.svg';

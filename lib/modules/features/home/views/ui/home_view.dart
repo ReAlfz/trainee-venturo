@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
                 index: HomeController.to.currentIndex.value,
                 children: [
                   Navigator(
-                    key: Get.nestedKey(HomeController.to.navigatorFoodId),
+                    key: HomeController.to.foodKey,
                     initialRoute: MainRoute.food,
                     onGenerateRoute: (settings) {
                       Get.routing.args = settings.arguments;
@@ -70,7 +70,7 @@ class _HomeViewState extends State<HomeView> {
                   ),
 
                   Navigator(
-                    key: Get.nestedKey(HomeController.to.navigatorOrderId),
+                    key: HomeController.to.orderKey,
                     initialRoute: MainRoute.order,
                     onGenerateRoute: (settings) {
                       Get.routing.args = settings.arguments;

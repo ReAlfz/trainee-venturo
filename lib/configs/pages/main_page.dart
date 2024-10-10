@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
+import 'package:trainee/modules/features/chekout/binddings/voucher_binding.dart';
+import 'package:trainee/modules/features/chekout/views/ui/voucher_view.dart';
 import 'package:trainee/modules/features/location/bindings/location_binding.dart';
 import 'package:trainee/modules/features/location/views/ui/location_view.dart';
 
-import '../../modules/features/chekout/binddings/checkout_bindding.dart';
+import '../../modules/features/chekout/binddings/checkout_binding.dart';
 import '../../modules/features/chekout/views/ui/checkout_view.dart';
 import '../../modules/features/error_handler/views/ui/NoConnectionView.dart';
 import '../../modules/features/forgot_password/binddings/forgot_password_bindding.dart';
@@ -65,6 +67,12 @@ abstract class MainPage {
       name: MainRoute.location,
       page: () => const LocationView(),
       binding: LocationBinding(),
+    ),
+
+    GetPage(
+      name: MainRoute.voucher,
+      page: () => const VoucherView(),
+      binding: VoucherBinding(),
     ),
   ];
 }

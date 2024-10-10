@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
@@ -6,8 +7,11 @@ import 'package:trainee/modules/features/chekout/repositories/create_order_repos
 import 'package:trainee/modules/features/chekout/views/components/fingerprint_dialog.dart';
 import 'package:trainee/modules/features/chekout/views/components/order_success_dialog.dart';
 import 'package:trainee/modules/features/chekout/views/components/pin_dialog.dart';
+import 'package:trainee/modules/features/food/list_food/controller/list_food_controller.dart';
+import 'package:trainee/modules/features/home/controllers/home_controller.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/modules/global_models/menu_model.dart';
+import 'package:trainee/utils/services/firebase_message_service.dart';
 
 class CheckoutController extends GetxController {
   static CheckoutController get to => Get.find();
@@ -24,6 +28,7 @@ class CheckoutController extends GetxController {
       item.jumlah++;
     }
     cart.refresh();
+    ListFoodController.to.listMenu.refresh();
   }
 
   void decreaseQty(MenuModel item) {
@@ -34,6 +39,7 @@ class CheckoutController extends GetxController {
       cart.remove(item);
     }
     cart.refresh();
+    ListFoodController.to.listMenu.refresh();
   }
 
   List<MenuModel> get foodItems =>
@@ -54,6 +60,8 @@ class CheckoutController extends GetxController {
 
   int get grandTotal => totalPrice - discountPrice;
 
+  RxString voucher = 'Pilih Voucher'.tr.obs;
+
   // function for handle transaction //
   Future<void> verify() async {
     final LocalAuthentication localAuth = LocalAuthentication();
@@ -72,7 +80,8 @@ class CheckoutController extends GetxController {
         );
 
         if (authenticated) {
-          showOrderSuccessDialog();
+          int orderId = await configList();
+          showOrderSuccessDialog(orderId: orderId);
         }
       } else if (authType == 'pin') {
         await showPinDialog();
@@ -94,14 +103,8 @@ class CheckoutController extends GetxController {
     );
 
     if (authenticated == true) {
-      createOrderRepository = CreateOrderRepository();
-      await createOrderRepository.createOrder(
-        menu: cart,
-        discount: discountPrice,
-        grandTotalPrice: grandTotal,
-      );
-      cart.clear();
-      showOrderSuccessDialog();
+      int orderId = await configList();
+      showOrderSuccessDialog(orderId: orderId);
     } else if (authenticated != null) {
       Get.until(ModalRoute.withName(MainRoute.checkout));
     }
@@ -119,7 +122,15 @@ class CheckoutController extends GetxController {
     return result;
   }
 
-  Future<void> showOrderSuccessDialog() async {
+  Future<void> showOrderSuccessDialog({required int orderId}) async {
+    RemoteMessage message = RemoteMessage(
+        notification: const RemoteNotification(
+          title: 'New Order',
+          body: "There's new order, click this for detail",
+        ),
+        data: {'id_order': '$orderId'});
+    await FirebaseMessageService.handleNotif(message);
+
     Get.until(ModalRoute.withName(MainRoute.checkout));
     await Get.defaultDialog(
       title: '',
@@ -127,7 +138,29 @@ class CheckoutController extends GetxController {
       radius: 30,
       content: const OrderSuccessDialog(),
     );
+    Get.until((route) => route.settings.name == MainRoute.home);
+    HomeController.to.foodKey!.currentState!.popUntil(
+      (route) => route.settings.name == MainRoute.food,
+    );
+    HomeController.to.changePage(1);
+  }
 
-    Get.offAllNamed(MainRoute.home);
+  Future<int> configList() async {
+    createOrderRepository = CreateOrderRepository();
+    int orderId = await createOrderRepository.createOrder(
+      menu: cart,
+      discount: discountPrice,
+      grandTotalPrice: grandTotal,
+    );
+    cart.clear();
+    for (var element in ListFoodController.to.listMenu) {
+      element.jumlah = 0;
+    }
+    ListFoodController.to.listMenu.refresh();
+    return orderId;
+  }
+
+  void pushVoucher() {
+    Get.toNamed(MainRoute.voucher);
   }
 }

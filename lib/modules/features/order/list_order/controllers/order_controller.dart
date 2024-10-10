@@ -24,8 +24,7 @@ class OrderController extends GetxController {
     end: DateTime.now(),
   ).obs;
 
-  Map<String, String> get dateFilterStatus =>
-      {
+  Map<String, String> get dateFilterStatus => {
         'semua': 'Semua Status'.tr,
         'selesai': 'Selesai'.tr,
         'dibatalkan': 'Dibatalkan'.tr
@@ -87,8 +86,8 @@ class OrderController extends GetxController {
 
   // start OnGoing tabview //
   RxList<OrderModel> listOrder = <OrderModel>[].obs;
-  final RefreshController refreshControllerOnGoingOrder = RefreshController(
-      initialRefresh: false);
+  final RefreshController refreshControllerOnGoingOrder =
+      RefreshController(initialRefresh: false);
 
   void onRefreshOnGoingOrder() async {
     try {
@@ -128,8 +127,8 @@ class OrderController extends GetxController {
 
   // start History tabview //
   RxList<OrderModel> listHistory = <OrderModel>[].obs;
-  final RefreshController refreshControllerHistoryOrder = RefreshController(
-      initialRefresh: false);
+  final RefreshController refreshControllerHistoryOrder =
+      RefreshController(initialRefresh: false);
 
   void onRefreshHistoryOrder() async {
     try {
@@ -184,16 +183,11 @@ class OrderController extends GetxController {
     }
 
     historyOrderList.removeWhere((element) =>
-    DateTime.parse(element.tanggal)
-        .isBefore(selectDateRange.value.start) ||
-        DateTime.parse(element.tanggal)
-            .isAfter(selectDateRange.value.end)
-    );
+        DateTime.parse(element.tanggal).isBefore(selectDateRange.value.start) ||
+        DateTime.parse(element.tanggal).isAfter(selectDateRange.value.end));
 
     historyOrderList.sort((a, b) =>
-        DateTime.parse(b.tanggal)
-            .compareTo(DateTime.parse(a.tanggal))
-    );
+        DateTime.parse(b.tanggal).compareTo(DateTime.parse(a.tanggal)));
 
     return historyOrderList;
   }
@@ -204,7 +198,7 @@ class OrderController extends GetxController {
     final total = filterHistoryOrder
         .where((element) => element.status == 3)
         .fold(
-        0, (previousValue, element) => previousValue + element.totalBayar);
+            0, (previousValue, element) => previousValue + element.totalBayar);
 
     return total.toString();
   }
@@ -215,10 +209,9 @@ class OrderController extends GetxController {
     final int idOrder = (currentPage)
         ? listOrder[index].idOrder
         : filterHistoryOrder[index].idOrder;
-    Get.toNamed(
-        MainRoute.orderDetail,
-        id: HomeController.to.navigatorOrderId,
-        arguments: idOrder,
+    HomeController.to.orderKey!.currentState!.pushNamed(
+      MainRoute.orderDetail,
+      arguments: idOrder
     );
   }
 }

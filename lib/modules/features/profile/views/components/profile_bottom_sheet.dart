@@ -8,7 +8,8 @@ import '../../../../../shared/styles/google_text_style.dart';
 class ProfileBottomSheet extends StatefulWidget {
   final String title;
   final String hint;
-  const ProfileBottomSheet({Key? key, required this.hint, required this.title}) : super(key: key);
+  final bool? numbers;
+  const ProfileBottomSheet({Key? key, required this.hint, required this.title, this.numbers}) : super(key: key);
 
   @override
   State<ProfileBottomSheet> createState() => _ProfileBottomSheet();
@@ -69,6 +70,7 @@ class _ProfileBottomSheet extends State<ProfileBottomSheet> {
                     child: TextFormField(
                       maxLength: 100,
                       controller: controller,
+                      keyboardType: (widget.numbers == true) ? TextInputType.phone : null,
                       style: GoogleTextStyle.fw400.copyWith(
                         fontSize: 15.sp,
                         color: MainColor.black,

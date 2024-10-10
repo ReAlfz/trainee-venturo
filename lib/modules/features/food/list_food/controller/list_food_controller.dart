@@ -121,11 +121,11 @@ class ListFoodController extends GetxController {
   // start function for change list //
   Future<void> pushPage(MenuModel menu) async {
     try {
-      final result = await Get.toNamed(
+      final result = await HomeController.to.foodKey!.currentState!.pushNamed(
         MainRoute.foodDetail,
         arguments: menu,
-        id: HomeController.to.navigatorFoodId,
       );
+
       if (result != null) {
         MenuModel data = result as MenuModel;
         int menuIndex =
@@ -151,9 +151,8 @@ class ListFoodController extends GetxController {
 
   void pushPromo({required int index}) {
     final idPromo = promoList[index].idPromo;
-    Get.toNamed(
+    HomeController.to.foodKey!.currentState!.pushNamed(
       MainRoute.promo,
-      id: HomeController.to.navigatorFoodId,
       arguments: idPromo,
     );
   }

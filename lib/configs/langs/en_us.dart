@@ -84,4 +84,6 @@ const Map<String, String> translationsEnUs = {
   'Password': 'Password',
   'Input Password': 'Input Password',
   'Password cannot be empty': 'Password cannot be empty',
+  'Nama Promo': 'Promo Name',
+  'Syarat dan Ketentuan': 'Terms and Conditions',
 };

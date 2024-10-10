@@ -70,5 +70,5 @@ class DetailOrderController extends GetxController {
     ).toList() ?? [];
   }
 
-  void backOrder() => Get.back(id: HomeController.to.navigatorOrderId);
+  void backOrder() => HomeController.to.orderKey!.currentState!.pop();
 }

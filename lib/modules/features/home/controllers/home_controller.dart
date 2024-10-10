@@ -5,8 +5,8 @@ class HomeController extends GetxController {
   static HomeController get to => Get.find();
 
   RxInt currentIndex = 0.obs;
-  final navigatorFoodId = 1;
-  final navigatorOrderId = 2;
+  final foodKey = Get.nestedKey(1);
+  final orderKey = Get.nestedKey(2);
 
   void changePage(int index) {
     currentIndex(index);

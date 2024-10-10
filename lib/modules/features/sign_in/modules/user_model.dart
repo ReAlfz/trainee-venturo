@@ -1,17 +1,36 @@
 import 'dart:developer';
-import 'package:trainee/modules/features/sign_in/modules/akses_model.dart';
 
+import 'package:hive/hive.dart';
+part 'user_model.g.dart';
+
+@HiveType(typeId: 0)
 class UserModel {
+  @HiveField(0)
   int idUser;
+
+  @HiveField(1)
   String email;
+
+  @HiveField(2)
   String nama;
+
+  @HiveField(3)
   String pin;
+
+  @HiveField(4)
   String foto;
+
+  @HiveField(5)
   int mRolesId;
+
+  @HiveField(6)
   int isGoogle;
+
+  @HiveField(7)
   int isCustomer;
+
+  @HiveField(8)
   String roles;
-  Akses akses;
 
   UserModel({
     required this.idUser,
@@ -23,7 +42,6 @@ class UserModel {
     required this.isGoogle,
     required this.isCustomer,
     required this.roles,
-    required this.akses,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -38,7 +56,6 @@ class UserModel {
         isGoogle: json["is_google"],
         isCustomer: json["is_customer"],
         roles: json["roles"],
-        akses: Akses.fromJson(json["akses"]),
       );
     } catch (e, stacktrace) {
       log('Error parsing user from JSON: $e', name: 'PARSING JSON');
@@ -57,6 +74,5 @@ class UserModel {
     "is_google": isGoogle,
     "is_customer": isCustomer,
     "roles": roles,
-    "akses": akses.toJson(),
   };
 }

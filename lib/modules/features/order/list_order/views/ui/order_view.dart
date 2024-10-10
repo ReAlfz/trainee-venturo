@@ -1,6 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:trainee/modules/features/home/views/components/fab_checkout.dart';
 
 import '../components/order_top_bar.dart';
 import 'history_order_tap.dart';
@@ -16,7 +15,6 @@ class OrderView extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: OrderTopBar(),
-        floatingActionButton: FabCheckout(),
         body: TabBarView(
           children: [
             OnGoingOrderTabView(),

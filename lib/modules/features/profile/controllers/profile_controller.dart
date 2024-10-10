@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/localization/localization.dart';
 import 'package:trainee/configs/routes/main_route.dart';
@@ -137,6 +138,22 @@ class ProfileController extends GetxController {
           ProfileBottomSheet(hint: email.value, title: info),
         );
         break;
+
+      case 'Phone':
+        phone.value = await Get.bottomSheet(
+          ProfileBottomSheet(hint: phone.value, title: info, numbers: true),
+        );
+        break;
+
+      case 'Date':
+        DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+        DateTime? datetime = await showDatePicker(
+          context: Get.context!,
+          initialDate: DateTime(DateTime.now().year - 21),
+          firstDate: DateTime(DateTime.now().year - 100),
+          lastDate: DateTime.now(),
+        );
+        if (datetime != null) date.value = dateFormat.format(datetime);
     }
   }
 
@@ -151,8 +168,8 @@ class ProfileController extends GetxController {
       photo(user.foto);
       photoValue('data-api');
     }
-    // date(user.);
-    // phone(user);
+    date('01/02/2003');
+    phone('088888888888');
     pin(user.pin);
     super.onInit();
   }

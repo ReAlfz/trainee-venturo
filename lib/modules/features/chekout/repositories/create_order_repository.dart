@@ -6,7 +6,7 @@ import 'package:trainee/modules/global_models/menu_model.dart';
 import 'package:trainee/utils/services/dio_service.dart';
 
 class CreateOrderRepository {
-  Future<void> createOrder({
+  Future<int> createOrder({
     required List<MenuModel> menu,
     required int discount,
     required int grandTotalPrice
@@ -28,13 +28,21 @@ class CreateOrderRepository {
     };
 
     try {
-      await dio.post(url, data: data);
+      final response = await dio.post(url, data: data);
+      if (response.statusCode == 200) {
+        final responseData = response.data;
+        if (responseData['status_code'] == 200) {
+          final idOrder = responseData['data']['id_order'];
+          return idOrder as int;
+        }
+      }
     } catch (e, stacktrace) {
       await Sentry.captureException(
         e,
         stackTrace: stacktrace,
       );
     }
+    return 0;
   }
 
   CreateMenuModel convertToOrder(MenuModel menu) {
@@ -42,7 +50,7 @@ class CreateOrderRepository {
       idMenu: menu.idMenu,
       harga: menu.harga,
       level: "",
-      topping: menu.topping.map((e) => e as int).toList(),
+      topping: menu.topping.map((e) => e).toList(),
       jumlah: menu.jumlah,
     );
   }

@@ -162,12 +162,14 @@ class ProfileView extends StatelessWidget {
                     const Divider(thickness: 0.5),
                     TileOption(
                       title: 'Birth date'.tr,
-                      message: "01/02/2003",
+                      message: ProfileController.to.date.value,
+                      onTap: () => ProfileController.to.changeUser(info: 'Date'),
                     ),
                     const Divider(thickness: 0.5),
                     TileOption(
                       title: 'Phone number'.tr,
-                      message: "088888888888",
+                      message: ProfileController.to.phone.value,
+                      onTap: () => ProfileController.to.changeUser(info: 'Phone'),
                     ),
                     const Divider(thickness: 0.5),
                     TileOption(
