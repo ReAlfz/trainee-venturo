@@ -84,6 +84,16 @@ const Map<String, String> translationsEnUs = {
   'Password': 'Password',
   'Input Password': 'Input Password',
   'Password cannot be empty': 'Password cannot be empty',
+
+  //checkout //
+  'Pesanan': 'Order',
   'Nama Promo': 'Promo Name',
   'Syarat dan Ketentuan': 'Terms and Conditions',
+  'Total Pesanan ': 'Total Order ',
+  'Discount': 'Discount',
+  'Payment': 'Payment',
+  'Pay later': 'Pay later',
+  'Total payment': 'Total payment',
+  'Order Now': 'Order Now',
+  'Pilih Voucher': 'Select Voucher'
 };

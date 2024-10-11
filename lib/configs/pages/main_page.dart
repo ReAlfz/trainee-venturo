@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:trainee/modules/features/chekout/binddings/voucher_binding.dart';
+import 'package:trainee/modules/features/chekout/binddings/voucher_detail_binding.dart';
+import 'package:trainee/modules/features/chekout/views/ui/voucher_detail_view.dart';
 import 'package:trainee/modules/features/chekout/views/ui/voucher_view.dart';
 import 'package:trainee/modules/features/location/bindings/location_binding.dart';
 import 'package:trainee/modules/features/location/views/ui/location_view.dart';
@@ -73,6 +75,12 @@ abstract class MainPage {
       name: MainRoute.voucher,
       page: () => const VoucherView(),
       binding: VoucherBinding(),
+    ),
+
+    GetPage(
+      name: MainRoute.voucherDetail,
+      page: () => const VoucherDetailView(),
+      binding: VoucherDetailBinding(),
     ),
   ];
 }

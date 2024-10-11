@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:trainee/configs/routes/main_route.dart';
+import 'package:trainee/modules/features/chekout/modules/voucher_model.dart';
 import 'package:trainee/modules/features/chekout/repositories/create_order_repository.dart';
 import 'package:trainee/modules/features/chekout/views/components/fingerprint_dialog.dart';
 import 'package:trainee/modules/features/chekout/views/components/order_success_dialog.dart';
@@ -160,7 +161,14 @@ class CheckoutController extends GetxController {
     return orderId;
   }
 
-  void pushVoucher() {
-    Get.toNamed(MainRoute.voucher);
+  void pushVoucher() async {
+    final result = await Get.toNamed(MainRoute.voucher);
+
+    if (result != null) {
+      VoucherModel voucherModel = result as VoucherModel;
+      voucher('Rp ${voucherModel.nominal}');
+    } else {
+      voucher('Pilih Voucher'.tr);
+    }
   }
 }

@@ -2,26 +2,23 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/constants/cores/assets/image_constant.dart';
-import 'package:trainee/modules/features/food/promo/controllers/detail_promo_controller.dart';
+import 'package:trainee/modules/features/chekout/controllers/voucher_detail_controller.dart';
 import 'package:trainee/shared/widgets/html_parser.dart';
 import 'package:trainee/shared/widgets/rounded_custom_appbar.dart';
 
-class DetailPromoView extends StatelessWidget {
-  const DetailPromoView({super.key});
+import '../../../../../configs/themes/main_color.dart';
+
+class VoucherDetailView extends StatelessWidget {
+  const VoucherDetailView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: RoundedAppBar(
-          title: 'Promo'.tr,
-          svgPicture: ImageConstant.ic_promo,
-          onBackPressed: DetailPromoController.to.backPromo,
+          title: 'Detail Voucher'.tr,
           enableBackButton: true,
         ),
         body: SizedBox(
@@ -32,10 +29,10 @@ class DetailPromoView extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Obx(
-                  () => Conditional.single(
+                      () => Conditional.single(
                     context: context,
                     conditionBuilder: (context) =>
-                        DetailPromoController.to.promoState.value == 'success',
+                    VoucherDetailController.to.voucherState.value == 'success',
                     widgetBuilder: (context) => Container(
                       margin: EdgeInsets.symmetric(
                         horizontal: 20.w,
@@ -45,15 +42,15 @@ class DetailPromoView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20.r),
                         image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                            DetailPromoController.to.foto.value,
+                            VoucherDetailController.to.foto.value,
                           ),
-                          fit: (DetailPromoController.to.foto.value ==
-                                  'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png')
+                          fit: (VoucherDetailController.to.foto.value ==
+                              'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png')
                               ? BoxFit.contain
                               : BoxFit.cover,
                           onError: (exception, stackTrace) {
-                            DetailPromoController.to.foto.value =
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png';
+                            VoucherDetailController.to.foto.value =
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png';
                           },
                         ),
                       ),
@@ -81,7 +78,7 @@ class DetailPromoView extends StatelessWidget {
                   width: 1.sw,
                   height: 1.sh,
                   padding:
-                      EdgeInsets.symmetric(horizontal: 25.r, vertical: 40.r),
+                  EdgeInsets.symmetric(horizontal: 25.r, vertical: 40.r),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.vertical(
@@ -97,77 +94,58 @@ class DetailPromoView extends StatelessWidget {
                     ],
                   ),
                   child: Obx(
-                    () => Conditional.single(
+                        () => Conditional.single(
                       context: context,
                       conditionBuilder: (context) =>
-                          DetailPromoController.to.promoState.value ==
+                      VoucherDetailController.to.voucherState.value ==
                           'success',
                       widgetBuilder: (context) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Nama Promo'.tr,
-                              style: Get.textTheme.titleLarge!.copyWith(
-                                fontSize: 18.sp,
-                              ),
-                            ),
-                            15.verticalSpace,
-                            Text(
-                              DetailPromoController.to.promo.value!.nama.tr,
+                              VoucherDetailController.to.voucherData.value!.nama.tr,
                               maxLines: 2,
                               style: Get.textTheme.titleLarge!.copyWith(
                                 color: MainColor.primary,
                                 fontSize: 20.sp,
                               ),
                             ),
-                            20.verticalSpace,
+                            10.verticalSpace,
+                            HtmlParser(
+                              htmlData: VoucherDetailController.to.voucherData.value!.catatan,
+                            ),
+                            40.verticalSpace,
                             Divider(color: Colors.grey[500]),
                             5.verticalSpace,
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        ImageConstant.ic_syarat,
-                                      ),
-                                      10.horizontalSpace,
-                                      Text(
-                                        'Syarat dan Ketentuan'.tr,
-                                        style:
-                                            Get.textTheme.bodyLarge!.copyWith(
-                                          fontSize: 16.sp,
-                                        ),
-                                      ),
-                                    ],
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.date_range_outlined,
+                                  color: MainColor.primary,
+                                  size: 20.r,
+                                ),
+                                7.5.horizontalSpace,
+                                Text(
+                                  'Valid Date'.tr,
+                                  style: Get.textTheme.titleSmall!.copyWith(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w700,
                                   ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(top: 10.h),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(width: 0.09.sw),
-                                          Expanded(
-                                            child: HtmlParser(
-                                              htmlData: DetailPromoController.to
-                                                  .promo.value!.syaratKetentuan,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                ),
+
+                                const Expanded(child: SizedBox()),
+
+                                Text(
+                                  VoucherDetailController.to.date.value,
+                                  style: Get.textTheme.bodySmall!.copyWith(
+                                    fontSize: 16.sp,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
+                            5.verticalSpace,
+                            Divider(color: Colors.grey[500]),
                           ],
                         );
                       },

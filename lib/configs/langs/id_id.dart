@@ -83,6 +83,16 @@ const Map<String, String> translationsIdId = {
   'Password': 'Kata sandi',
   'Input Password': 'Masukkan kata sandi',
   'Password cannot be empty': 'Kata sandi tidak boleh kosong',
+
+  //checkout //
+  'Pesanan': 'Pesanan',
   'Nama Promo': 'Nama Promo',
   'Syarat dan Ketentuan': 'Syarat dan Ketentuan',
+  'Total Pesanan ': 'Total Pesanan ',
+  'Discount': 'Diskon',
+  'Payment': 'Pembayaran',
+  'Pay later': 'Bayar nanti',
+  'Total payment': 'Total pembayaran',
+  'Order Now': 'Pesan Sekarang',
+  'Pilih Voucher': 'Pilih Voucher'
 };

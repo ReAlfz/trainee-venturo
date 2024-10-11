@@ -8,7 +8,9 @@ import 'package:trainee/constants/cores/assets/image_constant.dart';
 class CartOrderBottomBar extends StatelessWidget {
   final VoidCallback? onOrderPressed;
   final String totalPrice;
-  const CartOrderBottomBar({super.key, this.onOrderPressed, required this.totalPrice});
+
+  const CartOrderBottomBar(
+      {super.key, this.onOrderPressed, required this.totalPrice});
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +27,14 @@ class CartOrderBottomBar extends StatelessWidget {
         ),
         color: MainColor.white,
       ),
-
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-
           SvgPicture.asset(
             ImageConstant.ic_total_payment,
           ),
-
           9.horizontalSpace,
-
           Expanded(
             flex: 5,
             child: Column(
@@ -44,15 +42,17 @@ class CartOrderBottomBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Total payment',
+                  'Total payment'.tr,
                   style: Get.textTheme.labelLarge!.copyWith(
-                    fontSize: 18.sp, color: Colors.black87,
+                    fontSize: 18.sp,
+                    color: Colors.black87,
                   ),
                 ),
                 Text(
                   totalPrice,
                   style: Get.textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).primaryColor, fontSize: 20.sp,
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 20.sp,
                   ),
                 ),
               ],
@@ -66,21 +66,24 @@ class CartOrderBottomBar extends StatelessWidget {
                 backgroundColor: Theme.of(context).primaryColor,
                 maximumSize: Size(1.sw, 56.h),
                 side: BorderSide(color: Theme.of(context).primaryColorDark),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.r)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.r)),
                 elevation: 2,
                 minimumSize: Size(1.sw, 56.h),
               ),
-
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Order Now',
-                    textAlign: TextAlign.center,
-                    style: Get.textTheme.labelLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 18.sp,
-                      color: Colors.white,
+                  Expanded(
+                    child: Text(
+                      'Order Now'.tr,
+                      overflow: TextOverflow.visible,
+                      textAlign: TextAlign.center,
+                      style: Get.textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],

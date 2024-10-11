@@ -1,23 +1,23 @@
 import 'dart:developer';
 
-class VoucherModel {
+class VoucherDetailModel {
   int idVoucher;
+  int idPromo;
   String nama;
   int idUser;
-  String namaUser;
   int nominal;
   String infoVoucher;
-  DateTime periodeMulai;
-  DateTime periodeSelesai;
+  int periodeMulai;
+  int periodeSelesai;
   int type;
   int status;
   String catatan;
 
-  VoucherModel({
+  VoucherDetailModel({
     required this.idVoucher,
+    required this.idPromo,
     required this.nama,
     required this.idUser,
-    required this.namaUser,
     required this.nominal,
     required this.infoVoucher,
     required this.periodeMulai,
@@ -27,23 +27,23 @@ class VoucherModel {
     required this.catatan,
   });
 
-  factory VoucherModel.fromJson(Map<String, dynamic> json) {
+  factory VoucherDetailModel.fromJson(Map<String, dynamic> json) {
     try {
-      return VoucherModel(
+      return VoucherDetailModel(
         idVoucher: json["id_voucher"],
+        idPromo: json["id_promo"],
         nama: json["nama"],
         idUser: json["id_user"],
-        namaUser: json["nama_user"],
         nominal: json["nominal"],
         infoVoucher: json["info_voucher"],
-        periodeMulai: DateTime.parse(json["periode_mulai"]),
-        periodeSelesai: DateTime.parse(json["periode_selesai"]),
+        periodeMulai: json["periode_mulai"],
+        periodeSelesai: json["periode_selesai"],
         type: json["type"],
         status: json["status"],
         catatan: json["catatan"],
       );
     } catch (e, stacktrace) {
-      log('Error parsing voucher from JSON: $e', name: 'PARSING JSON');
+      log('Error parsing voucherDetail from JSON: $e', name: 'PARSING JSON');
       log('Stack Promo trace: $stacktrace', name: 'PARSING JSON');
       rethrow;
     }

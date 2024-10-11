@@ -60,7 +60,7 @@ class RoundedAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                title,
+                title.tr,
                 style: textStyle ?? Get.textTheme.titleMedium!.copyWith(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,

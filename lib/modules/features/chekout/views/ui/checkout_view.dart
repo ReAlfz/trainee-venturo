@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trainee/configs/themes/main_color.dart';
 
 import '../../../../../constants/cores/assets/image_constant.dart';
 import '../../../../../shared/widgets/rounded_custom_appbar.dart';
@@ -63,7 +64,6 @@ class CheckoutView extends StatelessWidget {
                       ),
                     )
                   ],
-
                   SliverToBoxAdapter(child: 17.verticalSpace),
                   if (CheckoutController.to.snackItems.isNotEmpty) ...[
                     SliverToBoxAdapter(
@@ -75,7 +75,7 @@ class CheckoutView extends StatelessWidget {
                     ),
                     SliverPadding(
                       padding:
-                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 8.h),
+                          EdgeInsets.symmetric(horizontal: 25.w, vertical: 8.h),
                       sliver: CartListSliver(
                         cart: CheckoutController.to.snackItems,
                       ),
@@ -105,11 +105,23 @@ class CheckoutView extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         TileOption(
-                          title:
-                              'Total Pesanan (${CheckoutController.to.cart.length} Menu) :',
+                          title: 'Total Pesanan '.tr,
                           message:
                               'Rp ${CheckoutController.to.totalPrice.toString()}',
-                          titleStyle: Get.textTheme.bodyLarge,
+                          titleStyle: Get.textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: MainColor.black,
+                          ),
+                          childText: [
+                            TextSpan(
+                              text:
+                                  '(${CheckoutController.to.cart.length} Menu) :',
+                              style: Get.textTheme.titleSmall!.copyWith(
+                                fontWeight: FontWeight.w400,
+                                color: MainColor.black,
+                              ),
+                            ),
+                          ],
                           messageStyle: Get.textTheme.bodyLarge!.copyWith(
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w600,
@@ -117,7 +129,7 @@ class CheckoutView extends StatelessWidget {
                         ),
                         const Divider(color: Colors.grey, thickness: 0.5),
                         TileOption(
-                          title: 'Discount',
+                          title: 'Discount'.tr,
                           message:
                               'Rp ${CheckoutController.to.discountPrice.toString()}',
                           svgPicture: ImageConstant.ic_discount,
@@ -128,17 +140,19 @@ class CheckoutView extends StatelessWidget {
                           onTap: () {},
                         ),
                         const Divider(color: Colors.grey, thickness: 0.5),
-                        TileOption(
-                          title: 'Voucher',
-                          message: CheckoutController.to.voucher.value,
-                          svgPicture: ImageConstant.ic_voucher,
-                          titleStyle: Get.textTheme.bodyLarge,
-                          onTap: CheckoutController.to.pushVoucher,
+                        Obx(
+                          () => TileOption(
+                            title: 'Voucher'.tr,
+                            message: CheckoutController.to.voucher.value,
+                            svgPicture: ImageConstant.ic_voucher,
+                            titleStyle: Get.textTheme.bodyLarge,
+                            onTap: CheckoutController.to.pushVoucher,
+                          ),
                         ),
                         const Divider(color: Colors.grey, thickness: 0.5),
                         TileOption(
-                          title: 'Payment',
-                          message: 'Pay later',
+                          title: 'Payment'.tr,
+                          message: 'Pay later'.tr,
                           svgPicture: ImageConstant.ic_payment_method,
                           titleStyle: Get.textTheme.bodyLarge,
                           messageStyle: Get.textTheme.bodyLarge,

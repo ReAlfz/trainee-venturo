@@ -18,23 +18,24 @@ class TileOption extends StatelessWidget {
   final VoidCallback? onTap;
   final double? iconSize;
   final int? messageMaxLines;
+  final List<InlineSpan>? childText;
 
-  const TileOption({
-    super.key,
-    this.icon,
-    this.svgPicture,
-    required this.title,
-    this.subtitle,
-    required this.message,
-    this.messageSubtitle,
-    this.titleStyle,
-    this.subtitleStyle,
-    this.messageStyle,
-    this.messageSubtitleStyle,
-    this.onTap,
-    this.iconSize,
-    this.messageMaxLines
-  });
+  const TileOption(
+      {super.key,
+      this.icon,
+      this.svgPicture,
+      required this.title,
+      this.subtitle,
+      required this.message,
+      this.messageSubtitle,
+      this.titleStyle,
+      this.subtitleStyle,
+      this.messageStyle,
+      this.messageSubtitleStyle,
+      this.onTap,
+      this.iconSize,
+      this.messageMaxLines,
+      this.childText});
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +53,16 @@ class TileOption extends StatelessWidget {
                   size: iconSize ?? 20.r,
                 ),
 
-              if (svgPicture != null)
-                SvgPicture.asset(svgPicture!),
+              if (svgPicture != null) SvgPicture.asset(svgPicture!),
 
-              if (icon != null || svgPicture != null)
-                10.horizontalSpaceRadius,
+              if (icon != null || svgPicture != null) 10.horizontalSpaceRadius,
 
-              Text(
-                title,
-                style: titleStyle ?? Get.textTheme.titleSmall,
+              RichText(
+                text: TextSpan(
+                  text: title,
+                  style: titleStyle ?? Get.textTheme.titleSmall,
+                  children: childText,
+                ),
               ),
 
               // subtitle text
